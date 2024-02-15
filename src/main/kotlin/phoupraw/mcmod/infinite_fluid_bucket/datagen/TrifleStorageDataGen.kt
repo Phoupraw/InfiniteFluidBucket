@@ -5,10 +5,8 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider
-import net.minecraft.item.Items
 import net.minecraft.registry.RegistryWrapper
 import phoupraw.mcmod.infinite_fluid_bucket.ID
-import phoupraw.mcmod.infinite_fluid_bucket.InfiniteFluidBucket
 import java.util.concurrent.CompletableFuture
 
 @Suppress("unused")
@@ -31,7 +29,7 @@ private class ChineseGen(dataOutput: FabricDataOutput) : FabricLanguageProvider(
 
 private class EnglishGen(dataOutput: FabricDataOutput) : FabricLanguageProvider(dataOutput) {
     override fun generateTranslations(b: TranslationBuilder) {
-        b.add("modmenu.nameTranslation.$ID", "无限流体桶")
+        b.add("modmenu.nameTranslation.$ID", "Infinite Fluid Bucket")
         b.add("modmenu.descriptionTranslation.$ID", "TODO")
     }
 }
@@ -44,6 +42,6 @@ private class FluidTagGen(output: FabricDataOutput, completableFuture: Completab
 
 private class ItemTagGen(output: FabricDataOutput, completableFuture: CompletableFuture<RegistryWrapper.WrapperLookup>) : FabricTagProvider.ItemTagProvider(output, completableFuture) {
     override fun configure(arg: RegistryWrapper.WrapperLookup) {
-        getOrCreateTagBuilder(InfiniteFluidBucket.INFINITE).add(Items.BUCKET, Items.GLASS_BOTTLE, Items.WATER_BUCKET)
+        //getOrCreateTagBuilder(InfiniteFluidBucket.INFINITE).add(Items.BUCKET, Items.GLASS_BOTTLE, Items.WATER_BUCKET)
     }
 }

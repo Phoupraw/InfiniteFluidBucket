@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import phoupraw.mcmod.trifle_server.TrifleServer;
+import phoupraw.mcmod.infinite_fluid_bucket.InfiniteFluidBucket;
 
 @Mixin(BucketItem.class)
 class MBucketItem extends Item {
@@ -24,18 +24,18 @@ class MBucketItem extends Item {
     }
     @Override
     public boolean isEnchantable(ItemStack stack) {
-        return TrifleServer.isInfinity(fluid);
+        return InfiniteFluidBucket.isInfinity(fluid);
     }
     @Override
     public ItemStack getRecipeRemainder(ItemStack stack) {
-        return TrifleServer.isInfinity(stack) ? stack.copy() : super.getRecipeRemainder(stack);
+        return InfiniteFluidBucket.isInfinity(stack) ? stack.copy() : super.getRecipeRemainder(stack);
     }
     @Redirect(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemUsage;exchangeStack(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;"))
     private ItemStack infinityBucket(ItemStack inputStack, PlayerEntity player, ItemStack outputStack) {
-        return TrifleServer.isInfinity(inputStack) ? inputStack : ItemUsage.exchangeStack(inputStack, player, outputStack);
+        return InfiniteFluidBucket.isInfinity(inputStack) ? inputStack : ItemUsage.exchangeStack(inputStack, player, outputStack);
     }
     @Redirect(method = "getEmptiedStack", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/player/PlayerAbilities;creativeMode:Z"))
     private static boolean infinityBucket(PlayerAbilities instance, ItemStack stack, PlayerEntity player) {
-        return player.isCreative() || TrifleServer.isInfinity(stack);
+        return player.isCreative() || InfiniteFluidBucket.isInfinity(stack);
     }
 }

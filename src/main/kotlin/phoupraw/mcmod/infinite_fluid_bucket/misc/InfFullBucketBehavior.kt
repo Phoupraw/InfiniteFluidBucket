@@ -10,7 +10,7 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import phoupraw.mcmod.infinite_fluid_bucket.InfiniteFluidBucket
 
-class InfFullBucketBehavior : ItemDispenserBehavior() {
+object InfFullBucketBehavior : ItemDispenserBehavior() {
     override fun dispenseSilently(pointer: BlockPointer, stack: ItemStack): ItemStack {
         val item = stack.item
         if (item !is FluidModificationItem) return stack
