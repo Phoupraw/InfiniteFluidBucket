@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "infinite_fluid_bucket",
+  "version": "${version}",
+  "name": "Infinite Fluid Bucket",
+  "description": "TODO",
+  "authors": ["Phoupraw"],
+  "contact": {
+    "homepage": "TODO",
+    "issues": "TODO"
+  },
+  "entrypoints": {
+    "main": [
+      {
+        "adapter": "kotlin",
+        "value": "phoupraw.mcmod.infinite_fluid_bucket.InfiniteFluidBucket"
+      }
+    ]
+  },
+  "environment": "*",
+  "depends": {
+    "fabricloader": "*",
+    "fabric-api": "*",
+    "fabric-language-kotlin": "*",
+    "phoupraws_linked_lib": "*"
+  },
+  "mixins": ["infinite_fluid_bucket.mixins.json"],
+  "icon": "assets/infinite_fluid_bucket/icon.png",
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.modrinth": "TODO",
+        "modmenu.curseforge": "TODO"
+      }
+    }
+  },
+  "license": "MPL-2.0"
+}
