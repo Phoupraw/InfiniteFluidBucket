@@ -1,8 +1,11 @@
 {
-  "modmenu.descriptionTranslation.infinite_fluid_bucket": "Enchant bucket with infinity!\n§lSynopsis§r\n- Water bucket can be enchanted with infinity, allowing infinite water.\n- Bucket can be enchanted with infinity, allowing infinitly discarding fluid.\n§lProfile§r\nEnchant buckets by enchanting table or anvil.\nWater bucket with infinity can't capture fish.\nSupport dispenser and all mods uses Fabric Transfer API.\n§lTrivia§r\nThis mod is inspired by infinite water bucket of Quark mod.",
+  "modmenu.descriptionTranslation.infinite_fluid_bucket": "Enchant bucket with infinity!\n§lSynopsis§r\n- Water bucket can be enchanted with infinity, allowing infinite water.\n- Bucket can be enchanted with infinity, allowing infinitly discarding fluid.\n§lProfile§r\nEnchant buckets by enchanting table or anvil.\nEach item can be toggled independently by config file or Mod Menu.\nInfinity Water Bucket\n- Infinitely place water.\n- Infinitely fill cauldron.\n- Infinitely place water in dispenser.\n- Infinitely provide water to fluid tank of mod. Each time one bucket of water.\n- Can't fish.\nInfinity Empty Bucket\n- Infinitely scoop and void fluid.\n- Infinitely empty fluid in cauldron, including powder snow.\n- Infinitely scoop and void fluid in dispenser.\n- Can be inserted with fluid by fluid tank of mod. Each time one bucket of fluid. Inserted fluid is voided.\n- Can't milk.\nInfinity Milk Bucket\n- Can be infinitely drunk.\n§lTrivia§r\nThis mod is inspired by infinite water bucket of Quark mod.",
   "modmenu.nameTranslation.infinite_fluid_bucket": "Infinite Fluid Bucket",
-  "yacl2.config.infinite_fluid_bucket:only.category.only": "Settings",
-  "yacl2.config.infinite_fluid_bucket:only.emptyBucket": "Empty Bucket",
-  "yacl2.config.infinite_fluid_bucket:only.milkBucket": "Milk Bucket",
-  "yacl2.config.infinite_fluid_bucket:only.waterBucket": "Water Bucket"
+  "yacl3.config.infinite_fluid_bucket:only.category.only": "Settings",
+  "yacl3.config.infinite_fluid_bucket:only.emptyBucket": "Empty Bucket",
+  "yacl3.config.infinite_fluid_bucket:only.emptyBucket.desc": "When enabled, bucket can be enchanted with infinity.\n§lInfinity Empty Bucket§r\n- Infinitely scoop and void fluid.\n- Infinitely empty fluid in cauldron, including powder snow.\n- Infinitely scoop and void fluid in dispenser.\n- Can be inserted with fluid by fluid tank of mod. Each time one bucket of fluid. Inserted fluid is voided.\n- Can't milk.",
+  "yacl3.config.infinite_fluid_bucket:only.milkBucket": "Milk Bucket",
+  "yacl3.config.infinite_fluid_bucket:only.milkBucket.desc": "When enabled, milk bucket can be enchanted with infinity.\n§lInfinity Milk Bucket§r\n- Can be infinitely drunk.",
+  "yacl3.config.infinite_fluid_bucket:only.waterBucket": "Water Bucket",
+  "yacl3.config.infinite_fluid_bucket:only.waterBucket.desc": "When enabled, water bucket can be enchanted with infinity.\n§lInfinity Water Bucket§r\n- Infinitely place water.\n- Infinitely fill cauldron.\n- Infinitely place water in dispenser.\n- Infinitely provide water to fluid tank of mod. Each time one bucket of water.\n- Can't fish."
 }

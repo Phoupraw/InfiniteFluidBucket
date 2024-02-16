@@ -3,7 +3,7 @@
   "id": "infinite_fluid_bucket",
   "version": "${version}",
   "name": "Infinite Fluid Bucket",
-  "description": "",
+  "description": "给桶附魔无限！",
   "authors": ["Phoupraw"],
   "contact": {
     "TODOhomepage": "TODO",
