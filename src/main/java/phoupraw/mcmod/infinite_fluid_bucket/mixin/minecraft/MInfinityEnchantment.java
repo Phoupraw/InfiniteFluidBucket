@@ -15,6 +15,6 @@ abstract class MInfinityEnchantment extends Enchantment {
     }
     @Override
     public boolean isAcceptableItem(ItemStack stack) {
-        return super.isAcceptableItem(stack) || stack.isOf(Items.BUCKET) || stack.isOf(Items.WATER_BUCKET);
+        return super.isAcceptableItem(stack) || stack.isOf(Items.BUCKET) || stack.isOf(Items.WATER_BUCKET) || stack.isOf(Items.MILK_BUCKET);
     }
 }

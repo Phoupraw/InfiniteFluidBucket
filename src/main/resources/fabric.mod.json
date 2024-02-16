@@ -3,11 +3,11 @@
   "id": "infinite_fluid_bucket",
   "version": "${version}",
   "name": "Infinite Fluid Bucket",
-  "description": "TODO",
+  "description": "",
   "authors": ["Phoupraw"],
-  "TODOcontact": {
-    "homepage": "TODO",
-    "issues": "TODO"
+  "contact": {
+    "TODOhomepage": "TODO",
+    "issues": "https://legacy.curseforge.com/minecraft/mc-mods/infinite-fluid-bucket/comments"
   },
   "entrypoints": {
     "main": [
@@ -19,7 +19,13 @@
     "fabric-datagen": [
       {
         "adapter": "kotlin",
-        "value": "phoupraw.mcmod.infinite_fluid_bucket.datagen.TrifleStorageDataGen"
+        "value": "phoupraw.mcmod.infinite_fluid_bucket.datagen.InfiniteFluidBucketDataGen"
+      }
+    ],
+    "modmenu": [
+      {
+        "adapter": "kotlin",
+        "value": "phoupraw.mcmod.infinite_fluid_bucket.config.InfiniteFluidBucketModMenu"
       }
     ]
   },
@@ -28,7 +34,8 @@
     "fabricloader": "*",
     "fabric-api": "*",
     "fabric-language-kotlin": "*",
-    "phoupraws_linked_lib": "*"
+    "phoupraws_linked_lib": "*",
+    "yet_another_config_lib_v3": "*"
   },
   "recommends": {
     "modmenu": "*"
@@ -37,9 +44,9 @@
   "icon": "assets/infinite_fluid_bucket/icon.png",
   "custom": {
     "modmenu": {
-      "TODOlinks": {
-        "modmenu.modrinth": "TODO",
-        "modmenu.curseforge": "TODO"
+      "links": {
+        "modmenu.modrinth": "https://modrinth.com/mod/infinite-fluid-bucket",
+        "modmenu.curseforge": "https://legacy.curseforge.com/minecraft/mc-mods/infinite-fluid-bucket"
       }
     }
   },

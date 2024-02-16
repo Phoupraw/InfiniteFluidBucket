@@ -33,6 +33,22 @@ repositories {
             includeGroup("dev.emi")
         }
     }
+    maven("https://maven.isxander.dev/releases") {
+        name = "Xander Maven"
+        content {
+            includeGroup("dev.isxander.yacl") //yet-another-config-lib-fabric
+        }
+    }
+    maven("https://maven.quiltmc.org/repository/release") {
+        content {
+            includeGroup("org.quiltmc.parsers")
+        }
+    }
+    maven("https://oss.sonatype.org/content/repositories/snapshots") {
+        content {
+            includeGroupAndSubgroups("com.twelvemonkeys")
+        }
+    }
 }
 
 dependencies {
@@ -40,8 +56,9 @@ dependencies {
     mappings("net.fabricmc:yarn:${property("yarn_mappings")}:v2")
     modApi("net.fabricmc:fabric-loader:${property("loader_version")}")
     modApi("net.fabricmc:fabric-language-kotlin:${property("fabric_kotlin_version")}")
-    modLocalRuntime("com.terraformersmc:modmenu:${property("modmenu")}")
+    modLocalRuntime(modCompileOnly("com.terraformersmc:modmenu:${property("modmenu")}")!!)
     include(modImplementation("phoupraw.mcmod:PhouprawsLinkedLib:+")!!)
+    modApi("dev.isxander.yacl:yet-another-config-lib-fabric:${property("yet_another_config_lib")}")
     //由于KT自带的与java互操作不太好用，所以我自己写了一个
     modCompileOnlyApi("net.fabricmc.fabric-api:fabric-api:${property("fabric_version")}") {
         exclude(module = "fabric-transfer-api-v1")

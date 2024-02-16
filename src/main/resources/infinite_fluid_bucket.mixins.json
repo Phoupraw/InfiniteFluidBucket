@@ -2,7 +2,7 @@
   "required": true,
   "package": "phoupraw.mcmod.infinite_fluid_bucket.mixin",
   "compatibilityLevel": "JAVA_17",
-  "mixins": ["minecraft.ABucketItem", "minecraft.MBucketable", "minecraft.MBucketItem", "minecraft.MInfinityEnchantment"],
+  "mixins": ["minecraft.ABucketItem", "minecraft.MBucketable", "minecraft.MBucketItem", "minecraft.MCauldronBehavior", "minecraft.MCowEntity", "minecraft.MInfinityEnchantment", "minecraft.MMilkBucketItem"],
   "injectors": {
     "defaultRequire": 1
   }

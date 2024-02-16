@@ -19,9 +19,9 @@ import phoupraw.mcmod.linked.lang.MutableEvent
 object InfiniteFluidBucket : ModInitializer {
     const val ID = "infinite_fluid_bucket"
     @JvmStatic
-    fun isInfinity(fluid: Fluid): Boolean = fluid == Fluids.EMPTY || fluid == Fluids.WATER
+    fun isInfinity(fluid: Fluid): Boolean = (fluid == Fluids.EMPTY && CONFIG.instance().emptyBucket) || fluid == Fluids.WATER && CONFIG.instance().waterBucket
     @JvmStatic
-    fun isInfinity(itemStack: ItemStack): Boolean = (itemStack.item as? ABucketItem)?.fluid?.let { isInfinity(it) && itemStack.infinity >= 1 } == true
+    fun isInfinity(itemStack: ItemStack): Boolean = itemStack.infinity && (itemStack.isOf(Items.MILK_BUCKET) && CONFIG.instance().milkBucket || (itemStack.item as? ABucketItem)?.fluid?.let { isInfinity(it) } == true)
     override fun onInitialize() {
         FluidStorages.ITEM[Items.WATER_BUCKET].addKeyOrder(ID, MutableEvent.DEFAULT_KEY)
         FluidStorages.ITEM[Items.WATER_BUCKET].register(ID) { item, context -> InfWaterBucketStorage.takeIf { isInfinity(context.itemVariant.toStack()) } }

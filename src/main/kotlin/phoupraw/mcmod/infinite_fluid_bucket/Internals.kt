@@ -1,3 +1,4 @@
+@file:JvmName("Internals")
 package phoupraw.mcmod.infinite_fluid_bucket
 
 import com.google.common.collect.Interner
@@ -9,16 +10,21 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.Identifier
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
+import phoupraw.mcmod.infinite_fluid_bucket.config.InfiniteFluidBucketConfig
+import kotlin.math.max
 
 internal const val ID = InfiniteFluidBucket.ID
-internal fun ID(path: String): Identifier = IDS.intern(Identifier(ID, path))
+@JvmField
 internal val LOGGER: Logger = LogManager.getLogger(ID)
-//internal val CONFIG get() = TrifleStorageConfig.HANDLER
 private val IDS: Interner<Identifier> = Interners.newBuilder().build()
+@JvmField
+internal val CONFIG = InfiniteFluidBucketConfig.HANDLER
+internal fun ID(path: String): Identifier = IDS.intern(Identifier(ID, path))
 internal var ItemStack.infinity
-    get() = EnchantmentHelper.getLevel(Enchantments.INFINITY, this)
+    @JvmName("isInfinity")
+    get() = EnchantmentHelper.getLevel(Enchantments.INFINITY, this) > 0
     set(value) = EnchantmentHelper.set(EnchantmentHelper.get(this).also {
-        if (value == 0) it -= Enchantments.INFINITY
-        else it[Enchantments.INFINITY] = value
+        if (value) it[Enchantments.INFINITY] = max(it.getOrDefault(Enchantments.INFINITY, 0), 1)
+        else it -= Enchantments.INFINITY
     }, this)
 val Storage<*>.blank @JvmName("isBlank") get() = !supportsInsertion() && !supportsExtraction() && none()

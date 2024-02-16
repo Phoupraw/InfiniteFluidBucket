@@ -1,4 +1,8 @@
 {
   "modmenu.descriptionTranslation.infinite_fluid_bucket": "Enchant bucket with infinity!\n§lSynopsis§r\n- Water bucket can be enchanted with infinity, allowing infinite water.\n- Bucket can be enchanted with infinity, allowing infinitly discarding fluid.\n§lProfile§r\nEnchant buckets by enchanting table or anvil.\nWater bucket with infinity can't capture fish.\nSupport dispenser and all mods uses Fabric Transfer API.\n§lTrivia§r\nThis mod is inspired by infinite water bucket of Quark mod.",
-  "modmenu.nameTranslation.infinite_fluid_bucket": "Infinite Fluid Bucket"
+  "modmenu.nameTranslation.infinite_fluid_bucket": "Infinite Fluid Bucket",
+  "yacl2.config.infinite_fluid_bucket:only.category.only": "Settings",
+  "yacl2.config.infinite_fluid_bucket:only.emptyBucket": "Empty Bucket",
+  "yacl2.config.infinite_fluid_bucket:only.milkBucket": "Milk Bucket",
+  "yacl2.config.infinite_fluid_bucket:only.waterBucket": "Water Bucket"
 }
