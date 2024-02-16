@@ -34,6 +34,7 @@ private class ChineseGen(dataOutput: FabricDataOutput) : FabricLanguageProvider(
             §l介绍§r
             可以用附魔台或铁砧给桶附魔无限。
             每个物品可以从配置文件或《模组菜单》单独开关。
+            可以只安装在服务端，只不过客户端可能有一点同步问题。
             无限水桶
             - 可以无限放置水。
             - 可以无限向炼药锅填充水。
@@ -93,6 +94,7 @@ private class EnglishGen(dataOutput: FabricDataOutput) : FabricLanguageProvider(
             §lProfile§r
             Enchant buckets by enchanting table or anvil.
             Each item can be toggled independently by config file or Mod Menu.
+            Can be installed only at server side, just client might have a few sync bugs.
             Infinity Water Bucket
             - Infinitely place water.
             - Infinitely fill cauldron.

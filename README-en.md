@@ -8,6 +8,8 @@ Enchant bucket with infinity!
 Enchant buckets by enchanting table or anvil.
 
 Each item can be toggled independently by config file or _Mod Menu_.
+
+Can be installed only at server side, just client might have a few sync bugs.
 ### Infinity Water Bucket
 - Infinitely place water.
 - Infinitely fill cauldron.
