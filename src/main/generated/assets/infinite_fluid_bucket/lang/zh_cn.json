@@ -1,0 +1,4 @@
+{
+  "modmenu.descriptionTranslation.infinite_fluid_bucket": "给桶附魔无限！\n§l概要§r\n- 水桶可以附魔无限，可以无限倒水。\n- 铁桶可以附魔无限，可以无限销毁流体。\n§l介绍§r\n可以用附魔台或铁砧给水桶和空桶附魔无限。\n附魔了无限的水桶不能捕鱼。\n支持发射器和使用Fabric Transfer API的所有模组。\n§l你知道吗§r\n本模组灵感来源于《夸克》中的无限水桶。",
+  "modmenu.nameTranslation.infinite_fluid_bucket": "无限流体桶"
+}

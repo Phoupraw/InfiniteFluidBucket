@@ -9,3 +9,5 @@ Enchant buckets by enchanting table or anvil.
 Water bucket with infinity can't capture fish.
 
 Support dispenser and all mods uses Fabric Transfer API.
+# Trivia
+This mod is inspired by infinite water bucket of Quark mod.
