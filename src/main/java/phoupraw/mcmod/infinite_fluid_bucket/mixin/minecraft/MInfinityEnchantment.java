@@ -7,6 +7,7 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import org.spongepowered.asm.mixin.Mixin;
+import phoupraw.mcmod.infinite_fluid_bucket.Internals;
 
 @Mixin(InfinityEnchantment.class)
 abstract class MInfinityEnchantment extends Enchantment {
@@ -15,6 +16,11 @@ abstract class MInfinityEnchantment extends Enchantment {
     }
     @Override
     public boolean isAcceptableItem(ItemStack stack) {
-        return super.isAcceptableItem(stack) || stack.isOf(Items.BUCKET) || stack.isOf(Items.WATER_BUCKET) || stack.isOf(Items.MILK_BUCKET);
+        return super.isAcceptableItem(stack)
+          || stack.isOf(Items.BUCKET) && Internals.CONFIG.instance().emptyBucket
+          || stack.isOf(Items.WATER_BUCKET) && Internals.CONFIG.instance().waterBucket
+          || stack.isOf(Items.MILK_BUCKET) && Internals.CONFIG.instance().milkBucket
+          || stack.isOf(Items.GLASS_BOTTLE) && Internals.CONFIG.instance().glassBottle
+          || Internals.isWaterPotion(stack) && Internals.CONFIG.instance().waterPotion;
     }
 }

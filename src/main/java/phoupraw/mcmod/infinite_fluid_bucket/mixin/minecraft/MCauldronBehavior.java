@@ -13,6 +13,6 @@ import phoupraw.mcmod.infinite_fluid_bucket.InfiniteFluidBucket;
 interface MCauldronBehavior {
     @WrapOperation(method = {"fillCauldron", "emptyCauldron"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemUsage;exchangeStack(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;"))
     private static ItemStack checkInf(ItemStack inputStack, PlayerEntity player, ItemStack outputStack, Operation<ItemStack> original) {
-        return InfiniteFluidBucket.isInfinity(inputStack) ? inputStack : original.call(inputStack, player, outputStack);
+        return InfiniteFluidBucket.isInfinity(inputStack) /*|| InfGlassBottleBehavior.isInf(inputStack) */ ? inputStack : original.call(inputStack, player, outputStack);
     }
 }
