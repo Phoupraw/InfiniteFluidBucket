@@ -52,5 +52,5 @@ object InfGlassBottleBehavior : FallibleItemDispenserBehavior() {
         }
     }
     @JvmStatic
-    fun isInf(stack: ItemStack) = stack.infinity && CONFIG.instance().glassBottle
+    fun isInf(stack: ItemStack) = stack.isOf(Items.GLASS_BOTTLE) && stack.infinity && CONFIG.instance().glassBottle
 }

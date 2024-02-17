@@ -34,6 +34,12 @@ class InfiniteFluidBucketConfig {
     @TickBox
     @JvmField
     var waterPotion = true
+    //TODO 无限蘑菇煲
+    //@AutoGen(category = CATEGORY)
+    //@SerialEntry
+    //@TickBox
+    //@JvmField
+    //var mushroomStew = true
 
     companion object {
         const val CATEGORY = "only"

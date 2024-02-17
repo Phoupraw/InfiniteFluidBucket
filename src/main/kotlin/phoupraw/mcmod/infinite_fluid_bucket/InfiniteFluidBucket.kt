@@ -4,19 +4,19 @@ package phoupraw.mcmod.infinite_fluid_bucket
 
 import net.fabricmc.api.ModInitializer
 import net.minecraft.block.DispenserBlock
-import net.minecraft.block.cauldron.CauldronBehavior
 import net.minecraft.fluid.Fluid
 import net.minecraft.fluid.Fluids
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
-import phoupraw.mcmod.infinite_fluid_bucket.cauldron.WaterCauldronGlassBottleBehavior
 import phoupraw.mcmod.infinite_fluid_bucket.dispenser.InfEmptyBucketBehavior
 import phoupraw.mcmod.infinite_fluid_bucket.dispenser.InfFullBucketBehavior
 import phoupraw.mcmod.infinite_fluid_bucket.dispenser.InfGlassBottleBehavior
+import phoupraw.mcmod.infinite_fluid_bucket.dispenser.InfWaterPotionBehavior
 import phoupraw.mcmod.infinite_fluid_bucket.mixin.minecraft.ABucketItem
 import phoupraw.mcmod.infinite_fluid_bucket.transfer.InfEmptyBucketStorage
 import phoupraw.mcmod.infinite_fluid_bucket.transfer.InfGlassBottleStorage
 import phoupraw.mcmod.infinite_fluid_bucket.transfer.InfWaterBucketStorage
+import phoupraw.mcmod.infinite_fluid_bucket.transfer.InfWaterPotionStorage
 import phoupraw.mcmod.linked.fabric.transfer.fluid.FluidStorages
 import phoupraw.mcmod.linked.lang.MutableEvent
 
@@ -31,11 +31,13 @@ object InfiniteFluidBucket : ModInitializer {
         FluidStorages.ITEM[Items.WATER_BUCKET].register(ID) { item, context -> InfWaterBucketStorage.takeIf { isInfinity(context.itemVariant.toStack()) } }
         DispenserBlock.registerBehavior(Items.WATER_BUCKET, InfFullBucketBehavior)
         FluidStorages.ITEM[Items.BUCKET].addKeyOrder(ID, MutableEvent.DEFAULT_KEY)
-        FluidStorages.ITEM[Items.BUCKET].register(ID) { item, context -> InfEmptyBucketStorage.takeIf { isInfinity(context.itemVariant.toStack()) } }
+        FluidStorages.ITEM[Items.BUCKET].register(ID) { item, context -> InfEmptyBucketStorage.takeIf { InfEmptyBucketBehavior.isInf(context.itemVariant.toStack()) } }
         DispenserBlock.registerBehavior(Items.BUCKET, InfEmptyBucketBehavior)
         FluidStorages.ITEM[Items.GLASS_BOTTLE].addKeyOrder(ID, MutableEvent.DEFAULT_KEY)
-        FluidStorages.ITEM[Items.GLASS_BOTTLE].register(ID) { item, context -> InfGlassBottleStorage.takeIf { context.itemVariant.toStack().run { infinity && isWaterPotion() } } }
+        FluidStorages.ITEM[Items.GLASS_BOTTLE].register(ID) { item, context -> InfGlassBottleStorage.takeIf { InfGlassBottleBehavior.isInf(context.itemVariant.toStack()) } }
         DispenserBlock.registerBehavior(Items.GLASS_BOTTLE, InfGlassBottleBehavior)
-        CauldronBehavior.WATER_CAULDRON_BEHAVIOR[Items.GLASS_BOTTLE] = WaterCauldronGlassBottleBehavior
+        FluidStorages.ITEM[Items.POTION].addKeyOrder(ID, MutableEvent.DEFAULT_KEY)
+        FluidStorages.ITEM[Items.POTION].register(ID) { item, context -> InfWaterPotionStorage.takeIf { InfWaterPotionBehavior.isInf(context.itemVariant.toStack()) } }
+        DispenserBlock.registerBehavior(Items.POTION, InfWaterPotionBehavior)
     }
 }
