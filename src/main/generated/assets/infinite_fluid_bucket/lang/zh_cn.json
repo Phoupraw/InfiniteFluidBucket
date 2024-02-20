@@ -1,11 +1,15 @@
 {
-  "modmenu.descriptionTranslation.infinite_fluid_bucket": "给桶附魔无限！\n§l概要§r\n- 水桶可以附魔无限，可以无限倒水。\n- 铁桶可以附魔无限，可以无限销毁流体。\n- 奶桶可以附魔无限，可以无限饮用。\n§l介绍§r\n可以用附魔台或铁砧给桶附魔无限。\n每个物品可以从配置文件或《模组菜单》单独开关。\n可以只安装在服务端，只不过客户端可能有一点同步问题。\n无限水桶\n- 可以无限放置水。\n- 可以无限向炼药锅填充水。\n- 在发射器中，可以无限放置水。\n- 可以向模组的流体储罐无限提供水，每次提供一桶水。\n- 不可以捕鱼。\n无限铁桶\n- 可以无限舀起并销毁流体源。\n- 可以无限清空炼药锅中的流体和细雪。\n- 在发射器中，可以无限舀起并销毁流体源。\n- 可以被模组的流体储罐无限输入流体，每次可以输入一桶量的流体。输入的流体会被销毁。\n- 不可以挤奶。\n无限奶桶\n- 可以无限饮用。\n§l你知道吗§r\n本模组灵感来源于《夸克》中的无限水桶。",
+  "modmenu.descriptionTranslation.infinite_fluid_bucket": "给桶附魔无限！\n§l概要§r\n- 水桶可以附魔无限，可以无限倒水。\n- 铁桶可以附魔无限，可以无限销毁流体。\n- 奶桶可以附魔无限，可以无限饮用。\n- 玻璃瓶可以附魔无限，可以无限销毁流体。\n- 水瓶可以附魔无限，可以无限给水。\n§l介绍§r\n可以用附魔台或铁砧给桶附魔无限。\n每个物品可以从配置文件或《模组菜单》单独开关。\n可以只安装在服务端，只不过客户端可能有一点同步问题。\n§l你知道吗§r\n本模组灵感来源于《夸克》中的无限水桶。",
   "modmenu.nameTranslation.infinite_fluid_bucket": "无限流体桶",
   "yacl3.config.infinite_fluid_bucket:only.category.only": "设置",
   "yacl3.config.infinite_fluid_bucket:only.emptyBucket": "空桶",
   "yacl3.config.infinite_fluid_bucket:only.emptyBucket.desc": "启用时，可以用附魔台或铁砧给铁桶附魔无限。\n§l无限空桶§r\n- 手持时，可以无限舀起并销毁流体源。\n- 手持时，可以无限舀起并销毁炼药锅中的流体和细雪。\n- 在发射器中，可以无限舀起并销毁流体源。\n- 可以被模组的流体储罐无限输入流体，每次可以输入一桶量的流体，并且销毁。\n- 不可以挤奶。",
+  "yacl3.config.infinite_fluid_bucket:only.glassBottle": "空瓶",
+  "yacl3.config.infinite_fluid_bucket:only.glassBottle.desc": "启用时，可以用附魔台或铁砧给玻璃瓶附魔无限。\n§l无限空瓶§r\n- 可以无限从炼药锅无限舀起并销毁水。\n- 可以无限收集并销毁龙息。\n- 可以无限从装满蜂蜜的蜂巢和蜂箱收集并销毁蜂蜜。\n- 可以被模组的流体储罐无限输入流体，每次可以输入一瓶量的流体。输入的流体会被销毁。\n- 不能用于合成。",
   "yacl3.config.infinite_fluid_bucket:only.milkBucket": "奶桶",
   "yacl3.config.infinite_fluid_bucket:only.milkBucket.desc": "启用时，可以用附魔台或铁砧给奶桶附魔无限。\n§l无限奶桶§r\n- 可以无限饮用。",
   "yacl3.config.infinite_fluid_bucket:only.waterBucket": "水桶",
-  "yacl3.config.infinite_fluid_bucket:only.waterBucket.desc": "启用时，可以用附魔台或铁砧给水桶附魔无限。\n§l无限水桶§r\n- 手持时，可以无限放置水。\n- 手持时，可以无限向炼药锅填充水。\n- 在发射器中，可以无限放置水。\n- 可以向模组的流体储罐无限提供水，每次提供一桶水。\n- 不可以捕鱼。"
+  "yacl3.config.infinite_fluid_bucket:only.waterBucket.desc": "启用时，可以用附魔台或铁砧给水桶附魔无限。\n§l无限水桶§r\n- 手持时，可以无限放置水。\n- 手持时，可以无限向炼药锅填充水。\n- 在发射器中，可以无限放置水。\n- 可以向模组的流体储罐无限提供水，每次提供一桶水。\n- 不可以捕鱼。",
+  "yacl3.config.infinite_fluid_bucket:only.waterPotion": "水瓶",
+  "yacl3.config.infinite_fluid_bucket:only.waterPotion.desc": "启用时，可以用附魔台或铁砧给水瓶附魔无限。\n§l无限水瓶§r\n- 可以无限向炼药锅倒水。\n- 可以无限把泥土变成泥巴。\n- 可以向模组的流体储罐无限提供水，每次提供一瓶水。\n- 不会在合成中消耗。\n- 不能用于酿造。"
 }

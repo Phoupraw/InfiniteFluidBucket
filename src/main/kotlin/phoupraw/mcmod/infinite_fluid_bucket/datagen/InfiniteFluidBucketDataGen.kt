@@ -39,6 +39,8 @@ private class ChineseGen(dataOutput: FabricDataOutput) : FabricLanguageProvider(
             - 水桶可以附魔无限，可以无限倒水。
             - 铁桶可以附魔无限，可以无限销毁流体。
             - 奶桶可以附魔无限，可以无限饮用。
+            - 玻璃瓶可以附魔无限，可以无限销毁流体。
+            - 水瓶可以附魔无限，可以无限给水。
             §l介绍§r
             可以用附魔台或铁砧给桶附魔无限。
             每个物品可以从配置文件或《模组菜单》单独开关。
@@ -99,6 +101,9 @@ private class EnglishGen(dataOutput: FabricDataOutput) : FabricLanguageProvider(
             §lSynopsis§r
             - Water bucket can be enchanted with infinity, allowing infinite water.
             - Bucket can be enchanted with infinity, allowing infinitly discarding fluid.
+            - Milk bucket can be enchanted with infinity, allowing infintely drinking.
+            - Glass bottle can be enchanted with infinity, allowing infinitly discarding fluid.
+            - Water potion can be enchanted with infinity, providing infinite water.
             §lProfile§r
             Enchant buckets by enchanting table or anvil.
             Each item can be toggled independently by config file or Mod Menu.
@@ -130,6 +135,24 @@ private class EnglishGen(dataOutput: FabricDataOutput) : FabricLanguageProvider(
             When enabled, milk bucket can be enchanted with infinity.
             §lInfinity Milk Bucket§r
             - Can be infinitely drunk.
+        """.trimIndent())
+        b.add(InfiniteFluidBucketConfig::glassBottle, "Empty Bottle", """
+            When enabled, glass bottle can be enchanted with infinity.
+            §lInfinity Empty Bottle§r
+            - Infinitely empty and discard water in cauldron.
+            - Infinitely collect and discard dragon breath.
+            - Infinitely collect and discard honey from beehive and bee nest with full honey.
+            - Can be inserted with fluid by fluid tank of mod. Each time one bottle of fluid. Inserted fluid is voided.
+            - Can't be used in crafting.
+        """.trimIndent())
+        b.add(InfiniteFluidBucketConfig::waterPotion, "Water Potion", """
+            When enabled, water potion can be enchanted with infinity.
+            §lInfinity Water Potion§r
+            - Infinitely fill cauldron.
+            - Infinitely convert dirt into mud.
+            - Infinitely provide water to fluid tank of mod. Each time one bottle of water.
+            - Doesn't consume in crafting.
+            - Can't be used in brewing.
         """.trimIndent())
     }
 }

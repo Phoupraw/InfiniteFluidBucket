@@ -10,3 +10,11 @@
 - Infinity empty bucket can milk, converting to enchantmentless milk bucket.
 - Infinity empty bucket can empty fluid from cauldron, converting to enchantmentless fluid bucket.
 - Infinity water bucket can fill cauldron, converting to enchantmentless empty bucket.
+# 0.3.0
+## New
+- Glass bottle can be enchanted with infinity, allowing infinitly discarding fluid.
+- Water potion can be enchanted with infinity, providing infinite water.
+## Fix
+- Even if infinity bucket isn't enabled in config, bucket can also be added with enchantment by anvil.
+- Infinity empty bucket can be used in crafting and won't consume.
+- Infinity empty bucket can receive water from wet sponge in furnace and convert to water bucket without enchantment.\
