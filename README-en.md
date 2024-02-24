@@ -1,5 +1,9 @@
 # Infinite Fluid Bucket
 Enchant bucket with infinity!
+
+[![Modrinth](https://img.shields.io/modrinth/dt/infinite-fluid-bucket?logo=modrinth&label=&suffix=%20&style=flat&color=242629&labelColor=5ca424&logoColor=1c1c1c)](https://modrinth.com/mod/infinite-fluid-bucket)
+[![Curseforge](https://cf.way2muchnoise.eu/short_975372.svg)](https://www.curseforge.com/minecraft/mc-mods/infinite-fluid-bucket)
+[![License](https://img.shields.io/github/license/Creators-of-Create/Create?style=flat&color=900c3f)](https://github.com/Creators-of-Create/Create/blob/master/LICENSE)
 ## Synopsis
 - Water bucket can be enchanted with infinity, allowing infinite water.
 - Bucket can be enchanted with infinity, allowing infinitly discarding fluid.
@@ -43,6 +47,6 @@ Can be installed only at server side, just client might have a few sync bugs.
 - Doesn't consume in crafting.
 - Can't be used in brewing.
 ## Gallery
-![Enchanted Water Bucket](run/screenshots/2024-02-16_13.30.33.png)
+![Enchanted Water Bucket](./src/main/resources/assets/infinite_fluid_bucket/gallery/infinity_bucket_en.png)
 ## Trivia
 This mod is inspired by infinite water bucket of Quark mod.

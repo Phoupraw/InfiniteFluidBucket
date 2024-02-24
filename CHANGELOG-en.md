@@ -17,4 +17,7 @@
 ## Fix
 - Even if infinity bucket isn't enabled in config, bucket can also be added with enchantment by anvil.
 - Infinity empty bucket can be used in crafting and won't consume.
-- Infinity empty bucket can receive water from wet sponge in furnace and convert to water bucket without enchantment.\
+- Infinity empty bucket can receive water from wet sponge in furnace and convert to water bucket without enchantment.
+# 0.3.1
+## New
+- Github link

@@ -6,8 +6,9 @@
   "description": "给桶附魔无限！",
   "authors": ["Phoupraw"],
   "contact": {
-    "TODOhomepage": "TODO",
-    "issues": "https://legacy.curseforge.com/minecraft/mc-mods/infinite-fluid-bucket/comments"
+    "homepage": "",
+    "issues": "https://github.com/Phoupraw/InfiniteFluidBucket/issues",
+    "sources": "https://github.com/Phoupraw/InfiniteFluidBucket"
   },
   "entrypoints": {
     "main": [
@@ -46,7 +47,7 @@
     "modmenu": {
       "links": {
         "modmenu.modrinth": "https://modrinth.com/mod/infinite-fluid-bucket",
-        "modmenu.curseforge": "https://legacy.curseforge.com/minecraft/mc-mods/infinite-fluid-bucket"
+        "modmenu.curseforge": "https://www.curseforge.com/minecraft/mc-mods/infinite-fluid-bucket"
       }
     }
   },
