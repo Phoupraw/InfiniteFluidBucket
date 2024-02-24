@@ -1,3 +1,6 @@
+# Change Log
+[中文](./CHANGELOG.md)
+[English](./CHANGELOG-en.md)
 # 0.1.0
 ## New
 - Water bucket can be enchanted with infinity, allowing infinite water.
@@ -20,4 +23,5 @@
 - Infinity empty bucket can receive water from wet sponge in furnace and convert to water bucket without enchantment.
 # 0.3.1
 ## New
-- Github link
+- Github link.
+- MCMOD link.

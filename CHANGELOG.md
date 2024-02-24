@@ -1,3 +1,6 @@
+# 更新日志
+[中文](./CHANGELOG.md)
+[English](./CHANGELOG-en.md)
 # 0.1.0
 ## 新增
 - 水桶可以附魔无限，可以无限倒水。
@@ -21,4 +24,4 @@
 # 0.3.1
 ## 新增
 - Github链接。
-- TODO MCMOD链接。
+- MCMOD链接。
