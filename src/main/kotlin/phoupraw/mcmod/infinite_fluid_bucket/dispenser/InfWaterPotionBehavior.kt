@@ -27,7 +27,7 @@ object InfWaterPotionBehavior : ItemDispenserBehavior() {
         }
         val serverWorld = pointer.world
         val blockPos = pointer.pos
-        val blockPos2 = pointer.pos.offset(pointer.blockState.get(DispenserBlock.FACING))
+        val blockPos2 = pointer.pos.offset(pointer.state.get(DispenserBlock.FACING))
         if (!serverWorld.getBlockState(blockPos2).isIn(BlockTags.CONVERTABLE_TO_MUD)) {
             return DISPENSER_FALLBACK.dispense(pointer, stack)
         }

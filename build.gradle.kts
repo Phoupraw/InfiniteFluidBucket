@@ -2,11 +2,13 @@ plugins {
     kotlin("jvm")
     id("fabric-loom")
     `maven-publish`
+    //id("com.replaymod.preprocess") version "SNAPSHOT"
 }
+//apply(plugin = "com.replaymod.preprocess")
 version = property("mod_version")!!
 group = property("maven_group")!!
 val minecraftVersion = property("minecraft_version")!!
-val baseName = property("archives_base_name").toString()
+val baseName = "${property("archives_base_name")}-$minecraftVersion"
 
 repositories {
     mavenLocal {
@@ -57,12 +59,10 @@ dependencies {
     modApi("net.fabricmc:fabric-loader:${property("loader_version")}")
     modApi("net.fabricmc:fabric-language-kotlin:${property("fabric_kotlin_version")}")
     modLocalRuntime(modCompileOnly("com.terraformersmc:modmenu:${property("modmenu")}")!!)
-    include(modImplementation("phoupraw.mcmod:PhouprawsLinkedLib:+")!!)
+    include(modImplementation("phoupraw.mcmod:PhouprawsLinkedLib-$minecraftVersion:+")!!)
     modApi("dev.isxander.yacl:yet-another-config-lib-fabric:${property("yet_another_config_lib")}")
     //由于KT自带的与java互操作不太好用，所以我自己写了一个
-    modCompileOnlyApi("net.fabricmc.fabric-api:fabric-api:${property("fabric_version")}") {
-        exclude(module = "fabric-transfer-api-v1")
-    }
+    modCompileOnlyApi("net.fabricmc.fabric-api:fabric-api:${property("fabric_version")}") { exclude(module = "fabric-transfer-api-v1") }
     modRuntimeOnly("net.fabricmc.fabric-api:fabric-api:${property("fabric_version")}")
     modCompileOnly("phoupraw.mcmod:FabricAPIKotlinOverwrite:+")
 }
@@ -99,7 +99,7 @@ publishing {
             groupId = group.toString()
             artifactId = baseName
             version = version
-            println(getComponents().toList())
+            //println(getComponents().toList())
             from(getComponents()["java"])
         }
     }

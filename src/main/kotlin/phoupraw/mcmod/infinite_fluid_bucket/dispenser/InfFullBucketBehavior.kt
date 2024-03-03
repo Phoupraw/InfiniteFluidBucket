@@ -15,7 +15,7 @@ object InfFullBucketBehavior : ItemDispenserBehavior() {
     override fun dispenseSilently(pointer: BlockPointer, stack: ItemStack): ItemStack {
         val item = stack.item
         if (item !is FluidModificationItem) return stack
-        val blockPos: BlockPos = pointer.pos.offset(pointer.blockState[DispenserBlock.FACING])
+        val blockPos: BlockPos = pointer.pos.offset(pointer.state[DispenserBlock.FACING])
         val world: World = pointer.world
         if (!item.placeFluid(null, world, blockPos, null)) {
             return DISPENSER_FALLBACK.dispense(pointer, stack)

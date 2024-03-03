@@ -4,7 +4,6 @@ import net.minecraft.block.BeehiveBlock
 import net.minecraft.block.DispenserBlock
 import net.minecraft.block.dispenser.FallibleItemDispenserBehavior
 import net.minecraft.block.entity.BeehiveBlockEntity
-import net.minecraft.block.entity.DispenserBlockEntity
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.potion.PotionUtil
@@ -21,7 +20,7 @@ object InfGlassBottleBehavior : FallibleItemDispenserBehavior() {
     public override fun dispenseSilently(pointer: BlockPointer, stack: ItemStack): ItemStack {
         isSuccess = false
         val serverWorld = pointer.world
-        val blockPos = pointer.pos.offset(pointer.blockState.get(DispenserBlock.FACING))
+        val blockPos = pointer.pos.offset(pointer.state.get(DispenserBlock.FACING))
         val blockState = serverWorld.getBlockState(blockPos)
         if (/*!(stack.infinity && CONFIG.instance().glassBottle) && */blockState.isIn(BlockTags.BEEHIVES) && blockState.contains(BeehiveBlock.HONEY_LEVEL) && blockState.block is BeehiveBlock && blockState.get(BeehiveBlock.HONEY_LEVEL) >= 5) {
             (blockState.block as BeehiveBlock).takeHoney(serverWorld, blockState, blockPos, null, BeehiveBlockEntity.BeeState.BEE_RELEASED)
@@ -44,7 +43,7 @@ object InfGlassBottleBehavior : FallibleItemDispenserBehavior() {
             pointer.world.emitGameEvent(null, GameEvent.FLUID_PICKUP, pointer.pos)
             return filledBottleStack.copy()
         } else {
-            if (pointer.getBlockEntity<DispenserBlockEntity>().addToFirstFreeSlot(filledBottleStack.copy()) < 0) {
+            if (pointer.blockEntity.addToFirstFreeSlot(filledBottleStack.copy()) < 0) {
                 DISPENSER_FALLBACK.dispense(pointer, filledBottleStack.copy())
             }
 

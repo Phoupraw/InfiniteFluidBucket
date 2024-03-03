@@ -32,14 +32,16 @@
   },
   "environment": "*",
   "depends": {
-    "fabricloader": "*",
+    "minecraft": "*",
+    "fabricloader": ">=0.15.0",
     "fabric-api": "*",
     "fabric-language-kotlin": "*",
     "phoupraws_linked_lib": "*",
     "yet_another_config_lib_v3": "*"
   },
   "recommends": {
-    "modmenu": "*"
+    "modmenu": "*",
+    "minecraft": "1.20.4"
   },
   "mixins": ["infinite_fluid_bucket.mixins.json"],
   "icon": "assets/infinite_fluid_bucket/icon.png",
