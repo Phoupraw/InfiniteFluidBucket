@@ -2,8 +2,24 @@
   "required": true,
   "package": "phoupraw.mcmod.infinite_fluid_bucket.mixin",
   "compatibilityLevel": "JAVA_17",
-  "mixins": ["minecraft.ABucketItem", "minecraft.MAbstractFurnaceBlockEntity", "minecraft.MBeehiveBlock", "minecraft.MBrewingStandBlockEntity", "minecraft.MBrewingStandScreenHandler_PotionSlot", "minecraft.MBucketable", "minecraft.MBucketItem", "minecraft.MCauldronBehavior", "minecraft.MCowEntity", "minecraft.MGlassBottleItem", "minecraft.MInfinityEnchantment", "minecraft.MIngredient", "minecraft.MMilkBucketItem", "minecraft.MPotionItem"],
+  "mixins": [
+    "minecraft.ABucketItem",
+    "minecraft.MAbstractFurnaceBlockEntity",
+    "minecraft.MBeehiveBlock",
+    "minecraft.MBrewingStandBlockEntity",
+    "minecraft.MBrewingStandScreenHandler_PotionSlot",
+    "minecraft.MBucketable",
+    "minecraft.MBucketItem",
+    "minecraft.MCauldronBehavior",
+    "minecraft.MCowEntity",
+    "minecraft.MGlassBottleItem",
+    "minecraft.MInfinityEnchantment",
+    "minecraft.MIngredient",
+    "minecraft.MMilkBucketItem",
+    "minecraft.MPotionItem", "minecraft.MShapelessRecipe"
+  ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "plugin": "phoupraw.mcmod.infinite_fluid_bucket.mixins.IFBMixinConfigPlugin"
 }

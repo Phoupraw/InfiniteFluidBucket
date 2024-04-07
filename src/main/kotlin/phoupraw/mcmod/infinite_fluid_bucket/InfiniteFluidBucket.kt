@@ -17,8 +17,8 @@ import phoupraw.mcmod.infinite_fluid_bucket.transfer.InfEmptyBucketStorage
 import phoupraw.mcmod.infinite_fluid_bucket.transfer.InfGlassBottleStorage
 import phoupraw.mcmod.infinite_fluid_bucket.transfer.InfWaterBucketStorage
 import phoupraw.mcmod.infinite_fluid_bucket.transfer.InfWaterPotionStorage
-import phoupraw.mcmod.linked.fabric.transfer.fluid.FluidStorages
-import phoupraw.mcmod.linked.lang.MutableEvent
+import phoupraw.mcmod.linked.api.fabric.transfer.fluid.FluidStorages
+import phoupraw.mcmod.linked.api.util.MutableEvent
 
 object InfiniteFluidBucket : ModInitializer {
     const val ID = "infinite_fluid_bucket"

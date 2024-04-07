@@ -25,3 +25,10 @@
 ## 新增
 - Github链接。
 - MCMOD链接。
+# 0.3.2
+## 修复
+- 未附魔无限的空桶在熔炉里不能接湿海绵的水；无限空桶在熔炉里会接湿海绵的水变成无附魔空桶。
+# 0.3.3
+## 修复
+- 与《VMP》冲突（`com.ishland.vmp.mixins.general.ingredient_matching.MixinIngredient`）。
+- 无序配方中仍可使用无限空桶和无限玻璃瓶作为材料（`phoupraw.mcmod.infinite_fluid_bucket.mixin.minecraft.MShapelessRecipe`）。
