@@ -9,6 +9,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import phoupraw.mcmod.infinite_fluid_bucket.dispenser.InfEmptyBucketBehavior;
 import phoupraw.mcmod.infinite_fluid_bucket.dispenser.InfGlassBottleBehavior;
 
+/**
+ * 为了与<a href="https://github.com/RelativityMC/VMP-fabric/blob/ver/1.20.1/src/main/java/com/ishland/vmp/mixins/general/ingredient_matching/MixinIngredient.java">VMP的<code>com.ishland.vmp.mixins.general.ingredient_matching.MixinIngredient</code></a>兼容加了优先级
+ */
 @Mixin(value = Ingredient.class, priority = 1100)
 //@Debug(export = true)
 abstract class MIngredient {

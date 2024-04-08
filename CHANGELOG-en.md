@@ -28,3 +28,7 @@
 # 0.3.2
 ## Fix
 - Enchantmentless empty bucket can't accept water from wet sponge in furnace. Infinity empty bucket can accept water from wet sponge in furnace and turns into enchantmentless water bucket.
+# 0.3.3
+## Fix
+- Incompitible with VMP (`com.ishland.vmp.mixins.general.ingredient_matching.MixinIngredient`).
+- In shapeless recipes, infinity empty bucket and infinity glass bottle can be used as ingredient.

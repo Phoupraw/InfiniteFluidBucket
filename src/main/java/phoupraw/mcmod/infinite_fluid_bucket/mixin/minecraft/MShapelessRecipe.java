@@ -9,6 +9,7 @@ import phoupraw.mcmod.infinite_fluid_bucket.dispenser.InfEmptyBucketBehavior;
 import phoupraw.mcmod.infinite_fluid_bucket.dispenser.InfGlassBottleBehavior;
 
 @Mixin(ShapelessRecipe.class)
+//@Debug(export = true)
 abstract class MShapelessRecipe {
     @ModifyExpressionValue(method = "matches(Lnet/minecraft/inventory/RecipeInputInventory;Lnet/minecraft/world/World;)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/inventory/RecipeInputInventory;getStack(I)Lnet/minecraft/item/ItemStack;"))
     private ItemStack checkInf(ItemStack original) {

@@ -16,7 +16,8 @@
     "minecraft.MInfinityEnchantment",
     "minecraft.MIngredient",
     "minecraft.MMilkBucketItem",
-    "minecraft.MPotionItem", "minecraft.MShapelessRecipe"
+    "minecraft.MPotionItem",
+    "minecraft.MShapelessRecipe"
   ],
   "injectors": {
     "defaultRequire": 1

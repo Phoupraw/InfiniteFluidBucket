@@ -31,4 +31,4 @@
 # 0.3.3
 ## 修复
 - 与《VMP》冲突（`com.ishland.vmp.mixins.general.ingredient_matching.MixinIngredient`）。
-- 无序配方中仍可使用无限空桶和无限玻璃瓶作为材料（`phoupraw.mcmod.infinite_fluid_bucket.mixin.minecraft.MShapelessRecipe`）。
+- 无序配方中仍可使用无限空桶和无限玻璃瓶作为材料。
