@@ -85,7 +85,7 @@ jar {
 publishing {
     publications {
         create("mavenJava", MavenPublication) {
-            artifactId = "${archives_name}+${minecraft}"
+            artifactId = "${archives_name}-${minecraft}"
             from components.java
         }
 
