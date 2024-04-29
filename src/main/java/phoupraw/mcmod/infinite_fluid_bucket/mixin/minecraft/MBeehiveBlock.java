@@ -21,14 +21,14 @@ abstract class MBeehiveBlock extends BlockWithEntity {
     protected MBeehiveBlock(Settings settings) {
         super(settings);
     }
-    @WrapOperation(method = "onUse", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;decrement(I)V"))
+    @WrapOperation(method = "onUseWithItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;decrement(I)V"))
     private void checkInf(ItemStack instance, int amount, Operation<Void> original) {
         if (!Infinities.isGlassBottleInfinity(instance)) {
             original.call(instance, amount);
         }
     }
-    @WrapOperation(method = "onUse", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerInventory;insertStack(Lnet/minecraft/item/ItemStack;)Z"))
-    private boolean checkInf(PlayerInventory instance, ItemStack stack, Operation<Boolean> original, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        return Infinities.isGlassBottleInfinity(player.getStackInHand(hand)) || original.call(instance, stack);
+    @WrapOperation(method = "onUseWithItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerInventory;insertStack(Lnet/minecraft/item/ItemStack;)Z"))
+    private boolean checkInf(PlayerInventory instance, ItemStack stack, Operation<Boolean> original, ItemStack stackInHand, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        return Infinities.isGlassBottleInfinity(stackInHand) || original.call(instance, stack);
     }
 }

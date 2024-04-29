@@ -19,13 +19,13 @@ import java.util.function.Predicate;
 /**
  {@link Items#GLASS_BOTTLE}，防止从蜂箱装蜂蜜，防止从水源装水时替换成水瓶。
  */
-@Mixin(targets = "net/minecraft/block/dispenser/DispenserBehavior$17")
+@Mixin(targets = "net/minecraft/block/dispenser/DispenserBehavior$6")
 abstract class MDispenserBehavior_17 {
     @WrapOperation(method = "dispenseSilently", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockState;isIn(Lnet/minecraft/registry/tag/TagKey;Ljava/util/function/Predicate;)Z"))
     private boolean checkInf(BlockState instance, TagKey<Block> tagKey, Predicate<BlockState> predicate, Operation<Boolean> original, BlockPointer pointer, ItemStack stack) {
         return !Infinities.isGlassBottleInfinity(stack) && original.call(instance, tagKey, predicate);
     }
-    @Inject(method = "tryPutFilledBottle", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "replace", at = @At("HEAD"), cancellable = true)
     private void checkInf(BlockPointer pointer, ItemStack emptyBottleStack, ItemStack filledBottleStack, CallbackInfoReturnable<ItemStack> cir) {
         if (Infinities.isGlassBottleInfinity(emptyBottleStack)) {
             cir.setReturnValue(emptyBottleStack);

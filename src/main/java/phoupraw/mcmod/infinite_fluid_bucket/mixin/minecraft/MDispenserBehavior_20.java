@@ -11,7 +11,7 @@ import phoupraw.mcmod.infinite_fluid_bucket.misc.Infinities;
 /**
  {@link Items#POTION}，防止把泥土变成泥巴时替换成水瓶。
  */
-@Mixin(targets = "net/minecraft/block/dispenser/DispenserBehavior$20")
+@Mixin(targets = "net/minecraft/block/dispenser/DispenserBehavior$10")
 abstract class MDispenserBehavior_20 {
     @ModifyExpressionValue(method = "dispenseSilently", at = @At(value = "NEW", target = "(Lnet/minecraft/item/ItemConvertible;)Lnet/minecraft/item/ItemStack;"))
     private ItemStack checkInf(ItemStack original, BlockPointer pointer, ItemStack stack) {

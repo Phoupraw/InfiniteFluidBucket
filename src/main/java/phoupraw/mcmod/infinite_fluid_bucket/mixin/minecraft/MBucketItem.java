@@ -1,6 +1,6 @@
 package phoupraw.mcmod.infinite_fluid_bucket.mixin.minecraft;
 
-import net.minecraft.entity.player.PlayerAbilities;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import org.spongepowered.asm.mixin.Mixin;
@@ -35,8 +35,8 @@ class MBucketItem extends Item {
     private ItemStack infinityBucket(ItemStack inputStack, PlayerEntity player, ItemStack outputStack) {
         return Infinities.isInfinityFluidBucket(inputStack) ? inputStack : ItemUsage.exchangeStack(inputStack, player, outputStack);
     }
-    @Redirect(method = "getEmptiedStack", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/player/PlayerAbilities;creativeMode:Z"))
-    private static boolean infinityBucket(PlayerAbilities instance, ItemStack stack, PlayerEntity player) {
-        return player.isCreative() || Infinities.isInfinityFluidBucket(stack);
+    @ModifyExpressionValue(method = "getEmptiedStack", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;isInCreativeMode()Z"))
+    private static boolean infinityBucket(boolean original, ItemStack stack, PlayerEntity player) {
+        return original || Infinities.isInfinityFluidBucket(stack);
     }
 }

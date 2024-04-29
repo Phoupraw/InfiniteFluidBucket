@@ -2,16 +2,19 @@ package phoupraw.mcmod.infinite_fluid_bucket.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
+import net.minecraft.registry.RegistryWrapper;
 import phoupraw.mcmod.infinite_fluid_bucket.InfiniteFluidBucket;
+
+import java.util.concurrent.CompletableFuture;
 
 import static phoupraw.mcmod.infinite_fluid_bucket.InfiniteFluidBucket.ID;
 
 final class English extends FabricLanguageProvider {
-    English(FabricDataOutput dataOutput) {
-        super(dataOutput);
+    English(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+        super(dataOutput, registryLookup);
     }
     @Override
-    public void generateTranslations(TranslationBuilder b) {
+    public void generateTranslations(RegistryWrapper.WrapperLookup registryLookup, TranslationBuilder b) {
         b.add(InfiniteFluidBucket.NAME, "Infinite Fluid Bucket");
         b.add("modmenu.descriptionTranslation." + ID, """
           Enchant bucket with infinity!

@@ -26,7 +26,7 @@ abstract class MPotionItem extends Item {
     public ItemStack getRecipeRemainder(ItemStack stack) {
         return Infinities.isPotionInfinity(stack) ? stack.copy() : super.getRecipeRemainder(stack);
     }
-    @ModifyExpressionValue(method = "finishUsing", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/player/PlayerAbilities;creativeMode:Z"))
+    @ModifyExpressionValue(method = "finishUsing", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;isInCreativeMode()Z"))
     private boolean checkInf(boolean original, ItemStack stack, World world, LivingEntity user) {
         return original || Infinities.isPotionInfinity(stack);
     }

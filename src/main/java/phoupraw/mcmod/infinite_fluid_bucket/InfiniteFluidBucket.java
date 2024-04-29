@@ -2,8 +2,11 @@ package phoupraw.mcmod.infinite_fluid_bucket;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.Event;
+import net.fabricmc.fabric.api.item.v1.EnchantmentEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
+import net.fabricmc.fabric.api.util.TriState;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.Items;
@@ -46,6 +49,7 @@ public final class InfiniteFluidBucket implements ModInitializer {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(entries -> {
             entries.addAfter(Items.GLASS_BOTTLE, Infinities.EMPTY_BOTTLE);
         });
+        EnchantmentEvents.ALLOW_ENCHANTING.register((enchantment, target, enchantingContext) -> enchantment == Enchantments.INFINITY && Infinities.canInfinity(target) ? TriState.TRUE : TriState.DEFAULT);
         //AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) -> {
         //    ItemStack itemStack = player.getStackInHand(hand);
         //    if (!Infinities.isInfinity(itemStack)) return ActionResult.PASS;

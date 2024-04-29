@@ -13,7 +13,7 @@ import phoupraw.mcmod.infinite_fluid_bucket.misc.Infinities;
 /**
  {@link Items#BUCKET}，防止装流体时替换成流体桶。
  */
-@Mixin(targets = "net/minecraft/block/dispenser/DispenserBehavior$9")
+@Mixin(targets = "net/minecraft/block/dispenser/DispenserBehavior$16")
 abstract class MDispenserBehavior_9 {
     @Inject(method = "dispenseSilently", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;getItem()Lnet/minecraft/item/Item;"), cancellable = true)
     private void checkInf(BlockPointer pointer, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {

@@ -1,15 +1,17 @@
 package phoupraw.mcmod.infinite_fluid_bucket.misc;
 
 import lombok.experimental.UtilityClass;
-import net.minecraft.enchantment.Enchantment;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.ItemEnchantmentsComponent;
+import net.minecraft.component.type.PotionContentsComponent;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.potion.PotionUtil;
 import net.minecraft.potion.Potions;
+import net.minecraft.registry.Registries;
 
-import java.util.Map;
+import java.util.function.Predicate;
 
 import static phoupraw.mcmod.infinite_fluid_bucket.config.IFBConfig.HANDLER;
 
@@ -30,7 +32,7 @@ public class Infinities {
         ) && hasInfinity(any);
     }
     public static boolean isPotionWater(ItemStack potion) {
-        return PotionUtil.getPotion(potion) == Potions.WATER;
+        return potion.getOrDefault(DataComponentTypes.POTION_CONTENTS, PotionContentsComponent.DEFAULT).potion().orElse(null) == Potions.WATER;
     }
     public static boolean isPotionInfinity(ItemStack potion) {
         return canPotionInfinity(potion) && hasInfinity(potion);
@@ -71,9 +73,10 @@ public class Infinities {
         return any;
     }
     public static ItemStack removeInfinity(ItemStack any) {
-        Map<Enchantment, Integer> map = EnchantmentHelper.get(any);
-        map.remove(Enchantments.INFINITY);
-        EnchantmentHelper.set(map, any);
+        ItemEnchantmentsComponent enchantments = EnchantmentHelper.getEnchantments(any);
+        ItemEnchantmentsComponent.Builder builder = new ItemEnchantmentsComponent.Builder(enchantments);
+        builder.remove(Predicate.isEqual(Registries.ENCHANTMENT.getKey(Enchantments.INFINITY).orElseThrow()));
+        EnchantmentHelper.set(any, builder.build());
         return any;
     }
 }

@@ -2,16 +2,19 @@ package phoupraw.mcmod.infinite_fluid_bucket.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
+import net.minecraft.registry.RegistryWrapper;
 import phoupraw.mcmod.infinite_fluid_bucket.InfiniteFluidBucket;
+
+import java.util.concurrent.CompletableFuture;
 
 import static phoupraw.mcmod.infinite_fluid_bucket.InfiniteFluidBucket.ID;
 
 final class Chinese extends FabricLanguageProvider {
-    Chinese(FabricDataOutput dataOutput) {
-        super(dataOutput, "zh_cn");
+    Chinese(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+        super(dataOutput, "zh_cn", registryLookup);
     }
     @Override
-    public void generateTranslations(TranslationBuilder b) {
+    public void generateTranslations(RegistryWrapper.WrapperLookup registryLookup, TranslationBuilder b) {
         b.add(InfiniteFluidBucket.NAME, "无限流体桶");
         b.add("modmenu.descriptionTranslation." + ID, """
           给桶附魔无限！
