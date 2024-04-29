@@ -29,9 +29,9 @@ public final class IFBConfig {
     @SerialEntry
     public boolean emptyBucket = true;
     @SerialEntry
-    public boolean milkBucket = true;
+    public boolean waterPotion = true;
     @SerialEntry
     public boolean glassBottle = true;
     @SerialEntry
-    public boolean waterPotion = true;
+    public boolean milkBucket = true;
 }

@@ -55,4 +55,8 @@ public class Infinities {
           || canInfinityGlassBottle(any)
           || any.isOf(Items.POTION) && canPotionInfinity(any);
     }
+    public static ItemStack setInfinity(ItemStack any) {
+        any.addEnchantment(Enchantments.INFINITY, 1);
+        return any;
+    }
 }

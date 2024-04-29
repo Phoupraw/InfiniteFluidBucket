@@ -8,6 +8,8 @@ import org.jetbrains.annotations.ApiStatus;
 public final class IFBDataGen implements DataGeneratorEntrypoint {
     @Override
     public void onInitializeDataGenerator(FabricDataGenerator g) {
-    
+        var pack = g.createPack();
+        pack.addProvider(Chinese::new);
+        pack.addProvider(English::new);
     }
 }
