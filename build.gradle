@@ -66,7 +66,7 @@ processResources {
     inputs.property "version", version
 
     filesMatching("fabric.mod.json") {
-        expand "version": version, "minecraft": minecraft
+        expand "version": version
     }
 }
 
@@ -105,9 +105,12 @@ fabricApi {
 //loom {
 //    accessWidenerPath.set(file("src/main/resources/${mod_id}.accessWidener"))
 //}
+static String builtJarName() {
+    return "${archives_name}+1.20.6+${version}"
+}
 remapJar {
-    archiveFileName.set("${archives_name}+${minecraft}+${version}.jar")
+    archiveFileName.set("${builtJarName()}.jar")
 }
 remapSourcesJar {
-    archiveFileName.set("${archives_name}+${minecraft}+${version}+sources.jar")
+    archiveFileName.set("${builtJarName()}+sources.jar")
 }
