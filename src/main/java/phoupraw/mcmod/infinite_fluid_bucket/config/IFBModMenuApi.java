@@ -9,11 +9,10 @@ import dev.isxander.yacl3.api.YetAnotherConfigLib;
 import dev.isxander.yacl3.api.controller.TickBoxControllerBuilder;
 import dev.isxander.yacl3.gui.YACLScreen;
 import net.minecraft.item.Items;
-import net.minecraft.potion.PotionUtil;
-import net.minecraft.potion.Potions;
 import net.minecraft.text.Text;
 import phoupraw.mcmod.infinite_fluid_bucket.InfiniteFluidBucket;
 import phoupraw.mcmod.infinite_fluid_bucket.misc.Infinities;
+import phoupraw.mcmod.infinite_fluid_bucket.misc.Misc;
 
 import static phoupraw.mcmod.infinite_fluid_bucket.InfiniteFluidBucket.ID;
 import static phoupraw.mcmod.infinite_fluid_bucket.config.IFBConfig.HANDLER;
@@ -31,7 +30,7 @@ public final class IFBModMenuApi implements ModMenuApi {
               .name(Items.WATER_BUCKET.getName())
               .description(OptionDescription
                 .createBuilder()
-                .customImage(ItemRendererInConfig.of(Infinities.setInfinity(Items.WATER_BUCKET.getDefaultStack())))
+                .customImage(ItemRendererInConfig.of(Infinities.WATER_BUCKET))
                 .text(Text.translatable("config." + ID + ".waterBucket.desc"))
                 .build())
               .binding(HANDLER.defaults().isWaterBucket(), HANDLER.instance()::isWaterBucket, HANDLER.instance()::setWaterBucket)
@@ -42,7 +41,7 @@ public final class IFBModMenuApi implements ModMenuApi {
               .name(Items.BUCKET.getName())
               .description(OptionDescription
                 .createBuilder()
-                .customImage(ItemRendererInConfig.of(Infinities.setInfinity(Items.BUCKET.getDefaultStack())))
+                .customImage(ItemRendererInConfig.of(Infinities.EMTPY_BUCKET))
                 .text(Text.translatable("config." + ID + ".emptyBucket.desc"))
                 .build())
               .binding(HANDLER.defaults().isEmptyBucket(), HANDLER.instance()::isEmptyBucket, HANDLER.instance()::setEmptyBucket)
@@ -50,10 +49,10 @@ public final class IFBModMenuApi implements ModMenuApi {
               .build())
             .option(Option
               .<Boolean>createBuilder()
-              .name(PotionUtil.setPotion(Items.POTION.getDefaultStack(), Potions.WATER).getName())
+              .name(Misc.WATER_POTION.getName())
               .description(OptionDescription
                 .createBuilder()
-                .customImage(ItemRendererInConfig.of(Infinities.setInfinity(PotionUtil.setPotion(Items.POTION.getDefaultStack(), Potions.WATER))))
+                .customImage(ItemRendererInConfig.of(Infinities.WATER_BOTTLE))
                 .text(Text.translatable("config." + ID + ".waterPotion.desc"))
                 .build())
               .binding(HANDLER.defaults().isWaterPotion(), HANDLER.instance()::isWaterPotion, HANDLER.instance()::setWaterPotion)
@@ -64,7 +63,7 @@ public final class IFBModMenuApi implements ModMenuApi {
               .name(Items.GLASS_BOTTLE.getName())
               .description(OptionDescription
                 .createBuilder()
-                .customImage(ItemRendererInConfig.of(Infinities.setInfinity(Items.GLASS_BOTTLE.getDefaultStack())))
+                .customImage(ItemRendererInConfig.of(Infinities.EMPTY_BOTTLE))
                 .text(Text.translatable("config." + ID + ".glassBottle.desc"))
                 .build())
               .binding(HANDLER.defaults().isGlassBottle(), HANDLER.instance()::isGlassBottle, HANDLER.instance()::setGlassBottle)
@@ -75,7 +74,7 @@ public final class IFBModMenuApi implements ModMenuApi {
               .name(Items.MILK_BUCKET.getName())
               .description(OptionDescription
                 .createBuilder()
-                .customImage(ItemRendererInConfig.of(Infinities.setInfinity(Items.MILK_BUCKET.getDefaultStack())))
+                .customImage(ItemRendererInConfig.of(Infinities.MILK_BUCKET))
                 .text(Text.translatable("config." + ID + ".milkBucket.desc"))
                 .build())
               .binding(HANDLER.defaults().isMilkBucket(), HANDLER.instance()::isMilkBucket, HANDLER.instance()::setMilkBucket)

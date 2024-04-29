@@ -22,10 +22,10 @@ abstract class MMilkBucketItem extends Item {
     }
     @Override
     public ItemStack getRecipeRemainder(ItemStack stack) {
-        return Infinities.isInfinity(stack) && IFBConfig.HANDLER.instance().isMilkBucket() ? stack.copy() : super.getRecipeRemainder(stack);
+        return Infinities.hasInfinity(stack) && IFBConfig.HANDLER.instance().isMilkBucket() ? stack.copy() : super.getRecipeRemainder(stack);
     }
     @ModifyExpressionValue(method = "finishUsing", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/player/PlayerAbilities;creativeMode:Z"))
     private boolean checkInf(boolean original, ItemStack stack, World world, LivingEntity user) {
-        return original || Infinities.isInfinity(stack) && IFBConfig.HANDLER.instance().isMilkBucket();
+        return original || Infinities.hasInfinity(stack) && IFBConfig.HANDLER.instance().isMilkBucket();
     }
 }

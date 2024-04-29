@@ -5,9 +5,8 @@ plugins {
 
 version = project.mod_version
 group = project.maven_group
-
 base {
-    archivesName = project.archives_base_name
+    archivesName = archives_name//"${archives_name}+${minecraft}"
 }
 
 repositories {
@@ -55,7 +54,7 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api}"
     //## mod依赖
     modLocalRuntime modCompileOnly("com.terraformersmc:modmenu:${modmenu}")
-    modApi("dev.isxander.yacl:yet-another-config-lib-fabric:${yet_another_config_lib}")
+    modApi("dev.isxander.yacl:yet-another-config-lib-fabric:${yacl}")
     //## 非mod依赖
     compileOnlyApi annotationProcessor("org.projectlombok:lombok:${lombok}")
     //## 非依赖
@@ -75,65 +74,39 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 java {
-    // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-    // if it is present.
-    // If you remove this line, sources will not be generated.
     withSourcesJar()
-
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
 }
 
 jar {
-    from("LICENSE") {
-        rename { "${it}_${base.archivesName}" }
-    }
-    exclude(
-      "net.fabricmc.**"
-    )
+    exclude("net/fabricmc/*")
 }
-
-// configure the maven publication
 publishing {
     publications {
         create("mavenJava", MavenPublication) {
+            artifactId = "${archives_name}+${minecraft}"
             from components.java
         }
+
     }
 
     // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
     repositories {
-        // Add repositories to publish to here.
-        // Notice: This block does NOT have the same function as the block in the top level.
-        // The repositories here will be used for publishing your artifact, not for
-        // retrieving dependencies.
+
     }
 }
 fabricApi {
     configureDataGeneration() {
 
     }
-//    LoomGradleExtension.get(getProject()).getRunConfigs().create("datagen") { run ->
-//        run.inherit(extension.getRunConfigs().named("client").get())
-//        run.setConfigName("Data Generation");
-//
-//        run.property("fabric-api.datagen");
-//        run.property("fabric-api.datagen.output-dir", settings.getOutputDirectory().getAsFile().get().getAbsolutePath());
-//        run.runDir("build/datagen");
-//
-//        if (settings.getModId().isPresent()) {
-//            run.property("fabric-api.datagen.modid", settings.getModId().get());
-//        }
-//
-//        if (settings.getStrictValidation().get()) {
-//            run.property("fabric-api.datagen.strict-validation", "true");
-//        }
-//
-//        if (settings.getCreateSourceSet().get()) {
-//            run.source(DATAGEN_SOURCESET_NAME);
-//        }
-//    }
 }
 //loom {
 //    accessWidenerPath.set(file("src/main/resources/${mod_id}.accessWidener"))
 //}
+remapJar {
+    archiveFileName.set("${archives_name}+${minecraft}+${version}.jar")
+}
+remapSourcesJar {
+    archiveFileName.set("${archives_name}+${minecraft}+${version}+sources.jar")
+}

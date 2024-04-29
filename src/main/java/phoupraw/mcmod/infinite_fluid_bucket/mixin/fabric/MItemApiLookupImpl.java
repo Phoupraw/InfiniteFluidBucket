@@ -1,8 +1,5 @@
 package phoupraw.mcmod.infinite_fluid_bucket.mixin.fabric;
 
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
-import com.google.common.collect.Multimaps;
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.fabricmc.fabric.api.lookup.v1.custom.ApiProviderMap;
@@ -11,7 +8,6 @@ import net.fabricmc.fabric.impl.lookup.item.ItemApiLookupImpl;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
-import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,7 +15,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import java.util.Map;
 import java.util.Objects;
 
-@Mixin(ItemApiLookupImpl.class)
+@Mixin(value = ItemApiLookupImpl.class, remap = false)
 abstract class MItemApiLookupImpl<A, C> implements ItemApiLookup<A, C> {
     private static <A, C> Event<ItemApiProvider<A, C>> newEvent() {
         return EventFactory.createArrayBacked(ItemApiProvider.class, providers -> (itemStack, context) -> {
@@ -33,21 +29,12 @@ abstract class MItemApiLookupImpl<A, C> implements ItemApiLookup<A, C> {
     }
     private final Event<ItemApiProvider<A, C>> preliminary = newEvent();
     private final ApiProviderMap<Item, Event<ItemApiProvider<A, C>>> itemSpecific = ApiProviderMap.create();
-    /**
-     It can't reflect phase order.<br/>
-     It's just for {@link #getProvider}. It should be removed in the future.
-     */
-    @ApiStatus.Experimental
-    private final Multimap<Item, ItemApiProvider<A, C>> itemSpecificProviders = Multimaps.synchronizedMultimap(ArrayListMultimap.create());
     private final Event<ItemApiProvider<A, C>> fallback = newEvent();
     @Override
     @Deprecated(forRemoval = true)
     public @Nullable ItemApiProvider<A, C> getProvider(@NotNull Item item) {
-        for (ItemApiProvider<A, C> provider : itemSpecificProviders.get(item)) {
-            return provider;
-        }
-        
-        return null;
+        var event = itemSpecific.get(item);
+        return event == null ? null : (itemStack, context) -> event.invoker().find(itemStack, context);
     }
     @Override
     public Event<ItemApiProvider<A, C>> preliminary() {

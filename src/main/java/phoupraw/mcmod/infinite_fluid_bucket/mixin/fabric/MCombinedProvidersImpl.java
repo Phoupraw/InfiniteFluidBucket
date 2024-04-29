@@ -11,7 +11,7 @@ import phoupraw.mcmod.infinite_fluid_bucket.mixins.fabric.EItemApiLookup;
 import java.util.HashMap;
 import java.util.Map;
 
-@Mixin(CombinedProvidersImpl.class)
+@Mixin(value = CombinedProvidersImpl.class, remap = false)
 abstract class MCombinedProvidersImpl {
     private static final Map<Item, CombinedProvidersImpl.Provider> ITEM_SPECIFIC = new HashMap<>();
     /**

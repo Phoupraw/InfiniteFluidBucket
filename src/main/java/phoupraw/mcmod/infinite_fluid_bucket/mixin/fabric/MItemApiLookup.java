@@ -4,7 +4,7 @@ import net.fabricmc.fabric.api.lookup.v1.item.ItemApiLookup;
 import org.spongepowered.asm.mixin.Mixin;
 import phoupraw.mcmod.infinite_fluid_bucket.mixins.fabric.EItemApiLookup;
 
-@Mixin(ItemApiLookup.class)
+@Mixin(value = ItemApiLookup.class, remap = false)
 interface MItemApiLookup<A, C> extends EItemApiLookup<A, C> {
 
 }
