@@ -17,7 +17,7 @@ import phoupraw.mcmod.infinite_fluid_bucket.misc.Infinities;
 import java.util.function.Predicate;
 
 /**
- {@link Items#GLASS_BOTTLE}
+ {@link Items#GLASS_BOTTLE}，防止从蜂箱装蜂蜜，防止从水源装水时替换成水瓶。
  */
 @Mixin(targets = "net/minecraft/block/dispenser/DispenserBehavior$17")
 abstract class MDispenserBehavior_17 {

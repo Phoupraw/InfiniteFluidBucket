@@ -24,7 +24,7 @@
   },
   "recommends": {
     "modmenu": "*",
-    "minecraft": "1.20.4"
+    "minecraft": "${minecraft}"
   },
   "mixins": ["infinite_fluid_bucket.mixins.json"],
   "icon": "assets/infinite_fluid_bucket/icon.png",

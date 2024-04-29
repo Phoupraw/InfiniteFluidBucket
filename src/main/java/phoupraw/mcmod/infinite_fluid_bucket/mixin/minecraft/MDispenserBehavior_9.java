@@ -11,7 +11,7 @@ import phoupraw.mcmod.infinite_fluid_bucket.config.IFBConfig;
 import phoupraw.mcmod.infinite_fluid_bucket.misc.Infinities;
 
 /**
- {@link Items#BUCKET}
+ {@link Items#BUCKET}，防止装流体时替换成流体桶。
  */
 @Mixin(targets = "net/minecraft/block/dispenser/DispenserBehavior$9")
 abstract class MDispenserBehavior_9 {

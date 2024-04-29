@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import phoupraw.mcmod.infinite_fluid_bucket.misc.Infinities;
 
 /**
- {@link Items#POTION}
+ {@link Items#POTION}，防止把泥土变成泥巴时替换成水瓶。
  */
 @Mixin(targets = "net/minecraft/block/dispenser/DispenserBehavior$20")
 abstract class MDispenserBehavior_20 {

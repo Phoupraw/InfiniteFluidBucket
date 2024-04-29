@@ -15,11 +15,11 @@ import static phoupraw.mcmod.infinite_fluid_bucket.config.IFBConfig.HANDLER;
 
 @UtilityClass
 public class Infinities {
-    public static final ItemStack WATER_BUCKET = setInfinity(Items.WATER_BUCKET.getDefaultStack());
-    public static final ItemStack EMTPY_BUCKET = setInfinity(Items.BUCKET.getDefaultStack());
-    public static final ItemStack WATER_BOTTLE = setInfinity(Misc.WATER_POTION.copy());
-    public static final ItemStack EMPTY_BOTTLE = setInfinity(Items.GLASS_BOTTLE.getDefaultStack());
-    public static final ItemStack MILK_BUCKET = setInfinity(Items.MILK_BUCKET.getDefaultStack());
+    public static final ItemStack WATER_BUCKET = addInfinity(Items.WATER_BUCKET.getDefaultStack());
+    public static final ItemStack EMTPY_BUCKET = addInfinity(Items.BUCKET.getDefaultStack());
+    public static final ItemStack WATER_BOTTLE = addInfinity(Misc.WATER_POTION.copy());
+    public static final ItemStack EMPTY_BOTTLE = addInfinity(Items.GLASS_BOTTLE.getDefaultStack());
+    public static final ItemStack MILK_BUCKET = addInfinity(Items.MILK_BUCKET.getDefaultStack());
     public static boolean hasInfinity(ItemStack any) {
         return EnchantmentHelper.getLevel(Enchantments.INFINITY, any) > 0;
     }
@@ -66,7 +66,7 @@ public class Infinities {
     public static boolean isInfinity(ItemStack any) {
         return canInfinity(any) && hasInfinity(any);
     }
-    public static ItemStack setInfinity(ItemStack any) {
+    public static ItemStack addInfinity(ItemStack any) {
         any.addEnchantment(Enchantments.INFINITY, 1);
         return any;
     }
