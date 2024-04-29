@@ -36,7 +36,10 @@
 ## Fix
 - Infinity empty bucket can receive less than one bucket of fluid once; infinigy water bucket can provide less than one bucket of water once.
 # 0.4.0
+## New
+- Add items enchanted with infinity to creative inventory.
 ## Change
 - Infinity empty bucket can only be inserted with fluid that has bucket type.
 - Infinity glass bottle can only be inserted with fluid that has bottle type.
 - Add item sprites to config screen.
+- No longer depends on _Fabirc Language Kotlin_.
