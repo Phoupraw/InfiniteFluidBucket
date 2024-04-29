@@ -2,7 +2,31 @@
   "required": true,
   "package": "phoupraw.mcmod.infinite_fluid_bucket.mixin",
   "compatibilityLevel": "JAVA_17",
-  "mixins": ["minecraft.ABucketItem", "minecraft.MAbstractFurnaceBlockEntity", "minecraft.MBeehiveBlock", "minecraft.MBrewingStandBlockEntity", "minecraft.MBrewingStandScreenHandler_PotionSlot", "minecraft.MBucketable", "minecraft.MBucketItem", "minecraft.MCauldronBehavior", "minecraft.MCowEntity", "minecraft.MGlassBottleItem", "minecraft.MInfinityEnchantment", "minecraft.MIngredient", "minecraft.MMilkBucketItem", "minecraft.MPotionItem"],
+  "mixins": [
+    "fabric.MApiProviderHashMap",
+    "fabric.MApiProviderMap",
+    "fabric.MCombinedProvidersImpl",
+    "fabric.MItemApiLookup",
+    "fabric.MItemApiLookupImpl",
+    "minecraft.ABucketItem",
+    "minecraft.MAbstractFurnaceBlockEntity",
+    "minecraft.MBeehiveBlock",
+    "minecraft.MBrewingStandBlockEntity",
+    "minecraft.MBrewingStandScreenHandler_PotionSlot",
+    "minecraft.MBucketable",
+    "minecraft.MBucketItem",
+    "minecraft.MCauldronBehavior",
+    "minecraft.MCowEntity",
+    "minecraft.MDispenserBehavior_17",
+    "minecraft.MDispenserBehavior_20",
+    "minecraft.MDispenserBehavior_8",
+    "minecraft.MDispenserBehavior_9",
+    "minecraft.MGlassBottleItem",
+    "minecraft.MInfinityEnchantment",
+    "minecraft.MIngredient",
+    "minecraft.MMilkBucketItem",
+    "minecraft.MPotionItem", "minecraft.MShapelessRecipe"
+  ],
   "injectors": {
     "defaultRequire": 1
   }

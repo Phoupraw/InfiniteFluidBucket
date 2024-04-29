@@ -61,6 +61,7 @@ dependencies {
     modLocalRuntime(modCompileOnly("com.terraformersmc:modmenu:${property("modmenu")}")!!)
     include(modImplementation("phoupraw.mcmod:PhouprawsLinkedLib-$minecraftVersion:+")!!)
     modApi("dev.isxander.yacl:yet-another-config-lib-fabric:${property("yet_another_config_lib")}")
+    compileOnlyApi(annotationProcessor("org.projectlombok:lombok:${property("lombok")}")!!)
     //由于KT自带的与java互操作不太好用，所以我自己写了一个
     modCompileOnlyApi("net.fabricmc.fabric-api:fabric-api:${property("fabric_version")}") { exclude(module = "fabric-transfer-api-v1") }
     modRuntimeOnly("net.fabricmc.fabric-api:fabric-api:${property("fabric_version")}")

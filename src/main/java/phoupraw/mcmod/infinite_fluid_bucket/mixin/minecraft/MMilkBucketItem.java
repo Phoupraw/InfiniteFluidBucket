@@ -8,7 +8,8 @@ import net.minecraft.item.MilkBucketItem;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import phoupraw.mcmod.infinite_fluid_bucket.Internals;
+import phoupraw.mcmod.infinite_fluid_bucket.config.IFBConfig;
+import phoupraw.mcmod.infinite_fluid_bucket.misc.Infinities;
 
 @Mixin(MilkBucketItem.class)
 abstract class MMilkBucketItem extends Item {
@@ -17,14 +18,14 @@ abstract class MMilkBucketItem extends Item {
     }
     @Override
     public boolean isEnchantable(ItemStack stack) {
-        return Internals.CONFIG.instance().milkBucket;
+        return IFBConfig.HANDLER.instance().isMilkBucket();
     }
     @Override
     public ItemStack getRecipeRemainder(ItemStack stack) {
-        return Internals.isInfinity(stack) && Internals.CONFIG.instance().milkBucket ? stack.copy() : super.getRecipeRemainder(stack);
+        return Infinities.isInfinity(stack) && IFBConfig.HANDLER.instance().isMilkBucket() ? stack.copy() : super.getRecipeRemainder(stack);
     }
     @ModifyExpressionValue(method = "finishUsing", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/player/PlayerAbilities;creativeMode:Z"))
     private boolean checkInf(boolean original, ItemStack stack, World world, LivingEntity user) {
-        return original || Internals.isInfinity(stack) && Internals.CONFIG.instance().milkBucket;
+        return original || Infinities.isInfinity(stack) && IFBConfig.HANDLER.instance().isMilkBucket();
     }
 }

@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import phoupraw.mcmod.infinite_fluid_bucket.dispenser.InfWaterPotionBehavior;
+import phoupraw.mcmod.infinite_fluid_bucket.misc.Infinities;
 
 @Mixin(BrewingStandBlockEntity.class)
 abstract class MBrewingStandBlockEntity extends LockableContainerBlockEntity implements SidedInventory {
@@ -19,6 +19,6 @@ abstract class MBrewingStandBlockEntity extends LockableContainerBlockEntity imp
     }
     @ModifyExpressionValue(method = "isValid", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isEmpty()Z"))
     private boolean checkInf(boolean original, int slot, ItemStack stack) {
-        return original && !InfWaterPotionBehavior.isInf(stack);
+        return original && !Infinities.isInfinityPotion(stack);
     }
 }

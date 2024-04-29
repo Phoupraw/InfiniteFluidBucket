@@ -11,7 +11,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import phoupraw.mcmod.infinite_fluid_bucket.dispenser.InfEmptyBucketBehavior;
+import phoupraw.mcmod.infinite_fluid_bucket.config.IFBConfig;
+import phoupraw.mcmod.infinite_fluid_bucket.misc.Infinities;
 
 @Mixin(AbstractFurnaceBlockEntity.class)
 abstract class MAbstractFurnaceBlockEntity extends LockableContainerBlockEntity {
@@ -20,6 +21,6 @@ abstract class MAbstractFurnaceBlockEntity extends LockableContainerBlockEntity 
     }
     @WrapOperation(method = "craftRecipe", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z", ordinal = 2))
     private static boolean checkInf(ItemStack instance, Item item, Operation<Boolean> original) {
-        return original.call(instance, item) && !InfEmptyBucketBehavior.isInf(instance);
+        return original.call(instance, item) && !(IFBConfig.HANDLER.instance().isEmptyBucket() && Infinities.isInfinity(instance));
     }
 }

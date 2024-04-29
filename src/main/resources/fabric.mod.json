@@ -11,32 +11,15 @@
     "sources": "https://github.com/Phoupraw/InfiniteFluidBucket"
   },
   "entrypoints": {
-    "main": [
-      {
-        "adapter": "kotlin",
-        "value": "phoupraw.mcmod.infinite_fluid_bucket.InfiniteFluidBucket"
-      }
-    ],
-    "fabric-datagen": [
-      {
-        "adapter": "kotlin",
-        "value": "phoupraw.mcmod.infinite_fluid_bucket.datagen.InfiniteFluidBucketDataGen"
-      }
-    ],
-    "modmenu": [
-      {
-        "adapter": "kotlin",
-        "value": "phoupraw.mcmod.infinite_fluid_bucket.config.InfiniteFluidBucketModMenu"
-      }
-    ]
+    "main": ["phoupraw.mcmod.infinite_fluid_bucket.InfiniteFluidBucket"],
+    "fabric-datagen": ["phoupraw.mcmod.infinite_fluid_bucket.datagen.IFBDataGen"],
+    "modmenu": ["phoupraw.mcmod.infinite_fluid_bucket.config.IFBModMenuApi"]
   },
   "environment": "*",
   "depends": {
     "minecraft": "*",
     "fabricloader": ">=0.15.0",
     "fabric-api": "*",
-    "fabric-language-kotlin": "*",
-    "phoupraws_linked_lib": "*",
     "yet_another_config_lib_v3": "*"
   },
   "recommends": {
@@ -51,6 +34,10 @@
         "modmenu.modrinth": "https://modrinth.com/mod/infinite-fluid-bucket",
         "modmenu.curseforge": "https://www.curseforge.com/minecraft/mc-mods/infinite-fluid-bucket"
       }
+    },
+    "loom:injected_interfaces": {
+      "net.fabricmc.fabric.api.lookup.v1.custom.ApiProviderMap": ["phoupraw.mcmod.infinite_fluid_bucket.mixins.fabric.EApiProviderMap"],
+      "net.fabricmc.fabric.api.lookup.v1.item.ItemApiLookup": ["phoupraw.mcmod.infinite_fluid_bucket.mixins.fabric.EItemApiLookup"]
     }
   },
   "license": "MPL-2.0"

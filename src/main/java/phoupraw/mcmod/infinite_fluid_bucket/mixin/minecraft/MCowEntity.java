@@ -9,7 +9,8 @@ import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import phoupraw.mcmod.infinite_fluid_bucket.Internals;
+import phoupraw.mcmod.infinite_fluid_bucket.config.IFBConfig;
+import phoupraw.mcmod.infinite_fluid_bucket.misc.Infinities;
 
 @Mixin(CowEntity.class)
 abstract class MCowEntity extends AnimalEntity {
@@ -18,6 +19,6 @@ abstract class MCowEntity extends AnimalEntity {
     }
     @ModifyExpressionValue(method = "interactMob", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z"))
     private boolean checkInf(boolean original, PlayerEntity player, Hand hand) {
-        return original && !(Internals.isInfinity(player.getStackInHand(hand)) && Internals.CONFIG.instance().emptyBucket);
+        return original && !(IFBConfig.HANDLER.instance().isEmptyBucket() && Infinities.isInfinity(player.getStackInHand(hand)));
     }
 }

@@ -1,0 +1,139 @@
+plugins {
+    id 'fabric-loom' version '1.6-SNAPSHOT'
+    id 'maven-publish'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+    archivesName = project.archives_base_name
+}
+
+repositories {
+    maven {
+        name = "TerraformersMC"
+        url = "https://maven.terraformersmc.com/"
+        content {
+            includeGroup("com.terraformersmc")
+            includeGroup("dev.emi")
+        }
+    }
+    maven {
+        name = "Xander Maven"
+        url = "https://maven.isxander.dev/releases"
+        content {
+            includeGroup("dev.isxander.yacl") //yet-another-config-lib-fabric
+        }
+    }
+    maven {
+        url = "https://maven.quiltmc.org/repository/release"
+        content {
+            includeGroup("org.quiltmc.parsers")
+        }
+    }
+    maven {
+        url = "https://oss.sonatype.org/content/repositories/snapshots"
+        content {
+            includeGroupAndSubgroups("com.twelvemonkeys")
+        }
+    }
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
+        content {
+            includeGroup("maven.modrinth")
+        }
+    }
+}
+
+dependencies {
+    //## 基础依赖
+    minecraft "com.mojang:minecraft:${minecraft}"
+    mappings "net.fabricmc:yarn:${yarn_mappings}:v2"
+    modImplementation "net.fabricmc:fabric-loader:${loader}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api}"
+    //## mod依赖
+    modLocalRuntime modCompileOnly("com.terraformersmc:modmenu:${modmenu}")
+    modApi("dev.isxander.yacl:yet-another-config-lib-fabric:${yet_another_config_lib}")
+    //## 非mod依赖
+    compileOnlyApi annotationProcessor("org.projectlombok:lombok:${lombok}")
+    //## 非依赖
+    modCompileOnly /*modLocalRuntime*/("maven.modrinth:vmp-fabric:${vmp}")
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 17
+}
+
+java {
+    // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+    // if it is present.
+    // If you remove this line, sources will not be generated.
+    withSourcesJar()
+
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+jar {
+    from("LICENSE") {
+        rename { "${it}_${base.archivesName}" }
+    }
+    exclude(
+      "net.fabricmc.**"
+    )
+}
+
+// configure the maven publication
+publishing {
+    publications {
+        create("mavenJava", MavenPublication) {
+            from components.java
+        }
+    }
+
+    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+    repositories {
+        // Add repositories to publish to here.
+        // Notice: This block does NOT have the same function as the block in the top level.
+        // The repositories here will be used for publishing your artifact, not for
+        // retrieving dependencies.
+    }
+}
+fabricApi {
+    configureDataGeneration() {
+
+    }
+//    LoomGradleExtension.get(getProject()).getRunConfigs().create("datagen") { run ->
+//        run.inherit(extension.getRunConfigs().named("client").get())
+//        run.setConfigName("Data Generation");
+//
+//        run.property("fabric-api.datagen");
+//        run.property("fabric-api.datagen.output-dir", settings.getOutputDirectory().getAsFile().get().getAbsolutePath());
+//        run.runDir("build/datagen");
+//
+//        if (settings.getModId().isPresent()) {
+//            run.property("fabric-api.datagen.modid", settings.getModId().get());
+//        }
+//
+//        if (settings.getStrictValidation().get()) {
+//            run.property("fabric-api.datagen.strict-validation", "true");
+//        }
+//
+//        if (settings.getCreateSourceSet().get()) {
+//            run.source(DATAGEN_SOURCESET_NAME);
+//        }
+//    }
+}
+//loom {
+//    accessWidenerPath.set(file("src/main/resources/${mod_id}.accessWidener"))
+//}

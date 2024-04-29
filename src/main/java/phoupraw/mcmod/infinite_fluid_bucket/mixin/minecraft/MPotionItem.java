@@ -11,7 +11,7 @@ import net.minecraft.item.PotionItem;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import phoupraw.mcmod.infinite_fluid_bucket.dispenser.InfWaterPotionBehavior;
+import phoupraw.mcmod.infinite_fluid_bucket.misc.Infinities;
 
 @Mixin(PotionItem.class)
 abstract class MPotionItem extends Item {
@@ -20,18 +20,18 @@ abstract class MPotionItem extends Item {
     }
     @Override
     public boolean isEnchantable(ItemStack stack) {
-        return InfWaterPotionBehavior.isInf(stack);
+        return Infinities.canPotionInfinity(stack);
     }
     @Override
     public ItemStack getRecipeRemainder(ItemStack stack) {
-        return InfWaterPotionBehavior.isInf(stack) ? stack.copy() : super.getRecipeRemainder(stack);
+        return Infinities.isPotionInfinity(stack) ? stack.copy() : super.getRecipeRemainder(stack);
     }
     @ModifyExpressionValue(method = "finishUsing", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/player/PlayerAbilities;creativeMode:Z"))
     private boolean checkInf(boolean original, ItemStack stack, World world, LivingEntity user) {
-        return original || InfWaterPotionBehavior.isInf(stack);
+        return original || Infinities.isPotionInfinity(stack);
     }
     @WrapOperation(method = "useOnBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemUsage;exchangeStack(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;"))
     private ItemStack checkInf(ItemStack inputStack, PlayerEntity player, ItemStack outputStack, Operation<ItemStack> original) {
-        return InfWaterPotionBehavior.isInf(inputStack) ? inputStack : original.call(inputStack, player, outputStack);
+        return Infinities.isPotionInfinity(inputStack) ? inputStack : original.call(inputStack, player, outputStack);
     }
 }

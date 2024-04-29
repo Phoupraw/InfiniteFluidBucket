@@ -14,7 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import phoupraw.mcmod.infinite_fluid_bucket.dispenser.InfGlassBottleBehavior;
+import phoupraw.mcmod.infinite_fluid_bucket.misc.Infinities;
 
 @Mixin(BeehiveBlock.class)
 abstract class MBeehiveBlock extends BlockWithEntity {
@@ -23,12 +23,12 @@ abstract class MBeehiveBlock extends BlockWithEntity {
     }
     @WrapOperation(method = "onUse", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;decrement(I)V"))
     private void checkInf(ItemStack instance, int amount, Operation<Void> original) {
-        if (!InfGlassBottleBehavior.isInf(instance)) {
+        if (!Infinities.isGlassBottleInfinity(instance)) {
             original.call(instance, amount);
         }
     }
     @WrapOperation(method = "onUse", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerInventory;insertStack(Lnet/minecraft/item/ItemStack;)Z"))
     private boolean checkInf(PlayerInventory instance, ItemStack stack, Operation<Boolean> original, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        return InfGlassBottleBehavior.isInf(player.getStackInHand(hand)) || original.call(instance, stack);
+        return Infinities.isGlassBottleInfinity(player.getStackInHand(hand)) || original.call(instance, stack);
     }
 }
