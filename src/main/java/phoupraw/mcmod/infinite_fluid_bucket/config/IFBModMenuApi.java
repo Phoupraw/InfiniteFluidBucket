@@ -33,7 +33,7 @@ public final class IFBModMenuApi implements ModMenuApi {
                 .customImage(ItemRendererInConfig.of(Infinities.WATER_BUCKET))
                 .text(Text.translatable("config." + ID + ".waterBucket.desc"))
                 .build())
-              .binding(HANDLER.defaults().isWaterBucket(), HANDLER.instance()::isWaterBucket, HANDLER.instance()::setWaterBucket)
+              .binding(defaults.isWaterBucket(), config::isWaterBucket, config::setWaterBucket)
               .controller(TickBoxControllerBuilder::create)
               .build())
             .option(Option
@@ -44,7 +44,7 @@ public final class IFBModMenuApi implements ModMenuApi {
                 .customImage(ItemRendererInConfig.of(Infinities.EMTPY_BUCKET))
                 .text(Text.translatable("config." + ID + ".emptyBucket.desc"))
                 .build())
-              .binding(HANDLER.defaults().isEmptyBucket(), HANDLER.instance()::isEmptyBucket, HANDLER.instance()::setEmptyBucket)
+              .binding(defaults.isEmptyBucket(), config::isEmptyBucket, config::setEmptyBucket)
               .controller(TickBoxControllerBuilder::create)
               .build())
             .option(Option
@@ -55,7 +55,7 @@ public final class IFBModMenuApi implements ModMenuApi {
                 .customImage(ItemRendererInConfig.of(Infinities.WATER_BOTTLE))
                 .text(Text.translatable("config." + ID + ".waterPotion.desc"))
                 .build())
-              .binding(HANDLER.defaults().isWaterPotion(), HANDLER.instance()::isWaterPotion, HANDLER.instance()::setWaterPotion)
+              .binding(defaults.isWaterPotion(), config::isWaterPotion, config::setWaterPotion)
               .controller(TickBoxControllerBuilder::create)
               .build())
             .option(Option
@@ -66,7 +66,7 @@ public final class IFBModMenuApi implements ModMenuApi {
                 .customImage(ItemRendererInConfig.of(Infinities.EMPTY_BOTTLE))
                 .text(Text.translatable("config." + ID + ".glassBottle.desc"))
                 .build())
-              .binding(HANDLER.defaults().isGlassBottle(), HANDLER.instance()::isGlassBottle, HANDLER.instance()::setGlassBottle)
+              .binding(defaults.isGlassBottle(), config::isGlassBottle, config::setGlassBottle)
               .controller(TickBoxControllerBuilder::create)
               .build())
             .option(Option
@@ -77,7 +77,7 @@ public final class IFBModMenuApi implements ModMenuApi {
                 .customImage(ItemRendererInConfig.of(Infinities.MILK_BUCKET))
                 .text(Text.translatable("config." + ID + ".milkBucket.desc"))
                 .build())
-              .binding(HANDLER.defaults().isMilkBucket(), HANDLER.instance()::isMilkBucket, HANDLER.instance()::setMilkBucket)
+              .binding(defaults.isMilkBucket(), config::isMilkBucket, config::setMilkBucket)
               .controller(TickBoxControllerBuilder::create)
               .build())
             .build());
