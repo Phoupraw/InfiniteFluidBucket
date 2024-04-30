@@ -43,3 +43,9 @@
 - Infinity glass bottle can only be inserted with fluid that has bottle type.
 - Add item sprites to config screen.
 - No longer depends on _Fabirc Language Kotlin_.
+# 0.4.1
+## New
+- Add specific creative inventory tab.
+## Fix
+- (1.20-1.20.4 Only) Depends version format error.
+- Disabled infinity containers are still shown in creative inventory.

@@ -12,6 +12,7 @@ import net.minecraft.item.ItemGroups;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import phoupraw.mcmod.infinite_fluid_bucket.config.IFBConfig;
+import phoupraw.mcmod.infinite_fluid_bucket.constant.IFBItems;
 import phoupraw.mcmod.infinite_fluid_bucket.misc.Infinities;
 import phoupraw.mcmod.infinite_fluid_bucket.misc.Misc;
 import phoupraw.mcmod.infinite_fluid_bucket.transfer.base.InfinityBackingStorage;
@@ -39,15 +40,25 @@ public final class InfiniteFluidBucket implements ModInitializer {
         //FluidStorage.ITEM.getSpecificFor(Items.GLASS_BOTTLE).addPhaseOrdering(phase, Event.DEFAULT_PHASE);
         //FluidStorage.ITEM.getSpecificFor(Items.GLASS_BOTTLE).register((itemStack, context) -> Infinities.isGlassBottleInfinity(itemStack) ? InfinityBackingStorage.find(itemStack, FluidStorage.ITEM) : null);
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(entries -> {
-            entries.addAfter(Items.WATER_BUCKET, Infinities.WATER_BUCKET);
-            entries.addAfter(Items.BUCKET, Infinities.EMTPY_BUCKET);
-            entries.addAfter(Items.MILK_BUCKET, Infinities.MILK_BUCKET);
+            if (IFBConfig.HANDLER.instance().isEmptyBucket()) {
+                entries.addAfter(Items.WATER_BUCKET, Infinities.WATER_BUCKET);
+            }
+            if (IFBConfig.HANDLER.instance().isWaterBucket()) {
+                entries.addAfter(Items.BUCKET, Infinities.EMTPY_BUCKET);
+            }
+            if (IFBConfig.HANDLER.instance().isMilkBucket()) {
+                entries.addAfter(Items.MILK_BUCKET, Infinities.MILK_BUCKET);
+            }
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(entries -> {
-            entries.addAfter(Misc.WATER_POTION, Infinities.WATER_BOTTLE);
+            if (IFBConfig.HANDLER.instance().isWaterPotion()) {
+                entries.addAfter(Misc.WATER_POTION, Infinities.WATER_BOTTLE);
+            }
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(entries -> {
-            entries.addAfter(Items.GLASS_BOTTLE, Infinities.EMPTY_BOTTLE);
+            if (IFBConfig.HANDLER.instance().isGlassBottle()) {
+                entries.addAfter(Items.GLASS_BOTTLE, Infinities.EMPTY_BOTTLE);
+            }
         });
         EnchantmentEvents.ALLOW_ENCHANTING.register((enchantment, target, enchantingContext) -> enchantment == Enchantments.INFINITY && Infinities.canInfinity(target) ? TriState.TRUE : TriState.DEFAULT);
         //AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) -> {
@@ -91,5 +102,6 @@ public final class InfiniteFluidBucket implements ModInitializer {
         //    }
         //    return ActionResult.SUCCESS;
         //});
+        IFBItems.ITEM_GROUP.getType();
     }
 }
