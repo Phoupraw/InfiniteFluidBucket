@@ -43,3 +43,6 @@
 - Infinity glass bottle can only be inserted with fluid that has bottle type.
 - Add item sprites to config screen.
 - No longer depends on _Fabirc Language Kotlin_.
+# 0.4.2
+## Fix
+- (1.20.1 only) Crash on launch.
