@@ -17,6 +17,7 @@
     "minecraft.MBucketItem",
     "minecraft.MCauldronBehavior",
     "minecraft.MCowEntity",
+    "minecraft.MCraftingRecipeInput",
     "minecraft.MDispenserBehavior_17",
     "minecraft.MDispenserBehavior_20",
     "minecraft.MDispenserBehavior_8",
@@ -24,7 +25,8 @@
     "minecraft.MGlassBottleItem",
     "minecraft.MIngredient",
     "minecraft.MMilkBucketItem",
-    "minecraft.MPotionItem", "minecraft.MShapelessRecipe"
+    "minecraft.MPotionItem",
+    "minecraft.MShapelessRecipe"
   ],
   "injectors": {
     "defaultRequire": 1

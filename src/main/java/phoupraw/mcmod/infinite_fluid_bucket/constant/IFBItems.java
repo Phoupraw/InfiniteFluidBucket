@@ -1,6 +1,7 @@
 package phoupraw.mcmod.infinite_fluid_bucket.constant;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.PotionContentsComponent;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemGroup;
@@ -18,7 +19,7 @@ import phoupraw.mcmod.infinite_fluid_bucket.misc.Infinities;
 public sealed interface IFBItems permits InterfaceFinalizer {
     ItemGroup ITEM_GROUP = Registry.register(Registries.ITEM_GROUP, IFBIDs.of(InfiniteFluidBucket.ID), FabricItemGroup.builder()
       .displayName(Text.translatable(InfiniteFluidBucket.NAME))
-      .icon(() -> Infinities.LateInitItemStacks.WATER_BUCKET)
+      .icon(IFBItems::icon)
       .entries(IFBItems::entries)
       .build());
     private static void entries(ItemGroup.DisplayContext displayContext, ItemGroup.Entries entries) {
@@ -48,5 +49,10 @@ public sealed interface IFBItems permits InterfaceFinalizer {
             stack.addEnchantment(infinity, 1);
             entries.add(stack);
         }
+    }
+    private static ItemStack icon() {
+        ItemStack stack = Items.WATER_BUCKET.getDefaultStack();
+        stack.set(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, true);
+        return stack;
     }
 }
