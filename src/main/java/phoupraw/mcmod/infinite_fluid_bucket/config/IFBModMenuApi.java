@@ -30,7 +30,7 @@ public final class IFBModMenuApi implements ModMenuApi {
               .name(Items.WATER_BUCKET.getName())
               .description(OptionDescription
                 .createBuilder()
-                .customImage(ItemRendererInConfig.of(Infinities.WATER_BUCKET))
+                .customImage(ItemRendererInConfig.of(Infinities.LateInitItemStacks.WATER_BUCKET))
                 .text(Text.translatable("config." + ID + ".waterBucket.desc"))
                 .build())
               .binding(defaults.isWaterBucket(), config::isWaterBucket, config::setWaterBucket)
@@ -41,7 +41,7 @@ public final class IFBModMenuApi implements ModMenuApi {
               .name(Items.BUCKET.getName())
               .description(OptionDescription
                 .createBuilder()
-                .customImage(ItemRendererInConfig.of(Infinities.EMTPY_BUCKET))
+                .customImage(ItemRendererInConfig.of(Infinities.LateInitItemStacks.EMTPY_BUCKET))
                 .text(Text.translatable("config." + ID + ".emptyBucket.desc"))
                 .build())
               .binding(defaults.isEmptyBucket(), config::isEmptyBucket, config::setEmptyBucket)
@@ -52,7 +52,7 @@ public final class IFBModMenuApi implements ModMenuApi {
               .name(Misc.WATER_POTION.getName())
               .description(OptionDescription
                 .createBuilder()
-                .customImage(ItemRendererInConfig.of(Infinities.WATER_BOTTLE))
+                .customImage(ItemRendererInConfig.of(Infinities.LateInitItemStacks.WATER_BOTTLE))
                 .text(Text.translatable("config." + ID + ".waterPotion.desc"))
                 .build())
               .binding(defaults.isWaterPotion(), config::isWaterPotion, config::setWaterPotion)
@@ -63,7 +63,7 @@ public final class IFBModMenuApi implements ModMenuApi {
               .name(Items.GLASS_BOTTLE.getName())
               .description(OptionDescription
                 .createBuilder()
-                .customImage(ItemRendererInConfig.of(Infinities.EMPTY_BOTTLE))
+                .customImage(ItemRendererInConfig.of(Infinities.LateInitItemStacks.EMPTY_BOTTLE))
                 .text(Text.translatable("config." + ID + ".glassBottle.desc"))
                 .build())
               .binding(defaults.isGlassBottle(), config::isGlassBottle, config::setGlassBottle)
@@ -74,7 +74,7 @@ public final class IFBModMenuApi implements ModMenuApi {
               .name(Items.MILK_BUCKET.getName())
               .description(OptionDescription
                 .createBuilder()
-                .customImage(ItemRendererInConfig.of(Infinities.MILK_BUCKET))
+                .customImage(ItemRendererInConfig.of(Infinities.LateInitItemStacks.MILK_BUCKET))
                 .text(Text.translatable("config." + ID + ".milkBucket.desc"))
                 .build())
               .binding(defaults.isMilkBucket(), config::isMilkBucket, config::setMilkBucket)

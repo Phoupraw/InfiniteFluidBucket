@@ -7,10 +7,15 @@ import net.fabricmc.fabric.api.item.v1.EnchantmentEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.util.TriState;
+import net.minecraft.component.type.PotionContentsComponent;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.potion.Potions;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,7 +23,6 @@ import phoupraw.mcmod.infinite_fluid_bucket.config.IFBConfig;
 import phoupraw.mcmod.infinite_fluid_bucket.constant.IFBIDs;
 import phoupraw.mcmod.infinite_fluid_bucket.constant.IFBItems;
 import phoupraw.mcmod.infinite_fluid_bucket.misc.Infinities;
-import phoupraw.mcmod.infinite_fluid_bucket.misc.Misc;
 import phoupraw.mcmod.infinite_fluid_bucket.transfer.base.InfinityBackingStorage;
 
 import java.util.function.BooleanSupplier;
@@ -45,27 +49,41 @@ public final class InfiniteFluidBucket implements ModInitializer {
         //FluidStorage.ITEM.getSpecificFor(Items.GLASS_BOTTLE).addPhaseOrdering(phase, Event.DEFAULT_PHASE);
         //FluidStorage.ITEM.getSpecificFor(Items.GLASS_BOTTLE).register((itemStack, context) -> Infinities.isGlassBottleInfinity(itemStack) ? InfinityBackingStorage.find(itemStack, FluidStorage.ITEM) : null);
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(entries -> {
+            RegistryEntry<Enchantment> infinity = Infinities.getInfinity(entries.getContext().lookup());
             if (IFBConfig.getConfig().isEmptyBucket()) {
-                entries.addAfter(Items.WATER_BUCKET, Infinities.WATER_BUCKET);
+                ItemStack stack = Items.WATER_BUCKET.getDefaultStack();
+                stack.addEnchantment(infinity, 1);
+                entries.addAfter(Items.WATER_BUCKET, stack);
             }
             if (IFBConfig.getConfig().isWaterBucket()) {
-                entries.addAfter(Items.BUCKET, Infinities.EMTPY_BUCKET);
+                ItemStack stack = Items.BUCKET.getDefaultStack();
+                stack.addEnchantment(infinity, 1);
+                entries.addAfter(Items.BUCKET, stack);
             }
             if (IFBConfig.getConfig().isMilkBucket()) {
-                entries.addAfter(Items.MILK_BUCKET, Infinities.MILK_BUCKET);
+                ItemStack stack = Items.MILK_BUCKET.getDefaultStack();
+                stack.addEnchantment(infinity, 1);
+                entries.addAfter(Items.MILK_BUCKET, stack);
             }
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(entries -> {
             if (IFBConfig.getConfig().isWaterPotion()) {
-                entries.addAfter(Misc.WATER_POTION, Infinities.WATER_BOTTLE);
+                RegistryEntry<Enchantment> infinity = Infinities.getInfinity(entries.getContext().lookup());
+                ItemStack water = PotionContentsComponent.createStack(Items.POTION, Potions.WATER);
+                ItemStack stack = water.copy();
+                stack.addEnchantment(infinity, 1);
+                entries.addAfter(water, stack);
             }
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(entries -> {
             if (IFBConfig.getConfig().isGlassBottle()) {
-                entries.addAfter(Items.GLASS_BOTTLE, Infinities.EMPTY_BOTTLE);
+                RegistryEntry<Enchantment> infinity = Infinities.getInfinity(entries.getContext().lookup());
+                ItemStack stack = Items.GLASS_BOTTLE.getDefaultStack();
+                stack.addEnchantment(infinity, 1);
+                entries.addAfter(Items.GLASS_BOTTLE, stack);
             }
         });
-        EnchantmentEvents.ALLOW_ENCHANTING.register((enchantment, target, enchantingContext) -> enchantment == Enchantments.INFINITY && Infinities.canInfinity(target) ? TriState.TRUE : TriState.DEFAULT);
+        EnchantmentEvents.ALLOW_ENCHANTING.register((enchantment, target, enchantingContext) -> enchantment.getKey().orElseThrow() == Enchantments.INFINITY && Infinities.canInfinity(target) ? TriState.TRUE : TriState.DEFAULT);
         //AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) -> {
         //    ItemStack itemStack = player.getStackInHand(hand);
         //    if (!Infinities.isInfinity(itemStack)) return ActionResult.PASS;

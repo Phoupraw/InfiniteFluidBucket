@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import phoupraw.mcmod.infinite_fluid_bucket.config.IFBConfig;
 import phoupraw.mcmod.infinite_fluid_bucket.misc.Infinities;
 
 import java.util.function.Predicate;
@@ -23,11 +24,11 @@ import java.util.function.Predicate;
 abstract class MDispenserBehavior_17 {
     @WrapOperation(method = "dispenseSilently", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockState;isIn(Lnet/minecraft/registry/tag/TagKey;Ljava/util/function/Predicate;)Z"))
     private boolean checkInf(BlockState instance, TagKey<Block> tagKey, Predicate<BlockState> predicate, Operation<Boolean> original, BlockPointer pointer, ItemStack stack) {
-        return !Infinities.isGlassBottleInfinity(stack) && original.call(instance, tagKey, predicate);
+        return !(IFBConfig.getConfig().isGlassBottle() && Infinities.hasInfinity(stack, pointer.world().getRegistryManager())) && original.call(instance, tagKey, predicate);
     }
     @Inject(method = "replace", at = @At("HEAD"), cancellable = true)
     private void checkInf(BlockPointer pointer, ItemStack emptyBottleStack, ItemStack filledBottleStack, CallbackInfoReturnable<ItemStack> cir) {
-        if (Infinities.isGlassBottleInfinity(emptyBottleStack)) {
+        if (IFBConfig.getConfig().isGlassBottle() && Infinities.hasInfinity(emptyBottleStack, pointer.world().getRegistryManager())) {
             cir.setReturnValue(emptyBottleStack);
         }
     }

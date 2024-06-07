@@ -16,6 +16,6 @@ import phoupraw.mcmod.infinite_fluid_bucket.misc.Infinities;
 abstract class MDispenserBehavior_8 {
     @ModifyReturnValue(method = "dispenseSilently", at = @At(value = "RETURN"))
     private ItemStack checkInfinity(ItemStack original, BlockPointer pointer, ItemStack stack) {
-        return stack.isOf(Items.WATER_BUCKET) && IFBConfig.getConfig().isWaterBucket() && Infinities.hasInfinity(stack) ? stack : original;
+        return stack.isOf(Items.WATER_BUCKET) && IFBConfig.getConfig().isWaterBucket() && Infinities.hasInfinity(stack, pointer.world().getRegistryManager()) ? stack : original;
     }
 }

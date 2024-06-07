@@ -15,6 +15,6 @@ import phoupraw.mcmod.infinite_fluid_bucket.misc.Infinities;
 abstract class MDispenserBehavior_20 {
     @ModifyExpressionValue(method = "dispenseSilently", at = @At(value = "NEW", target = "(Lnet/minecraft/item/ItemConvertible;)Lnet/minecraft/item/ItemStack;"))
     private ItemStack checkInf(ItemStack original, BlockPointer pointer, ItemStack stack) {
-        return Infinities.isPotionInfinity(stack) ? stack : original;
+        return Infinities.canPotionInfinity(stack) && Infinities.hasInfinity(stack, pointer.world().getRegistryManager()) ? stack : original;
     }
 }

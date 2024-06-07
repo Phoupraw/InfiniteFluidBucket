@@ -15,6 +15,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import phoupraw.mcmod.infinite_fluid_bucket.config.IFBConfig;
 import phoupraw.mcmod.infinite_fluid_bucket.misc.Infinities;
 
 @Mixin(BeehiveBlock.class)
@@ -23,11 +24,11 @@ abstract class MBeehiveBlock extends BlockWithEntity {
         super(settings);
     }
     @WrapWithCondition(method = "onUseWithItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;decrement(I)V"))
-    private boolean checkInf(ItemStack instance, int amount) {
-        return !Infinities.isGlassBottleInfinity(instance);
+    private boolean checkInf(ItemStack instance, int amount, ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        return !(IFBConfig.getConfig().isGlassBottle() && Infinities.hasInfinity(instance, world.getRegistryManager()));
     }
     @WrapOperation(method = "onUseWithItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerInventory;insertStack(Lnet/minecraft/item/ItemStack;)Z"))
     private boolean checkInf(PlayerInventory instance, ItemStack stack, Operation<Boolean> original, ItemStack stackInHand, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        return Infinities.isGlassBottleInfinity(stackInHand) || original.call(instance, stack);
+        return IFBConfig.getConfig().isGlassBottle() && Infinities.hasInfinity(stackInHand, world.getRegistryManager()) || original.call(instance, stack);
     }
 }

@@ -7,7 +7,9 @@ import net.minecraft.block.entity.BrewingStandBlockEntity;
 import net.minecraft.block.entity.LockableContainerBlockEntity;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import phoupraw.mcmod.infinite_fluid_bucket.misc.Infinities;
@@ -19,6 +21,7 @@ abstract class MBrewingStandBlockEntity extends LockableContainerBlockEntity imp
     }
     @ModifyExpressionValue(method = "isValid", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isEmpty()Z"))
     private boolean checkInf(boolean original, int slot, ItemStack stack) {
-        return original && !Infinities.isInfinityPotion(stack);
+        World world = getWorld();
+        return original && !(stack.isOf(Items.POTION) && Infinities.canPotionInfinity(stack) && (world == null ? Infinities.hasInfinity(stack) : Infinities.hasInfinity(stack, world.getRegistryManager())));
     }
 }

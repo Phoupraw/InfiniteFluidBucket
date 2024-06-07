@@ -8,7 +8,11 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.LockableContainerBlockEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import phoupraw.mcmod.infinite_fluid_bucket.config.IFBConfig;
@@ -20,7 +24,7 @@ abstract class MAbstractFurnaceBlockEntity extends LockableContainerBlockEntity 
         super(blockEntityType, blockPos, blockState);
     }
     @WrapOperation(method = "craftRecipe", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z", ordinal = 1))
-    private static boolean checkInf(ItemStack instance, Item item, Operation<Boolean> original) {
-        return original.call(instance, item) && !(IFBConfig.getConfig().isEmptyBucket() && Infinities.hasInfinity(instance));
+    private static boolean checkInf(ItemStack instance, Item item, Operation<Boolean> original, DynamicRegistryManager registryManager, @Nullable RecipeEntry<?> recipe, DefaultedList<ItemStack> slots, int count) {
+        return original.call(instance, item) && !(IFBConfig.getConfig().isEmptyBucket() && Infinities.hasInfinity(instance, registryManager));
     }
 }

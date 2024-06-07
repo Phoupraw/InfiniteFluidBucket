@@ -16,16 +16,16 @@ abstract class MGlassBottleItem extends Item {
     public MGlassBottleItem(Settings settings) {
         super(settings);
     }
-    @Override
-    public boolean isEnchantable(ItemStack stack) {
-        return IFBConfig.getConfig().isGlassBottle();
-    }
+    //@Override
+    //public boolean isEnchantable(ItemStack stack) {
+    //    return IFBConfig.getConfig().isGlassBottle();
+    //}
     @Override
     public ItemStack getRecipeRemainder(ItemStack stack) {
         return Infinities.isGlassBottleInfinity(stack) ? stack.copy() : super.getRecipeRemainder(stack);
     }
     @WrapOperation(method = "fill", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemUsage;exchangeStack(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;"))
     private ItemStack checkInf(ItemStack inputStack, PlayerEntity player, ItemStack outputStack, Operation<ItemStack> original) {
-        return Infinities.isGlassBottleInfinity(inputStack) ? inputStack : original.call(inputStack, player, outputStack);
+        return IFBConfig.getConfig().isGlassBottle() && Infinities.hasInfinity(inputStack, player.getRegistryManager()) ? inputStack : original.call(inputStack, player, outputStack);
     }
 }
