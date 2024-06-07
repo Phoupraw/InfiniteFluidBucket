@@ -17,19 +17,19 @@ public sealed interface IFBItems permits InterfaceFinalizer {
       .entries(IFBItems::entries)
       .build());
     private static void entries(ItemGroup.DisplayContext displayContext, ItemGroup.Entries entries) {
-        if (IFBConfig.HANDLER.instance().isEmptyBucket()) {
+        if (IFBConfig.getConfig().isEmptyBucket()) {
             entries.add(Infinities.EMTPY_BUCKET);
         }
-        if (IFBConfig.HANDLER.instance().isWaterBucket()) {
+        if (IFBConfig.getConfig().isWaterBucket()) {
             entries.add(Infinities.WATER_BUCKET);
         }
-        if (IFBConfig.HANDLER.instance().isMilkBucket()) {
+        if (IFBConfig.getConfig().isMilkBucket()) {
             entries.add(Infinities.MILK_BUCKET);
         }
-        if (IFBConfig.HANDLER.instance().isGlassBottle()) {
+        if (IFBConfig.getConfig().isGlassBottle()) {
             entries.add(Infinities.EMPTY_BOTTLE);
         }
-        if (IFBConfig.HANDLER.instance().isWaterPotion()) {
+        if (IFBConfig.getConfig().isWaterPotion()) {
             entries.add(Infinities.WATER_BOTTLE);
         }
     }

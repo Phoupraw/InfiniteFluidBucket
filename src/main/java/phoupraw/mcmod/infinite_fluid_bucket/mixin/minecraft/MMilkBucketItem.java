@@ -18,15 +18,15 @@ abstract class MMilkBucketItem extends Item {
     }
     @Override
     public boolean isEnchantable(ItemStack stack) {
-        return IFBConfig.HANDLER.instance().isMilkBucket();
+        return IFBConfig.getConfig().isMilkBucket();
     }
     @Override
     public ItemStack getRecipeRemainder(ItemStack stack) {
-        return Infinities.hasInfinity(stack) && IFBConfig.HANDLER.instance().isMilkBucket() ? stack.copy() : super.getRecipeRemainder(stack);
+        return Infinities.hasInfinity(stack) && IFBConfig.getConfig().isMilkBucket() ? stack.copy() : super.getRecipeRemainder(stack);
     }
     @WrapOperation(method = "finishUsing", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;decrementUnlessCreative(ILnet/minecraft/entity/LivingEntity;)V"))
     private void checkInf(ItemStack instance, int amount, LivingEntity entity, Operation<Void> original) {
-        if (!(IFBConfig.HANDLER.instance().isMilkBucket() && Infinities.hasInfinity(instance))) {
+        if (!(IFBConfig.getConfig().isMilkBucket() && Infinities.hasInfinity(instance))) {
             original.call(instance, amount, entity);
         }
     }

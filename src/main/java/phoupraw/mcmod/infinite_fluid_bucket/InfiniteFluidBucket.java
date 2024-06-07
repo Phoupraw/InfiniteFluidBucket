@@ -2,6 +2,7 @@ package phoupraw.mcmod.infinite_fluid_bucket;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.Event;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.item.v1.EnchantmentEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
@@ -11,7 +12,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import phoupraw.mcmod.infinite_fluid_bucket.config.IFBConfig;
+import phoupraw.mcmod.infinite_fluid_bucket.constant.IFBIDs;
 import phoupraw.mcmod.infinite_fluid_bucket.constant.IFBItems;
 import phoupraw.mcmod.infinite_fluid_bucket.misc.Infinities;
 import phoupraw.mcmod.infinite_fluid_bucket.misc.Misc;
@@ -22,9 +26,10 @@ import java.util.function.BooleanSupplier;
 public final class InfiniteFluidBucket implements ModInitializer {
     public static final String ID = "infinite_fluid_bucket";
     public static final String NAME = "modmenu.nameTranslation." + ID;
+    public static final Logger LOGGER = LogManager.getLogger(ID);
     @Override
     public void onInitialize() {
-        Identifier phase = new Identifier(ID, "common");
+        Identifier phase = IFBIDs.of("common");
         for (var entry : IFBConfig.ITEM_OPTIONS.entrySet()) {
             Item item = entry.getKey();
             BooleanSupplier option = entry.getValue();
@@ -40,23 +45,23 @@ public final class InfiniteFluidBucket implements ModInitializer {
         //FluidStorage.ITEM.getSpecificFor(Items.GLASS_BOTTLE).addPhaseOrdering(phase, Event.DEFAULT_PHASE);
         //FluidStorage.ITEM.getSpecificFor(Items.GLASS_BOTTLE).register((itemStack, context) -> Infinities.isGlassBottleInfinity(itemStack) ? InfinityBackingStorage.find(itemStack, FluidStorage.ITEM) : null);
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(entries -> {
-            if (IFBConfig.HANDLER.instance().isEmptyBucket()) {
+            if (IFBConfig.getConfig().isEmptyBucket()) {
                 entries.addAfter(Items.WATER_BUCKET, Infinities.WATER_BUCKET);
             }
-            if (IFBConfig.HANDLER.instance().isWaterBucket()) {
+            if (IFBConfig.getConfig().isWaterBucket()) {
                 entries.addAfter(Items.BUCKET, Infinities.EMTPY_BUCKET);
             }
-            if (IFBConfig.HANDLER.instance().isMilkBucket()) {
+            if (IFBConfig.getConfig().isMilkBucket()) {
                 entries.addAfter(Items.MILK_BUCKET, Infinities.MILK_BUCKET);
             }
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(entries -> {
-            if (IFBConfig.HANDLER.instance().isWaterPotion()) {
+            if (IFBConfig.getConfig().isWaterPotion()) {
                 entries.addAfter(Misc.WATER_POTION, Infinities.WATER_BOTTLE);
             }
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(entries -> {
-            if (IFBConfig.HANDLER.instance().isGlassBottle()) {
+            if (IFBConfig.getConfig().isGlassBottle()) {
                 entries.addAfter(Items.GLASS_BOTTLE, Infinities.EMPTY_BOTTLE);
             }
         });
@@ -103,5 +108,7 @@ public final class InfiniteFluidBucket implements ModInitializer {
         //    return ActionResult.SUCCESS;
         //});
         IFBItems.ITEM_GROUP.getType();
+        ServerLifecycleEvents.SERVER_STARTING.register(Infinities::setServer);
+        ServerLifecycleEvents.SERVER_STOPPED.register(Infinities::unsetServer);
     }
 }

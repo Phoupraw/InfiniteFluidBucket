@@ -1,12 +1,11 @@
 package phoupraw.mcmod.infinite_fluid_bucket.mixin.minecraft;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.math.BlockPointer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import phoupraw.mcmod.infinite_fluid_bucket.config.IFBConfig;
 import phoupraw.mcmod.infinite_fluid_bucket.misc.Infinities;
 
@@ -15,10 +14,8 @@ import phoupraw.mcmod.infinite_fluid_bucket.misc.Infinities;
  */
 @Mixin(targets = "net/minecraft/block/dispenser/DispenserBehavior$15")
 abstract class MDispenserBehavior_8 {
-    @Inject(method = "dispenseSilently", at = @At(value = "RETURN"), cancellable = true)
-    private void checkInfinity(BlockPointer pointer, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
-        if (stack.isOf(Items.WATER_BUCKET) && IFBConfig.HANDLER.instance().isWaterBucket() && Infinities.hasInfinity(stack)) {
-            cir.setReturnValue(stack);
-        }
+    @ModifyReturnValue(method = "dispenseSilently", at = @At(value = "RETURN"))
+    private ItemStack checkInfinity(ItemStack original, BlockPointer pointer, ItemStack stack) {
+        return stack.isOf(Items.WATER_BUCKET) && IFBConfig.getConfig().isWaterBucket() && Infinities.hasInfinity(stack) ? stack : original;
     }
 }

@@ -18,7 +18,7 @@ abstract class MGlassBottleItem extends Item {
     }
     @Override
     public boolean isEnchantable(ItemStack stack) {
-        return IFBConfig.HANDLER.instance().isGlassBottle();
+        return IFBConfig.getConfig().isGlassBottle();
     }
     @Override
     public ItemStack getRecipeRemainder(ItemStack stack) {

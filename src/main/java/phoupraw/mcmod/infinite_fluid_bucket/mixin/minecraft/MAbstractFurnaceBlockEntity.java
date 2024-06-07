@@ -21,6 +21,6 @@ abstract class MAbstractFurnaceBlockEntity extends LockableContainerBlockEntity 
     }
     @WrapOperation(method = "craftRecipe", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z", ordinal = 1))
     private static boolean checkInf(ItemStack instance, Item item, Operation<Boolean> original) {
-        return original.call(instance, item) && !(IFBConfig.HANDLER.instance().isEmptyBucket() && Infinities.hasInfinity(instance));
+        return original.call(instance, item) && !(IFBConfig.getConfig().isEmptyBucket() && Infinities.hasInfinity(instance));
     }
 }

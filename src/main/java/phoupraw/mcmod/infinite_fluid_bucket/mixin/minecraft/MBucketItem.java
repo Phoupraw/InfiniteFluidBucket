@@ -17,13 +17,13 @@ class MBucketItem extends Item {
     @Override
     public boolean isEnchantable(ItemStack stack) {
         if (stack.isOf(Items.WATER_BUCKET)) {
-            return IFBConfig.HANDLER.instance().isWaterBucket();
+            return IFBConfig.getConfig().isWaterBucket();
         }
         if (stack.isOf(Items.BUCKET)) {
-            return IFBConfig.HANDLER.instance().isEmptyBucket();
+            return IFBConfig.getConfig().isEmptyBucket();
         }
         if (stack.isOf(Items.MILK_BUCKET)) {
-            return IFBConfig.HANDLER.instance().isMilkBucket();
+            return IFBConfig.getConfig().isMilkBucket();
         }
         return false;
     }

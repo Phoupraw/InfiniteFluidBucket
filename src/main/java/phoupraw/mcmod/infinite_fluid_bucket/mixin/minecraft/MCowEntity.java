@@ -19,6 +19,6 @@ abstract class MCowEntity extends AnimalEntity {
     }
     @ModifyExpressionValue(method = "interactMob", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z"))
     private boolean checkInf(boolean original, PlayerEntity player, Hand hand) {
-        return original && !(IFBConfig.HANDLER.instance().isEmptyBucket() && Infinities.hasInfinity(player.getStackInHand(hand)));
+        return original && !(IFBConfig.getConfig().isEmptyBucket() && Infinities.hasInfinity(player.getStackInHand(hand)));
     }
 }

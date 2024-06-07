@@ -17,7 +17,7 @@ import phoupraw.mcmod.infinite_fluid_bucket.misc.Infinities;
 abstract class MDispenserBehavior_9 {
     @Inject(method = "dispenseSilently", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;getItem()Lnet/minecraft/item/Item;"), cancellable = true)
     private void checkInf(BlockPointer pointer, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
-        if (IFBConfig.HANDLER.instance().isEmptyBucket() && Infinities.hasInfinity(stack)) {
+        if (IFBConfig.getConfig().isEmptyBucket() && Infinities.hasInfinity(stack)) {
             cir.setReturnValue(stack);
         }
     }

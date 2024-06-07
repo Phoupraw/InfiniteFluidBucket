@@ -5,6 +5,6 @@ import phoupraw.mcmod.infinite_fluid_bucket.InfiniteFluidBucket;
 
 public sealed interface IFBIDs permits InterfaceFinalizer {
     static Identifier of(String path) {
-        return new Identifier(InfiniteFluidBucket.ID, path);
+        return Identifier.of(InfiniteFluidBucket.ID, path);
     }
 }

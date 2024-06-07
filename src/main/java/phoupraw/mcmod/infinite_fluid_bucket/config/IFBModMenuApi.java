@@ -15,7 +15,7 @@ import phoupraw.mcmod.infinite_fluid_bucket.misc.Infinities;
 import phoupraw.mcmod.infinite_fluid_bucket.misc.Misc;
 
 import static phoupraw.mcmod.infinite_fluid_bucket.InfiniteFluidBucket.ID;
-import static phoupraw.mcmod.infinite_fluid_bucket.config.IFBConfig.HANDLER;
+import static phoupraw.mcmod.infinite_fluid_bucket.config.IFBConfig.YACL.HANDLER;
 
 public final class IFBModMenuApi implements ModMenuApi {
     private static YetAnotherConfigLib.Builder modifyBuilder(IFBConfig defaults, IFBConfig config, YetAnotherConfigLib.Builder builder) {

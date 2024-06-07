@@ -28,5 +28,6 @@
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "plugin": "phoupraw.mcmod.infinite_fluid_bucket.mixins.IFBMixinConfigPlugin"
 }

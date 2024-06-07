@@ -17,6 +17,6 @@ interface MBucketable {
     @ModifyExpressionValue(method = "tryBucket", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;isAlive()Z"))
     private static boolean infinityBucket(boolean original, PlayerEntity player, Hand hand, LivingEntity entity) {
         ItemStack stack = player.getStackInHand(hand);
-        return original && !(stack.isOf(Items.WATER_BUCKET) && IFBConfig.HANDLER.instance().isWaterBucket() && Infinities.hasInfinity(stack));
+        return original && !(stack.isOf(Items.WATER_BUCKET) && IFBConfig.getConfig().isWaterBucket() && Infinities.hasInfinity(stack));
     }
 }
