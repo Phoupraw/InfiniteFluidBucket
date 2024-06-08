@@ -13,12 +13,12 @@ import phoupraw.mcmod.infinite_fluid_bucket.misc.Infinities;
 
 @Mixin(BucketItem.class)
 class MBucketItem extends Item {
-    public MBucketItem(Settings settings) {
-        super(settings);
-    }
     @ModifyExpressionValue(method = "getEmptiedStack", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;isInCreativeMode()Z"))
     private static boolean infinityBucket(boolean original, ItemStack stack, PlayerEntity player) {
         return original || Infinities.canInfinityBucket(stack) && Infinities.hasInfinity(stack, player.getRegistryManager());
+    }
+    public MBucketItem(Settings settings) {
+        super(settings);
     }
     //@Override
     //public boolean isEnchantable(ItemStack stack) {

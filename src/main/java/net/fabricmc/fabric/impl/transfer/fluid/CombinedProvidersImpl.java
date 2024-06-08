@@ -44,27 +44,6 @@ public class CombinedProvidersImpl {
             return storages.isEmpty() ? null : new CombinedStorage<>(storages);
         });
     }
-    @ApiStatus.Internal
-    public static class Provider implements ItemApiLookup.ItemApiProvider<Storage<FluidVariant>, ContainerItemContext> {
-        @ApiStatus.Internal
-        public final Event<FluidStorage.CombinedItemApiProvider> event = createEvent(true);
-        
-        @Override
-        @Nullable
-        public Storage<FluidVariant> find(ItemStack itemStack, ContainerItemContext context) {
-            if (!context.getItemVariant().matches(itemStack)) {
-                String errorMessage = String.format(
-                  "Query stack %s and ContainerItemContext variant %s don't match.",
-                  itemStack,
-                  context.getItemVariant()
-                );
-                throw new IllegalArgumentException(errorMessage);
-            }
-            
-            return event.invoker().find(context);
-        }
-    }
-    
     public static Event<FluidStorage.CombinedItemApiProvider> getOrCreateItemEvent(Item item) {
         ItemApiLookup.ItemApiProvider<Storage<FluidVariant>, ContainerItemContext> existingProvider = FluidStorage.ITEM.getProvider(item);
         
@@ -83,6 +62,27 @@ public class CombinedProvidersImpl {
               existingProvider
             );
             throw new IllegalStateException(errorMessage);
+        }
+    }
+    
+    @ApiStatus.Internal
+    public static class Provider implements ItemApiLookup.ItemApiProvider<Storage<FluidVariant>, ContainerItemContext> {
+        @ApiStatus.Internal
+        public final Event<FluidStorage.CombinedItemApiProvider> event = createEvent(true);
+        
+        @Override
+        @Nullable
+        public Storage<FluidVariant> find(ItemStack itemStack, ContainerItemContext context) {
+            if (!context.getItemVariant().matches(itemStack)) {
+                String errorMessage = String.format(
+                  "Query stack %s and ContainerItemContext variant %s don't match.",
+                  itemStack,
+                  context.getItemVariant()
+                );
+                throw new IllegalArgumentException(errorMessage);
+            }
+            
+            return event.invoker().find(context);
         }
     }
 }

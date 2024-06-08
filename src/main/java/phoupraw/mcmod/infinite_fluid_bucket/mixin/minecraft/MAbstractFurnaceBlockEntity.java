@@ -20,11 +20,11 @@ import phoupraw.mcmod.infinite_fluid_bucket.misc.Infinities;
 
 @Mixin(AbstractFurnaceBlockEntity.class)
 abstract class MAbstractFurnaceBlockEntity extends LockableContainerBlockEntity {
-    protected MAbstractFurnaceBlockEntity(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {
-        super(blockEntityType, blockPos, blockState);
-    }
     @WrapOperation(method = "craftRecipe", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z", ordinal = 1))
     private static boolean checkInf(ItemStack instance, Item item, Operation<Boolean> original, DynamicRegistryManager registryManager, @Nullable RecipeEntry<?> recipe, DefaultedList<ItemStack> slots, int count) {
         return original.call(instance, item) && !(IFBConfig.getConfig().isEmptyBucket() && Infinities.hasInfinity(instance, registryManager));
+    }
+    protected MAbstractFurnaceBlockEntity(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {
+        super(blockEntityType, blockPos, blockState);
     }
 }

@@ -10,11 +10,11 @@ import phoupraw.mcmod.infinite_fluid_bucket.misc.Infinities;
 
 @Mixin(targets = "net.minecraft.screen.BrewingStandScreenHandler$PotionSlot")
 abstract class MBrewingStandScreenHandler_PotionSlot extends Slot {
-    public MBrewingStandScreenHandler_PotionSlot(Inventory inventory, int index, int x, int y) {
-        super(inventory, index, x, y);
-    }
     @ModifyReturnValue(method = "matches", at = @At("RETURN"))
     private static boolean checkInf(boolean original, ItemStack stack) {
         return original && !Infinities.isInfinityPotion(stack);
+    }
+    public MBrewingStandScreenHandler_PotionSlot(Inventory inventory, int index, int x, int y) {
+        super(inventory, index, x, y);
     }
 }

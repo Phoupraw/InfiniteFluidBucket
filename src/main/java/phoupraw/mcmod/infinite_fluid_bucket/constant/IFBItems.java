@@ -16,7 +16,7 @@ import phoupraw.mcmod.infinite_fluid_bucket.InfiniteFluidBucket;
 import phoupraw.mcmod.infinite_fluid_bucket.config.IFBConfig;
 import phoupraw.mcmod.infinite_fluid_bucket.misc.Infinities;
 
-public sealed interface IFBItems permits InterfaceFinalizer {
+public sealed interface IFBItems permits IFBRegistryInitializer {
     ItemGroup ITEM_GROUP = Registry.register(Registries.ITEM_GROUP, IFBIDs.of(InfiniteFluidBucket.ID), FabricItemGroup.builder()
       .displayName(Text.translatable(InfiniteFluidBucket.NAME))
       .icon(IFBItems::icon)
@@ -52,7 +52,7 @@ public sealed interface IFBItems permits InterfaceFinalizer {
     }
     private static ItemStack icon() {
         ItemStack stack = Items.WATER_BUCKET.getDefaultStack();
-        stack.set(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, true);
+        stack.set(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, false);
         return stack;
     }
 }

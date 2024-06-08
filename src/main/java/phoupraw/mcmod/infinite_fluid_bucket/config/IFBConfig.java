@@ -49,7 +49,7 @@ public final class IFBConfig {
     public boolean milkBucket = true;
     
     @UtilityClass
-    public class YACL {
+    class YACL {
         public static final ConfigClassHandler<IFBConfig> HANDLER = ConfigClassHandler
           .createBuilder(IFBConfig.class)
           .id(IFBIDs.of("only"))

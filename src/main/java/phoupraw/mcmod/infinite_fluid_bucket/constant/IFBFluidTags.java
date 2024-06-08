@@ -4,7 +4,8 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 
-public sealed interface IFBFluidTags permits InterfaceFinalizer {
+public sealed interface IFBFluidTags permits IFBRegistryInitializer {
+    //TagKey<Fluid> BUCKET_FLUIDS = of("bucket_fluids");
     //TagKey<Fluid>
     //  EMPTY_BUCKET = of("empty_bucket"),
     //  EMPTY_BOTTLE = of("empty_bottle");

@@ -25,14 +25,14 @@ public interface InfinityEmptyStorage<T> extends SingleSlotStorage<T>, Insertion
         return canInsert(resource) && maxAmount >= getCapacity() ? getCapacity() : 0;
     }
     @Override
+    default long extract(T resource, long maxAmount, TransactionContext transaction) {
+        return InsertionOnlyStorage.super.extract(resource, maxAmount, transaction);
+    }
+    @Override
     default @NotNull Iterator<StorageView<T>> iterator() {
         return SingleSlotStorage.super.iterator();
     }
     default boolean canInsert(T resource) {
         return true;
-    }
-    @Override
-    default long extract(T resource, long maxAmount, TransactionContext transaction) {
-        return InsertionOnlyStorage.super.extract(resource, maxAmount, transaction);
     }
 }

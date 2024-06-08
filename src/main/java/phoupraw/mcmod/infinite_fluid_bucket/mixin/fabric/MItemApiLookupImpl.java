@@ -31,21 +31,13 @@ abstract class MItemApiLookupImpl<A, C> implements ItemApiLookup<A, C> {
     private final ApiProviderMap<Item, Event<ItemApiProvider<A, C>>> itemSpecific = ApiProviderMap.create();
     private final Event<ItemApiProvider<A, C>> fallback = newEvent();
     @Override
-    @Deprecated(forRemoval = true)
-    public @Nullable ItemApiProvider<A, C> getProvider(@NotNull Item item) {
-        var event = itemSpecific.get(item);
-        return event == null ? null : (itemStack, context) -> event.invoker().find(itemStack, context);
-    }
-    @Override
     public Event<ItemApiProvider<A, C>> preliminary() {
         return preliminary;
     }
-    
     @Override
     public Map<@NotNull Item, @NotNull Event<ItemApiProvider<A, C>>> itemSpecific() {
         return itemSpecific.asMap();
     }
-    
     @Override
     public @NotNull Event<ItemApiProvider<A, C>> getSpecificFor(@NotNull Item item) {
         Event<ItemApiProvider<A, C>> event = itemSpecific.get(item);
@@ -57,7 +49,6 @@ abstract class MItemApiLookupImpl<A, C> implements ItemApiLookup<A, C> {
         
         return event;
     }
-    
     @Override
     public Event<ItemApiProvider<A, C>> fallback() {
         return fallback;
@@ -75,7 +66,6 @@ abstract class MItemApiLookupImpl<A, C> implements ItemApiLookup<A, C> {
         
         return fallback().invoker().find(itemStack, context);
     }
-    
     @SuppressWarnings("unchecked")
     @Override
     public void registerSelf(ItemConvertible @NotNull ... items) {
@@ -111,5 +101,11 @@ abstract class MItemApiLookupImpl<A, C> implements ItemApiLookup<A, C> {
     @Override
     public void registerFallback(@NotNull ItemApiProvider<A, C> fallbackProvider) {
         fallback().register(fallbackProvider);
+    }
+    @Override
+    @Deprecated(forRemoval = true)
+    public @Nullable ItemApiProvider<A, C> getProvider(@NotNull Item item) {
+        var event = itemSpecific.get(item);
+        return event == null ? null : (itemStack, context) -> event.invoker().find(itemStack, context);
     }
 }

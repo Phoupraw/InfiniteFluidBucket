@@ -2,7 +2,6 @@ package phoupraw.mcmod.infinite_fluid_bucket;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.Event;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.item.v1.EnchantmentEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
@@ -21,12 +20,17 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import phoupraw.mcmod.infinite_fluid_bucket.config.IFBConfig;
 import phoupraw.mcmod.infinite_fluid_bucket.constant.IFBIDs;
-import phoupraw.mcmod.infinite_fluid_bucket.constant.IFBItems;
+import phoupraw.mcmod.infinite_fluid_bucket.constant.IFBRegistryInitializer;
 import phoupraw.mcmod.infinite_fluid_bucket.misc.Infinities;
 import phoupraw.mcmod.infinite_fluid_bucket.transfer.base.InfinityBackingStorage;
 
 import java.util.function.BooleanSupplier;
 
+/*
+ -Dmixin.debug.export=false
+ -Dmixin.debug.export.decompile=true
+ -javaagent:"C:\Users\46793\.gradle\caches\modules-2\files-2.1\net.fabricmc\sponge-mixin\0.12.5+mixin.0.8.5\8d31fb97c3e0cd7c8dad3441851c523bcfae6d8e\sponge-mixin-0.12.5+mixin.0.8.5.jar"
+ */
 public final class InfiniteFluidBucket implements ModInitializer {
     public static final String ID = "infinite_fluid_bucket";
     public static final String NAME = "modmenu.nameTranslation." + ID;
@@ -84,6 +88,7 @@ public final class InfiniteFluidBucket implements ModInitializer {
             }
         });
         EnchantmentEvents.ALLOW_ENCHANTING.register((enchantment, target, enchantingContext) -> enchantment.getKey().orElseThrow() == Enchantments.INFINITY && Infinities.canInfinity(target) ? TriState.TRUE : TriState.DEFAULT);
+        new IFBRegistryInitializer();
         //AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) -> {
         //    ItemStack itemStack = player.getStackInHand(hand);
         //    if (!Infinities.isInfinity(itemStack)) return ActionResult.PASS;
@@ -125,8 +130,7 @@ public final class InfiniteFluidBucket implements ModInitializer {
         //    }
         //    return ActionResult.SUCCESS;
         //});
-        IFBItems.ITEM_GROUP.getType();
-        ServerLifecycleEvents.SERVER_STARTING.register(Infinities::setServer);
-        ServerLifecycleEvents.SERVER_STOPPED.register(Infinities::unsetServer);
+        //ServerLifecycleEvents.SERVER_STARTING.register(Infinities::setServer);
+        //ServerLifecycleEvents.SERVER_STOPPED.register(Infinities::unsetServer);
     }
 }

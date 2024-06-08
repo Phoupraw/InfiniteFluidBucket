@@ -25,6 +25,7 @@ import java.util.function.Predicate;
 
 @UtilityClass
 public class Infinities {
+    @Deprecated
     private static @Nullable MinecraftServer server;
     //public static RegistryEntry<Enchantment> getInfinity() {
     //    return getInfinity(getRegistries());//getRegistries().get(RegistryKeys.ENCHANTMENT).getEntry(Enchantments.INFINITY).orElseThrow();
@@ -100,6 +101,7 @@ public class Infinities {
         return canInfinity(any) && hasInfinity(any);
     }
     @Contract("_ -> param1")
+    @Deprecated
     public static @NotNull ItemStack addInfinity(ItemStack any) {
         return addInfinity(any, getRegistries());
     }
@@ -115,21 +117,25 @@ public class Infinities {
         EnchantmentHelper.set(any, builder.build());
         return any;
     }
+    @Deprecated
     public static @Nullable MinecraftServer getServer() {
         return server;
     }
+    @Deprecated
     public static void setServer(@Nullable MinecraftServer server) {
         if (server != null && Infinities.server != null) {
             InfiniteFluidBucket.LOGGER.throwing(new IllegalStateException("The game progress has two servers in the meantime! param: %s, field: %s".formatted(server, Infinities.server)));
         }
         Infinities.server = server;
     }
+    @Deprecated
     public static void unsetServer(MinecraftServer server) {
         if (server != Infinities.server) {
             InfiniteFluidBucket.LOGGER.throwing(new IllegalArgumentException("The param server isn't the field server! param: %s, field: %s".formatted(server, Infinities.server)));
         }
         Infinities.setServer(null);
     }
+    @Deprecated
     public static DynamicRegistryManager getRegistries() {
         MinecraftServer server = getServer();
         if (server != null) {

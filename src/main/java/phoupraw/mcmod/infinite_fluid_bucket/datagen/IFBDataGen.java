@@ -9,6 +9,9 @@ public final class IFBDataGen implements DataGeneratorEntrypoint {
     @Override
     public void onInitializeDataGenerator(FabricDataGenerator g) {
         var pack = g.createPack();
+        pack.addProvider(ItemTagGen::new);
+        pack.addProvider(FluidTagGen::new);
+        //client
         pack.addProvider(Chinese::new);
         pack.addProvider(English::new);
     }
