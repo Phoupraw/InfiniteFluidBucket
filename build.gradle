@@ -54,7 +54,7 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${loader}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api}"
     //## mod依赖
-    /*modLocalRuntime*/ modCompileOnly("com.terraformersmc:modmenu:${modmenu}")
+    /*modLocalRuntime*/ modApi("com.terraformersmc:modmenu:${modmenu}")
     modCompileOnlyApi("maven.modrinth:yacl:${yacl}")
     //## 非mod依赖
     compileOnlyApi annotationProcessor("org.projectlombok:lombok:${lombok}")

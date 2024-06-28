@@ -15,7 +15,7 @@ import phoupraw.mcmod.infinite_fluid_bucket.misc.Infinities;
 class MBucketItem extends Item {
     @ModifyExpressionValue(method = "getEmptiedStack", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;isInCreativeMode()Z"))
     private static boolean infinityBucket(boolean original, ItemStack stack, PlayerEntity player) {
-        return original || Infinities.canInfinityBucket(stack) && Infinities.hasInfinity(stack, player.getRegistryManager());
+        return original || Infinities.isInfinity(stack);
     }
     public MBucketItem(Settings settings) {
         super(settings);
@@ -35,10 +35,10 @@ class MBucketItem extends Item {
     //}
     @Override
     public ItemStack getRecipeRemainder(ItemStack stack) {
-        return Infinities.isInfinityFluidBucket(stack) ? stack.copy() : super.getRecipeRemainder(stack);
+        return Infinities.isInfinity(stack) ? stack.copy() : super.getRecipeRemainder(stack);
     }
     @WrapOperation(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemUsage;exchangeStack(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;"))
     private ItemStack infinityBucket(ItemStack inputStack, PlayerEntity player, ItemStack outputStack, Operation<ItemStack> original) {
-        return Infinities.canInfinityBucket(inputStack) && Infinities.hasInfinity(inputStack, player.getRegistryManager()) ? inputStack : original.call(inputStack, player, outputStack);
+        return Infinities.isInfinity(inputStack) ? inputStack : original.call(inputStack, player, outputStack);
     }
 }

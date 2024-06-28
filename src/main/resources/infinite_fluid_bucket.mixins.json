@@ -6,9 +6,11 @@
     "fabric.MApiProviderHashMap",
     "fabric.MApiProviderMap",
     "fabric.MCombinedProvidersImpl",
+    "fabric.MFabricItemStack",
     "fabric.MItemApiLookup",
     "fabric.MItemApiLookupImpl",
     "minecraft.ABucketItem",
+    "minecraft.AGameRules_Rule",
     "minecraft.MAbstractFurnaceBlockEntity",
     "minecraft.MBeehiveBlock",
     "minecraft.MBrewingStandBlockEntity",
@@ -18,12 +20,11 @@
     "minecraft.MCauldronBehavior",
     "minecraft.MCowEntity",
     "minecraft.MCraftingRecipeInput",
-    "minecraft.MDispenserBehavior_17",
-    "minecraft.MDispenserBehavior_20",
-    "minecraft.MDispenserBehavior_8",
-    "minecraft.MDispenserBehavior_9",
+    "minecraft.MGameRules",
     "minecraft.MGlassBottleItem",
+    "minecraft.MHoneyBottleItem",
     "minecraft.MIngredient",
+    "minecraft.MItemDispenserBehavior",
     "minecraft.MMilkBucketItem",
     "minecraft.MPotionItem",
     "minecraft.MShapelessRecipe"
@@ -31,5 +32,8 @@
   "injectors": {
     "defaultRequire": 1
   },
-  "plugin": "phoupraw.mcmod.infinite_fluid_bucket.mixins.IFBMixinConfigPlugin"
+  "plugin": "phoupraw.mcmod.infinite_fluid_bucket.mixins.IFBMixinConfigPlugin",
+  "client": [
+    "minecraft.MClientCommonPacketListener4TagSync"
+  ]
 }

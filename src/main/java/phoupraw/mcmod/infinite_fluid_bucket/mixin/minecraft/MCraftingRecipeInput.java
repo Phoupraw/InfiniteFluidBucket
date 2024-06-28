@@ -12,6 +12,6 @@ import phoupraw.mcmod.infinite_fluid_bucket.misc.Infinities;
 abstract class MCraftingRecipeInput {
     @WrapOperation(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isEmpty()Z"))
     private boolean checkInf(ItemStack instance, Operation<Boolean> original) {
-        return original.call(instance) || (Infinities.canInfinityEmptyBucket(instance) || Infinities.canInfinityGlassBottle(instance)) && Infinities.hasInfinity(instance);
+        return original.call(instance) || Infinities.isInfinityEmpty(instance);
     }
 }

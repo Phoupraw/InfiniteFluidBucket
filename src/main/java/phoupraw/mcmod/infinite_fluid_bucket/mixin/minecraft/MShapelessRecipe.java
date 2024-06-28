@@ -13,6 +13,6 @@ import phoupraw.mcmod.infinite_fluid_bucket.misc.Infinities;
 abstract class MShapelessRecipe {
     @ModifyExpressionValue(method = "matches(Lnet/minecraft/recipe/input/CraftingRecipeInput;Lnet/minecraft/world/World;)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/recipe/input/CraftingRecipeInput;getStackInSlot(I)Lnet/minecraft/item/ItemStack;"))
     private ItemStack checkInf(ItemStack original, CraftingRecipeInput craftingRecipeInput, World world) {
-        return (Infinities.canInfinityEmptyBucket(original) || Infinities.canInfinityGlassBottle(original)) && Infinities.hasInfinity(original, world.getRegistryManager()) ? ItemStack.EMPTY : original;
+        return Infinities.isInfinityEmpty(original) ? ItemStack.EMPTY : original;
     }
 }

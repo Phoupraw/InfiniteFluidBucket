@@ -1,7 +1,10 @@
 package phoupraw.mcmod.infinite_fluid_bucket.mixin.minecraft;
 
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.MilkBucketItem;
@@ -23,8 +26,18 @@ abstract class MMilkBucketItem extends Item {
     public ItemStack getRecipeRemainder(ItemStack stack) {
         return Infinities.hasInfinity(stack) && IFBConfig.getConfig().isMilkBucket() ? stack.copy() : super.getRecipeRemainder(stack);
     }
+    /**
+     防止无限奶桶数量减一
+     */
     @WrapWithCondition(method = "finishUsing", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;decrementUnlessCreative(ILnet/minecraft/entity/LivingEntity;)V"))
     private boolean checkInf(ItemStack instance, int amount, LivingEntity entity) {
-        return !(IFBConfig.getConfig().isMilkBucket() && Infinities.hasInfinity(instance, entity.getRegistryManager()));
+        return !Infinities.isInfinity(instance);
+    }
+    /**
+     防止无限奶桶被替换成空桶
+     */
+    @WrapOperation(method = "finishUsing", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemUsage;exchangeStack(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/item/ItemStack;Z)Lnet/minecraft/item/ItemStack;"))
+    private ItemStack checkInf(ItemStack inputStack, PlayerEntity player, ItemStack outputStack, boolean creativeOverride, Operation<ItemStack> original) {
+        return Infinities.isInfinity(inputStack) ? inputStack : original.call(inputStack, player, outputStack, creativeOverride);
     }
 }

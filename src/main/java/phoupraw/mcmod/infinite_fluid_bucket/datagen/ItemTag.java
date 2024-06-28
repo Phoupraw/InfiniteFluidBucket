@@ -6,12 +6,12 @@ import net.minecraft.registry.RegistryWrapper;
 
 import java.util.concurrent.CompletableFuture;
 
-final class ItemTagGen extends FabricTagProvider.ItemTagProvider {
-    public ItemTagGen(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture) {
+final class ItemTag extends FabricTagProvider.ItemTagProvider {
+    public ItemTag(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture) {
         super(output, completableFuture);
     }
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-        //getOrCreateTagBuilder(ItemTags.enchant)
+        //getOrCreateTagBuilder(IFBItemTags.INFINITABLE).add(Items.BUCKET,Items.WATER_BUCKET,Items.MILK_BUCKET,Items.GLASS_BOTTLE,Items.POTION);
     }
 }

@@ -10,47 +10,38 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.potion.Potions;
-import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.server.MinecraftServer;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import phoupraw.mcmod.infinite_fluid_bucket.InfiniteFluidBucket;
 import phoupraw.mcmod.infinite_fluid_bucket.config.IFBConfig;
-
-import java.util.function.Predicate;
+import phoupraw.mcmod.infinite_fluid_bucket.constant.IFBEnchantmentTags;
 
 @UtilityClass
 public class Infinities {
-    @Deprecated
-    private static @Nullable MinecraftServer server;
-    //public static RegistryEntry<Enchantment> getInfinity() {
-    //    return getInfinity(getRegistries());//getRegistries().get(RegistryKeys.ENCHANTMENT).getEntry(Enchantments.INFINITY).orElseThrow();
-    //}
-    public static RegistryEntry<Enchantment> getInfinity(RegistryWrapper.WrapperLookup lookup) {
-        return lookup.getWrapperOrThrow(RegistryKeys.ENCHANTMENT).getOrThrow(Enchantments.INFINITY);
-    }
-    /**
-     应优先使用{@link #hasInfinity(ItemStack, RegistryWrapper.WrapperLookup)}。
-     <br/>
-     时间复杂度：与物品拥有的附魔数量成线性。
-     */
-    public static boolean hasInfinity(ItemStack any) {
-        for (RegistryEntry<Enchantment> entry : any.getEnchantments().getEnchantments()) {
-            if (entry.matchesKey(Enchantments.INFINITY)) {
-                return true;
-            }
-        }
-        return false;
-    }
-    /**
-     时间复杂度：常数
-     */
+    ///**
+    // 时间复杂度：常数
+    // */
+    @ApiStatus.Obsolete
     public static boolean hasInfinity(ItemStack any, RegistryWrapper.WrapperLookup lookup) {
-        return EnchantmentHelper.getLevel(getInfinity(lookup), any) > 0;
+        return hasInfinity(any);//EnchantmentHelper.getLevel(getInfinity(lookup), any) > 0;
+    }
+    ///**
+    // 应优先使用{@link #hasInfinity(ItemStack, RegistryWrapper.WrapperLookup)}。
+    // <br/>
+    // 时间复杂度：与物品拥有的附魔数量成线性。
+    // */
+    public static boolean hasInfinity(ItemStack any) {
+        return EnchantmentHelper.hasAnyEnchantmentsIn(any, IFBEnchantmentTags.INFINITIER);
+    }
+    public static boolean canInfinity(ItemStack any) {
+        return canInfinityEmpty(any)
+          || any.isOf(Items.MILK_BUCKET) && IFBConfig.getConfig().isMilkBucket()
+          || any.isOf(Items.POTION) && canPotionInfinity(any)
+          || any.isOf(Items.LAVA_BUCKET) && IFBConfig.isLavaBucket()
+          || any.isOf(Items.HONEY_BOTTLE) && IFBConfig.isHoneyBottle();
     }
     public static boolean isInfinityFluidBucket(ItemStack any) {
         return (any.isOf(Items.WATER_BUCKET) && IFBConfig.getConfig().isWaterBucket()
@@ -91,66 +82,35 @@ public class Infinities {
     public static boolean canInfinityGlassBottle(ItemStack any) {
         return any.isOf(Items.GLASS_BOTTLE) && IFBConfig.getConfig().isGlassBottle();
     }
-    public static boolean canInfinity(ItemStack any) {
-        return canInfinityBucket(any)
-          || any.isOf(Items.MILK_BUCKET) && IFBConfig.getConfig().isMilkBucket()
-          || canInfinityGlassBottle(any)
-          || any.isOf(Items.POTION) && canPotionInfinity(any);
+    public static @NotNull ItemStack addInfinity(ItemStack any, RegistryWrapper.WrapperLookup lookup) {
+        return addInfinity(any, getInfinity(lookup));
     }
     public static boolean isInfinity(ItemStack any) {
         return canInfinity(any) && hasInfinity(any);
     }
-    @Contract("_ -> param1")
-    @Deprecated
-    public static @NotNull ItemStack addInfinity(ItemStack any) {
-        return addInfinity(any, getRegistries());
-    }
-    public static @NotNull ItemStack addInfinity(ItemStack any, RegistryWrapper.WrapperLookup lookup) {
-        any.addEnchantment(getInfinity(lookup), 1);
+    public static @NotNull ItemStack addInfinity(ItemStack any, RegistryEntry<Enchantment> infinity) {
+        any.addEnchantment(infinity, 1);
         return any;
+    }
+    //public static RegistryEntry<Enchantment> getInfinity() {
+    //    return getInfinity(getRegistries());//getRegistries().get(RegistryKeys.ENCHANTMENT).getEntry(Enchantments.INFINITY).orElseThrow();
+    //}
+    public static RegistryEntry<Enchantment> getInfinity(RegistryWrapper.WrapperLookup lookup) {
+        RegistryWrapper.Impl<Enchantment> wrapper = lookup.getWrapperOrThrow(RegistryKeys.ENCHANTMENT);
+        for (RegistryEntry<Enchantment> entry : wrapper.getOrThrow(IFBEnchantmentTags.INFINITIER)) {
+            return entry;
+        }
+        return wrapper.getOrThrow(Enchantments.INFINITY);
     }
     @Contract("_ -> param1")
     public static ItemStack removeInfinity(ItemStack any) {
         ItemEnchantmentsComponent enchantments = EnchantmentHelper.getEnchantments(any);
         ItemEnchantmentsComponent.Builder builder = new ItemEnchantmentsComponent.Builder(enchantments);
-        builder.remove(Predicate.isEqual(Enchantments.INFINITY));
+        builder.remove(Infinities::isInfinity);
         EnchantmentHelper.set(any, builder.build());
         return any;
     }
-    @Deprecated
-    public static @Nullable MinecraftServer getServer() {
-        return server;
-    }
-    @Deprecated
-    public static void setServer(@Nullable MinecraftServer server) {
-        if (server != null && Infinities.server != null) {
-            InfiniteFluidBucket.LOGGER.throwing(new IllegalStateException("The game progress has two servers in the meantime! param: %s, field: %s".formatted(server, Infinities.server)));
-        }
-        Infinities.server = server;
-    }
-    @Deprecated
-    public static void unsetServer(MinecraftServer server) {
-        if (server != Infinities.server) {
-            InfiniteFluidBucket.LOGGER.throwing(new IllegalArgumentException("The param server isn't the field server! param: %s, field: %s".formatted(server, Infinities.server)));
-        }
-        Infinities.setServer(null);
-    }
-    @Deprecated
-    public static DynamicRegistryManager getRegistries() {
-        MinecraftServer server = getServer();
-        if (server != null) {
-            return server.getRegistryManager();
-        }
-        InfiniteFluidBucket.LOGGER.throwing(new IllegalStateException("Try getting DynamicRegistryManager without a running server!"));
-        return DynamicRegistryManager.EMPTY;
-    }
-    @UtilityClass
-    @Deprecated
-    public class LateInitItemStacks {
-        public static final ItemStack WATER_BUCKET = addInfinity(Items.WATER_BUCKET.getDefaultStack());
-        public static final ItemStack EMTPY_BUCKET = addInfinity(Items.BUCKET.getDefaultStack());
-        public static final ItemStack WATER_BOTTLE = addInfinity(Misc.WATER_POTION.copy());
-        public static final ItemStack EMPTY_BOTTLE = addInfinity(Items.GLASS_BOTTLE.getDefaultStack());
-        public static final ItemStack MILK_BUCKET = addInfinity(Items.MILK_BUCKET.getDefaultStack());
+    public static boolean isInfinity(RegistryEntry<Enchantment> entry) {
+        return entry.isIn(IFBEnchantmentTags.INFINITIER);
     }
 }

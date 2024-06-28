@@ -12,12 +12,13 @@
   },
   "entrypoints": {
     "main": ["phoupraw.mcmod.infinite_fluid_bucket.InfiniteFluidBucket"],
+    "client": ["phoupraw.mcmod.infinite_fluid_bucket.InfiniteFluidBucketClient"],
     "fabric-datagen": ["phoupraw.mcmod.infinite_fluid_bucket.datagen.IFBDataGen"],
     "modmenu": ["phoupraw.mcmod.infinite_fluid_bucket.config.IFBModMenuApi"]
   },
   "environment": "*",
   "depends": {
-    "minecraft": ">1.20.6",
+    "minecraft": ">=1.21",
     "fabricloader": ">=0.15.0",
     "fabric-api": "*"
   },
@@ -33,10 +34,6 @@
         "modmenu.modrinth": "https://modrinth.com/mod/infinite-fluid-bucket",
         "modmenu.curseforge": "https://www.curseforge.com/minecraft/mc-mods/infinite-fluid-bucket"
       }
-    },
-    "loom:injected_interfaces": {
-      "net.fabricmc.fabric.api.lookup.v1.custom.ApiProviderMap": ["phoupraw.mcmod.infinite_fluid_bucket.mixins.fabric.EApiProviderMap"],
-      "net.fabricmc.fabric.api.lookup.v1.item.ItemApiLookup": ["phoupraw.mcmod.infinite_fluid_bucket.mixins.fabric.EItemApiLookup"]
     }
   },
   "license": "MPL-2.0"
