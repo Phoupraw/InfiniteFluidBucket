@@ -151,7 +151,7 @@ public final class InfiniteFluidBucket implements ModInitializer {
         //ServerLifecycleEvents.SERVER_STARTING.register(Infinities::setServer);
         //ServerLifecycleEvents.SERVER_STOPPED.register(Infinities::unsetServer);
     }
-    private static Storage<FluidVariant> findGeneralInfStorage(ItemStack itemStack, ContainerItemContext context) {return Infinities.isInfinity(itemStack) ? ForwardingInfiniteFluidStorage.of(findNonInfinityStorage(itemStack, context)) : null;}
+    private static @Nullable Storage<FluidVariant> findGeneralInfStorage(ItemStack itemStack, ContainerItemContext context) {return Infinities.isInfinity(itemStack) ? ForwardingInfiniteFluidStorage.of(findNonInfinityStorage(itemStack, context)) : null;}
     static void reflectTagChanges() {
         register(IFBItemTags.INSERTABLE, ForwardingInfiniteEmptyStorage::of);
         register(IFBItemTags.EXTRACTABLE, ForwardingInfiniteFluidStorage::of);

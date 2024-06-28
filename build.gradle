@@ -1,116 +1,112 @@
 //file:noinspection GroovyAssignabilityCheck
 plugins {
-    id 'fabric-loom' version '1.6-SNAPSHOT'
-    id 'maven-publish'
+	id 'fabric-loom' version '1.7-SNAPSHOT'
+	id 'maven-publish'
 }
 
-version = project.mod_version
+version = project.version
 group = project.maven_group
+
 base {
-    archivesName = archives_name//"${archives_name}+${minecraft}"
+	archivesName = project.archives_base_name
 }
 
 repositories {
-    maven {
-        name = "TerraformersMC"
-        url = "https://maven.terraformersmc.com/"
-        content {
-            includeGroup("com.terraformersmc")
-            includeGroup("dev.emi")
-        }
-    }
-    maven {
-        name = "Xander Maven"
-        url = "https://maven.isxander.dev/releases"
-        content {
-            includeGroup("dev.isxander.yacl") //yet-another-config-lib-fabric
-        }
-    }
-    maven {
-        url = "https://maven.quiltmc.org/repository/release"
-        content {
-            includeGroup("org.quiltmc.parsers")
-        }
-    }
-    maven {
-        url = "https://oss.sonatype.org/content/repositories/snapshots"
-        content {
-            includeGroupAndSubgroups("com.twelvemonkeys")
-        }
-    }
-    maven {
-        name = "Modrinth"
-        url = "https://api.modrinth.com/maven"
-        content {
-            includeGroup("maven.modrinth")
-        }
-    }
+	maven {
+		name = "TerraformersMC"
+		url = "https://maven.terraformersmc.com/"
+		content {
+			includeGroup("com.terraformersmc")
+			includeGroup("dev.emi")
+		}
+	}
+	maven {
+		name = "Xander Maven"
+		url = "https://maven.isxander.dev/releases"
+		content {
+			includeGroup("dev.isxander.yacl") //yet-another-config-lib-fabric
+		}
+	}
+	maven {
+		url = "https://maven.quiltmc.org/repository/release"
+		content {
+			includeGroup("org.quiltmc.parsers")
+		}
+	}
+	maven {
+		url = "https://oss.sonatype.org/content/repositories/snapshots"
+		content {
+			includeGroupAndSubgroups("com.twelvemonkeys")
+		}
+	}
+	maven {
+		name = "Modrinth"
+		url = "https://api.modrinth.com/maven"
+		content {
+			includeGroup("maven.modrinth")
+		}
+	}
+}
+
+fabricApi {
+	configureDataGeneration()
 }
 
 dependencies {
-    //## 基础依赖
-    minecraft "com.mojang:minecraft:${minecraft}"
-    mappings "net.fabricmc:yarn:${yarn_mappings}:v2"
-    modImplementation "net.fabricmc:fabric-loader:${loader}"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api}"
-    //## mod依赖
-    /*modLocalRuntime*/ modApi("com.terraformersmc:modmenu:${modmenu}")
-    modCompileOnlyApi("maven.modrinth:yacl:${yacl}")
-    //## 非mod依赖
-    compileOnlyApi annotationProcessor("org.projectlombok:lombok:${lombok}")
-    //## 非依赖
-    modCompileOnly /*modLocalRuntime*/("maven.modrinth:vmp-fabric:${vmp}")
+	//## 基础依赖
+	minecraft "com.mojang:minecraft:${minecraft}"
+	mappings "net.fabricmc:yarn:${yarn_mappings}:v2"
+	modApi "net.fabricmc:fabric-loader:${loader}"
+	modApi "net.fabricmc.fabric-api:fabric-api:${fabric_api}"
+	//## mod依赖
+	/*modLocalRuntime*/ modApi("com.terraformersmc:modmenu:${modmenu}")
+	//## 非mod依赖
+	compileOnlyApi annotationProcessor("org.projectlombok:lombok:${lombok}")
+	//## 非依赖
+	modCompileOnly /*modLocalRuntime*/("maven.modrinth:vmp-fabric:${vmp}")
+	modCompileOnlyApi("maven.modrinth:yacl:${yacl}")
 }
 
 processResources {
-    inputs.property "version", version
+	inputs.property "version", project.version
 
-    filesMatching("fabric.mod.json") {
-        expand "version": version
-    }
+	filesMatching("fabric.mod.json") {
+		expand "version": project.version
+	}
 }
 
 tasks.withType(JavaCompile).configureEach {
-    it.options.release = 21
+	it.options.release = 21
 }
 
 java {
-    withSourcesJar()
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+	// if it is present.
+	// If you remove this line, sources will not be generated.
+	withSourcesJar()
+
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
 }
 
 jar {
-    exclude("net/fabricmc/*")
+	from("LICENSE") {
+		rename { "${it}_${project.base.archivesName.get()}" }
+	}
+	exclude("net/fabricmc/*")
 }
+
+// configure the maven publication
 publishing {
-    publications {
-        create("mavenJava", MavenPublication) {
-            artifactId = "${archives_name}-${minecraft}"
-            from components.java
-        }
+	publications {
+		create("mavenJava", MavenPublication) {
+			artifactId = project.archives_base_name
+			from components.java
+		}
+	}
 
-    }
+	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+	repositories {
 
-    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-    repositories {
-
-    }
-}
-fabricApi {
-    configureDataGeneration() {
-
-    }
-}
-//loom {
-//    accessWidenerPath.set(file("src/main/resources/${mod_id}.accessWidener"))
-//}
-String builtJarName() {
-    return "${archives_name}+1.20.6+${version}"
-}
-remapJar {
-    archiveFileName.set("${builtJarName()}.jar")
-}
-remapSourcesJar {
-    archiveFileName.set("${builtJarName()}+sources.jar")
+	}
 }
