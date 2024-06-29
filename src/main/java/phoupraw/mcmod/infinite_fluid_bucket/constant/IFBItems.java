@@ -16,7 +16,7 @@ import phoupraw.mcmod.infinite_fluid_bucket.config.IFBConfig;
 import phoupraw.mcmod.infinite_fluid_bucket.misc.Infinities;
 
 public sealed interface IFBItems permits IFBConstants {
-    ItemGroup ITEM_GROUP = Registry.register(Registries.ITEM_GROUP, IFBIDs.of(InfiniteFluidBucket.ID), FabricItemGroup.builder()
+    ItemGroup ITEM_GROUP = Registry.register(Registries.ITEM_GROUP, IFBIDs.IFB, FabricItemGroup.builder()
       .displayName(InfiniteFluidBucket.name())
       .icon(IFBItems::icon)
       .entries(IFBItems::entries)

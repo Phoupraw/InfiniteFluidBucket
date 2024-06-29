@@ -4,8 +4,10 @@ import it.unimi.dsi.fastutil.objects.Object2BooleanMap;
 import it.unimi.dsi.fastutil.objects.Object2BooleanMaps;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.Event;
+import net.fabricmc.fabric.api.event.lifecycle.v1.CommonLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.item.v1.EnchantmentEvents;
+import net.fabricmc.fabric.api.lookup.v1.item.ItemApiLookup;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
@@ -68,24 +70,15 @@ public final class InfiniteFluidBucket implements ModInitializer {
         //    FluidStorage.ITEM.getSpecificFor(item).addPhaseOrdering(IFBIDs.PHASE, Event.DEFAULT_PHASE);
         //    FluidStorage.ITEM.getSpecificFor(item).register(IFBIDs.PHASE, (itemStack, context) -> option.getAsBoolean() && Infinities.hasInfinity(itemStack) ? InfinityBackingStorage.find(itemStack, FluidStorage.ITEM) : null);
         //}
-        FluidStorage.ITEM.getSpecificFor(Items.WATER_BUCKET).addPhaseOrdering(IFBIDs.PHASE, Event.DEFAULT_PHASE);
-        FluidStorage.ITEM.getSpecificFor(Items.WATER_BUCKET).register((itemStack, context) -> Infinities.isInfinity(itemStack) ? new FixedInfiniteFluidStorage(context, FluidVariant.of(Fluids.WATER), FluidConstants.BUCKET) : null);
-        FluidStorage.ITEM.getSpecificFor(Items.LAVA_BUCKET).addPhaseOrdering(IFBIDs.PHASE, Event.DEFAULT_PHASE);
-        FluidStorage.ITEM.getSpecificFor(Items.LAVA_BUCKET).register((itemStack, context) -> Infinities.isInfinity(itemStack) ? new FixedInfiniteFluidStorage(context, FluidVariant.of(Fluids.LAVA), FluidConstants.BUCKET) : null);
-        FluidStorage.ITEM.getSpecificFor(Items.BUCKET).addPhaseOrdering(IFBIDs.PHASE, Event.DEFAULT_PHASE);
-        FluidStorage.ITEM.getSpecificFor(Items.BUCKET).register((itemStack, context) -> Infinities.isInfinity(itemStack) ? new TagFixedInfiniteEmptyStorage(context, FluidConstants.BUCKET, IFBFluidTags.BUCKET) : null);
-        FluidStorage.ITEM.getSpecificFor(Items.POTION).addPhaseOrdering(IFBIDs.PHASE, Event.DEFAULT_PHASE);
-        FluidStorage.ITEM.getSpecificFor(Items.POTION).register((itemStack, context) -> Infinities.isInfinity(itemStack) ? new FixedInfiniteFluidStorage(context, FluidVariant.of(Fluids.WATER), FluidConstants.BOTTLE) : null);
-        FluidStorage.ITEM.getSpecificFor(Items.GLASS_BOTTLE).addPhaseOrdering(IFBIDs.PHASE, Event.DEFAULT_PHASE);
-        FluidStorage.ITEM.getSpecificFor(Items.GLASS_BOTTLE).register((itemStack, context) -> Infinities.isInfinity(itemStack) ? new TagFixedInfiniteEmptyStorage(context, FluidConstants.BOTTLE, IFBFluidTags.GLASS_BOTTLE) : null);
-        FluidStorage.ITEM.getSpecificFor(Items.MILK_BUCKET).addPhaseOrdering(IFBIDs.PHASE, Event.DEFAULT_PHASE);
-        FluidStorage.ITEM.getSpecificFor(Items.MILK_BUCKET).register(InfiniteFluidBucket::findGeneralInfStorage);
-        FluidStorage.ITEM.getSpecificFor(Items.HONEY_BOTTLE).addPhaseOrdering(IFBIDs.PHASE, Event.DEFAULT_PHASE);
-        FluidStorage.ITEM.getSpecificFor(Items.HONEY_BOTTLE).register(InfiniteFluidBucket::findGeneralInfStorage);
+        register(Items.WATER_BUCKET, (itemStack, context) -> Infinities.isInfinity(itemStack) ? new FixedInfiniteFluidStorage(context, FluidVariant.of(Fluids.WATER), FluidConstants.BUCKET) : null);
+        register(Items.LAVA_BUCKET, (itemStack, context) -> Infinities.isInfinity(itemStack) ? new FixedInfiniteFluidStorage(context, FluidVariant.of(Fluids.LAVA), FluidConstants.BUCKET) : null);
+        register(Items.BUCKET, (itemStack, context) -> Infinities.isInfinity(itemStack) ? new TagFixedInfiniteEmptyStorage(context, FluidConstants.BUCKET, IFBFluidTags.BUCKET) : null);
+        register(Items.POTION, (itemStack, context) -> Infinities.isInfinity(itemStack) ? new FixedInfiniteFluidStorage(context, FluidVariant.of(Fluids.WATER), FluidConstants.BOTTLE) : null);
+        register(Items.GLASS_BOTTLE, (itemStack, context) -> Infinities.isInfinity(itemStack) ? new TagFixedInfiniteEmptyStorage(context, FluidConstants.BOTTLE, IFBFluidTags.GLASS_BOTTLE) : null);
+        register(Items.MILK_BUCKET, InfiniteFluidBucket::findGeneralInfStorage);
+        register(Items.HONEY_BOTTLE, InfiniteFluidBucket::findGeneralInfStorage);
         EnchantmentEvents.ALLOW_ENCHANTING.register((enchantment, target, enchantingContext) -> enchantment.isIn(IFBEnchantmentTags.INFINITIER) && Infinities.canInfinity(target) ? TriState.TRUE : TriState.DEFAULT);
-        ServerLifecycleEvents.END_DATA_PACK_RELOAD.register((server, resourceManager, success) -> reflectTagChanges());
         ServerLifecycleEvents.SERVER_STARTED.register(server -> {
-            reflectTagChanges();
             for (Map.Entry<String, GameRules.Key<GameRules.BooleanRule>> entry : IFBGameRules.KEYS.entrySet()) {
                 String name = entry.getKey();
                 GameRules.Key<GameRules.BooleanRule> key = entry.getValue();
@@ -98,6 +91,7 @@ public final class InfiniteFluidBucket implements ModInitializer {
             }
         });
         PayloadTypeRegistry.playS2C().register(IFBGameRules.BoolGameRulePayload.ID, IFBGameRules.BoolGameRulePayload.CODEC);
+        CommonLifecycleEvents.TAGS_LOADED.register((registries, client) -> InfiniteFluidBucket.reflectTagChanges());
         //CauldronBehavior behavior = CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.map().get(Items.POTION);
         //CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.map().put(Items.POTION, new CauldronBehavior() {
         //    @Override
@@ -150,6 +144,10 @@ public final class InfiniteFluidBucket implements ModInitializer {
         //});
         //ServerLifecycleEvents.SERVER_STARTING.register(Infinities::setServer);
         //ServerLifecycleEvents.SERVER_STOPPED.register(Infinities::unsetServer);
+    }
+    private static void register(Item item, ItemApiLookup.ItemApiProvider<Storage<FluidVariant>, ContainerItemContext> provider) {
+        FluidStorage.ITEM.getSpecificFor(item).addPhaseOrdering(IFBIDs.PHASE, Event.DEFAULT_PHASE);
+        FluidStorage.ITEM.getSpecificFor(item).register(provider);
     }
     private static @Nullable Storage<FluidVariant> findGeneralInfStorage(ItemStack itemStack, ContainerItemContext context) {return Infinities.isInfinity(itemStack) ? ForwardingInfiniteFluidStorage.of(findNonInfinityStorage(itemStack, context)) : null;}
     static void reflectTagChanges() {

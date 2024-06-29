@@ -23,7 +23,6 @@
     "fabric-api": "*"
   },
   "recommends": {
-    "yet_another_config_lib_v3": "*",
     "modmenu": "*"
   },
   "mixins": ["infinite_fluid_bucket.mixins.json"],

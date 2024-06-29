@@ -18,6 +18,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import phoupraw.mcmod.infinite_fluid_bucket.config.IFBConfig;
 import phoupraw.mcmod.infinite_fluid_bucket.constant.IFBEnchantmentTags;
+import phoupraw.mcmod.infinite_fluid_bucket.constant.IFBItemTags;
 
 @UtilityClass
 public class Infinities {
@@ -38,10 +39,13 @@ public class Infinities {
     }
     public static boolean canInfinity(ItemStack any) {
         return canInfinityEmpty(any)
+          || any.isOf(Items.WATER_BUCKET) && IFBConfig.getConfig().isWaterBucket()
           || any.isOf(Items.MILK_BUCKET) && IFBConfig.getConfig().isMilkBucket()
           || any.isOf(Items.POTION) && canPotionInfinity(any)
           || any.isOf(Items.LAVA_BUCKET) && IFBConfig.isLavaBucket()
-          || any.isOf(Items.HONEY_BOTTLE) && IFBConfig.isHoneyBottle();
+          || any.isOf(Items.HONEY_BOTTLE) && IFBConfig.isHoneyBottle()
+          || any.isIn(IFBItemTags.INSERTABLE)
+          || any.isIn(IFBItemTags.EXTRACTABLE);
     }
     public static boolean isInfinityFluidBucket(ItemStack any) {
         return (any.isOf(Items.WATER_BUCKET) && IFBConfig.getConfig().isWaterBucket()

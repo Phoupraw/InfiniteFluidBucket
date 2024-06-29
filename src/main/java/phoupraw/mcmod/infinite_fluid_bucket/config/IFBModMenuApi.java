@@ -1,8 +1,75 @@
 package phoupraw.mcmod.infinite_fluid_bucket.config;
 
+import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.world.EditGameRulesScreen;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.world.GameRules;
+import phoupraw.mcmod.infinite_fluid_bucket.constant.IFBGameRules;
 
 public final class IFBModMenuApi implements ModMenuApi {
+    @Override
+    public ConfigScreenFactory<?> getModConfigScreenFactory() {
+        return parent -> {
+            GameRules instance = new GameRulesInstance();
+            for (var entry : IFBGameRules.KEYS.entrySet()) {
+                String name = entry.getKey();
+                GameRules.Key<GameRules.BooleanRule> key = entry.getValue();
+                instance.get(key).set(IFBGameRules.VALUES.getBoolean(name), null);
+            }
+            //Timer timer = new Timer();
+            EditGameRulesScreen screen = new EditGameRulesScreen(instance, gameRules0 -> {
+                //timer.cancel();
+                ClientPlayNetworkHandler networkHandler = MinecraftClient.getInstance().getNetworkHandler();
+                if (gameRules0.isPresent() && networkHandler != null) {
+                    GameRules gameRules = gameRules0.get();
+                    for (var entry : IFBGameRules.KEYS.entrySet()) {
+                        String name = entry.getKey();
+                        boolean value = gameRules.get(entry.getValue()).get();
+                        if (value != IFBGameRules.VALUES.getBoolean(name)) {
+                            //IFBGameRules.VALUES.put(name,value);
+                            networkHandler.sendCommand("gamerule " + name + " " + value);
+                        }
+                    }
+                    
+                } /*else{
+                    MinecraftClient.getInstance().setScreen(new ParentedMessageScreen(Text.translatable(NO_WORLD_TIP),parent));
+                }*/
+                MinecraftClient.getInstance().setScreen(parent);
+            });
+            ClientPlayerEntity player = MinecraftClient.getInstance().player;
+            if (player == null) {
+                return new TipDialogScreen(parent, screen, TipDialogScreen.NO_WORLD);
+                //    timer.schedule(new TimerTask() {
+                //        final Random random = new Random();
+                //        @Override
+                //        public void run() {
+                //            if (MinecraftClient.getInstance().getNetworkHandler() == null) {
+                //                for (Element screenChild : screen.children()) {
+                //                    if (screenChild instanceof EditGameRulesScreen.RuleListWidget listWidget) {
+                //                        for (EditGameRulesScreen.AbstractRuleWidget ruleWidget : listWidget.children()) {
+                //                            if (ruleWidget instanceof EditGameRulesScreen.BooleanRuleWidget) {
+                //                                var booleanRuleWidget = (EditGameRulesScreen.BooleanRuleWidget & AEditGameRulesScreen_BooleanRuleWidget) ruleWidget;
+                //                                booleanRuleWidget.getToggleButton().setValue(random.nextBoolean());
+                //                            }
+                //                        }
+                //                    }
+                //                }
+                //                //System.out.println(screen.children());
+                //                //for (var key : IFBGameRules.KEYS.values()) {
+                //                //    instance.get(key).set(random.nextBoolean(), null);
+                //                //}
+                //            }
+                //        }
+                //    }, 100, 100);
+            } else if (!player.hasPermissionLevel(2)) {
+                return new TipDialogScreen(parent, screen, TipDialogScreen.NO_PERMISSION);
+            }
+            return screen;
+        };
+    }
     //private static YetAnotherConfigLib.Builder modifyBuilder(IFBConfig defaults, IFBConfig config, YetAnotherConfigLib.Builder builder) {
     //    return builder
     //      .screenInit(IFBModMenuApi::onScreenInit)

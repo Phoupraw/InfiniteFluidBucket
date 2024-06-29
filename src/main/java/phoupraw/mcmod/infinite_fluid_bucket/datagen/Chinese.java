@@ -4,6 +4,8 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.registry.RegistryWrapper;
 import phoupraw.mcmod.infinite_fluid_bucket.InfiniteFluidBucket;
+import phoupraw.mcmod.infinite_fluid_bucket.config.TipDialogScreen;
+import phoupraw.mcmod.infinite_fluid_bucket.constant.IFBEnchantmentTags;
 import phoupraw.mcmod.infinite_fluid_bucket.constant.IFBFluidTags;
 import phoupraw.mcmod.infinite_fluid_bucket.constant.IFBGameRules;
 import phoupraw.mcmod.infinite_fluid_bucket.constant.IFBItemTags;
@@ -38,8 +40,7 @@ final class Chinese extends FabricLanguageProvider {
           §l你知道吗§r
           本模组灵感来源于《夸克》中的无限水桶。
           """);
-        b.add("gamerule." + IFBGameRules.WATER_BUCKET, modded + "无限水桶");
-        b.add("gamerule." + IFBGameRules.WATER_BUCKET + ".description", """
+        IFBDataGen.addGameRule(b, IFBGameRules.WATER_BUCKET, "无限水桶", """
           启用时，可以用附魔台或铁砧给水桶附魔无限。
           §l无限水桶§r
           - 手持时，可以无限放置水。
@@ -49,8 +50,7 @@ final class Chinese extends FabricLanguageProvider {
           - 不会在合成中消耗。
           - 不可以捕鱼。
           """);
-        b.add("gamerule." + IFBGameRules.EMPTY_BUCKET, modded + "无限空桶");
-        b.add("gamerule." + IFBGameRules.EMPTY_BUCKET + ".description", """
+        IFBDataGen.addGameRule(b, IFBGameRules.EMPTY_BUCKET, "无限空桶", """
           启用时，可以用附魔台或铁砧给铁桶附魔无限。
           §l无限空桶§r
           - 手持时，可以无限舀起并销毁流体源。
@@ -60,8 +60,7 @@ final class Chinese extends FabricLanguageProvider {
           - 不能用于合成。
           - 不可以挤奶。
           """);
-        b.add("gamerule." + IFBGameRules.WATER_POTION, modded + "无限水瓶");
-        b.add("gamerule." + IFBGameRules.WATER_POTION + ".description", """
+        IFBDataGen.addGameRule(b, IFBGameRules.WATER_POTION, "无限水瓶", """
           启用时，可以用附魔台或铁砧给水瓶附魔无限。
           §l无限水瓶§r
           - 可以无限向炼药锅倒水。
@@ -70,8 +69,7 @@ final class Chinese extends FabricLanguageProvider {
           - 不会在合成中消耗。
           - 不能用于酿造。
           """);
-        b.add("gamerule." + IFBGameRules.GLASS_BOTTLE, modded + "无限空瓶");
-        b.add("gamerule." + IFBGameRules.GLASS_BOTTLE + ".description", """
+        IFBDataGen.addGameRule(b, IFBGameRules.GLASS_BOTTLE, "无限空瓶", """
           启用时，可以用附魔台或铁砧给玻璃瓶附魔无限。
           §l无限空瓶§r
           - 可以无限从炼药锅无限舀起并销毁水。
@@ -80,16 +78,14 @@ final class Chinese extends FabricLanguageProvider {
           - 可以被模组的流体储罐无限输入流体（必须有瓶装形式），每次可以输入一瓶量的流体。输入的流体会被销毁。
           - 不能用于合成。
           """);
-        b.add("gamerule." + IFBGameRules.MILK_BUCKET, modded + "无限奶桶");
-        b.add("gamerule." + IFBGameRules.MILK_BUCKET + ".description", """
+        IFBDataGen.addGameRule(b, IFBGameRules.MILK_BUCKET, "无限奶桶", """
           启用时，可以用附魔台或铁砧给奶桶附魔无限。
           §l无限奶桶§r
           - 可以无限饮用。
           - 不会在合成中消耗。
           - 如果有模组为奶桶添加了流体，则无限奶桶可以无限提供流体。
           """);
-        b.add("gamerule." + IFBGameRules.LAVA_BUCKET, modded + "无限熔岩桶");
-        b.add("gamerule." + IFBGameRules.LAVA_BUCKET + ".description", """
+        IFBDataGen.addGameRule(b, IFBGameRules.LAVA_BUCKET, "无限熔岩桶", """
           启用时，可以用附魔台或铁砧给熔岩桶附魔无限。
           §l无限熔岩桶§r
           - 手持时，可以无限放置熔岩。
@@ -99,17 +95,21 @@ final class Chinese extends FabricLanguageProvider {
           - 不会在合成中消耗。
           - 可以在熔炉中充当无限燃料。
           """);
-        b.add("gamerule." + IFBGameRules.HONEY_BOTTLE, modded + "无限蜂蜜瓶");
-        b.add("gamerule." + IFBGameRules.HONEY_BOTTLE + ".description", """
+        IFBDataGen.addGameRule(b, IFBGameRules.HONEY_BOTTLE, "无限蜂蜜瓶", """
           启用时，可以用附魔台或铁砧给蜂蜜瓶附魔无限。
           §l无限蜂蜜瓶§r
           - 可以无限饮用。
           - 不会在合成中消耗。
           - 如果有模组为蜂蜜瓶添加了流体，则无限蜂蜜瓶可以无限提供流体。
           """);
-        b.add(IFBItemTags.INSERTABLE, "无限空容器");
-        b.add(IFBItemTags.EXTRACTABLE, "无限满容器");
-        b.add(IFBFluidTags.INSERTABLE, "可以向无限空容器注入");
-        b.add(IFBFluidTags.EXTRACTABLE, "可以从无限满容器抽取");
+        b.add(IFBItemTags.INSERTABLE, modded + "无限空容器");
+        b.add(IFBItemTags.EXTRACTABLE, modded + "无限满容器");
+        b.add(IFBFluidTags.INSERTABLE, modded + "可以向无限空容器注入的流体");
+        b.add(IFBFluidTags.EXTRACTABLE, modded + "可以从无限满容器抽取的流体");
+        b.add(IFBFluidTags.BUCKET, modded + "可以向无限空桶注入的流体");
+        b.add(IFBFluidTags.GLASS_BOTTLE, modded + "可以向无限玻璃瓶注入的流体");
+        b.add(IFBEnchantmentTags.INFINITIER, modded + "拥有此标签中任意附魔的物品可以提供无限流体");
+        b.add(TipDialogScreen.NO_WORLD, "进入世界后才可以查看或修改游戏规则的值，现在只能查看游戏规则的描述。");
+        b.add(TipDialogScreen.NO_PERMISSION, "你没有权限修改游戏规则的值，你只能查看游戏规则的值和描述。");
     }
 }

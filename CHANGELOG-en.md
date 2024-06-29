@@ -49,3 +49,9 @@
 ## Fix
 - (1.20-1.20.4 Only) Depends version format error.
 - Disabled infinity containers are still shown in creative inventory.
+# 0.5.0
+## New
+- Add infinity lava bucket and infinity honey bottle (default off).
+- Custom any infinity fluid item.
+## Change
+- No longer depend on YACL. Use vanilla gamerule as config.

@@ -4,6 +4,8 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.registry.RegistryWrapper;
 import phoupraw.mcmod.infinite_fluid_bucket.InfiniteFluidBucket;
+import phoupraw.mcmod.infinite_fluid_bucket.config.TipDialogScreen;
+import phoupraw.mcmod.infinite_fluid_bucket.constant.IFBEnchantmentTags;
 import phoupraw.mcmod.infinite_fluid_bucket.constant.IFBFluidTags;
 import phoupraw.mcmod.infinite_fluid_bucket.constant.IFBGameRules;
 import phoupraw.mcmod.infinite_fluid_bucket.constant.IFBItemTags;
@@ -38,8 +40,7 @@ final class English extends FabricLanguageProvider {
           §lTrivia§r
           This mod is inspired by infinite water bucket of Quark mod.
           """);
-        b.add("gamerule." + IFBGameRules.WATER_BUCKET, modded + "Infinity Water Bucket");
-        b.add("gamerule." + IFBGameRules.WATER_BUCKET + ".description", """
+        IFBDataGen.addGameRule(b, IFBGameRules.WATER_BUCKET, "Infinity Water Bucket", """
           When enabled, water bucket can be enchanted with infinity.
           §lInfinity Water Bucket§r
           - Infinitely place water.
@@ -49,8 +50,7 @@ final class English extends FabricLanguageProvider {
           - Doesn't consume in crafting.
           - Can't fish.
           """);
-        b.add("gamerule." + IFBGameRules.EMPTY_BUCKET, modded + "Infinity Empty Bucket");
-        b.add("gamerule." + IFBGameRules.EMPTY_BUCKET + ".description", """
+        IFBDataGen.addGameRule(b, IFBGameRules.EMPTY_BUCKET, "Infinity Empty Bucket", """
           When enabled, bucket can be enchanted with infinity.
           §lInfinity Empty Bucket§r
           - Infinitely scoop and void fluid.
@@ -60,8 +60,7 @@ final class English extends FabricLanguageProvider {
           - Can't be used in crafting.
           - Can't milk.
           """);
-        b.add("gamerule." + IFBGameRules.WATER_POTION, modded + "Infinity Water Potion");
-        b.add("gamerule." + IFBGameRules.WATER_POTION + ".description", """
+        IFBDataGen.addGameRule(b, IFBGameRules.WATER_POTION, "Infinity Water Potion", """
           When enabled, water potion can be enchanted with infinity.
           §lInfinity Water Potion§r
           - Infinitely fill cauldron.
@@ -70,8 +69,7 @@ final class English extends FabricLanguageProvider {
           - Doesn't consume in crafting.
           - Can't be used in brewing.
           """);
-        b.add("gamerule." + IFBGameRules.GLASS_BOTTLE, modded + "Infinity Empty Bottle");
-        b.add("gamerule." + IFBGameRules.GLASS_BOTTLE + ".description", """
+        IFBDataGen.addGameRule(b, IFBGameRules.GLASS_BOTTLE, "Infinity Empty Bottle", """
           When enabled, glass bottle can be enchanted with infinity.
           §lInfinity Empty Bottle§r
           - Infinitely empty and discard water in cauldron.
@@ -80,16 +78,14 @@ final class English extends FabricLanguageProvider {
           - Can be inserted with fluid (must have bottle type) by fluid tank of mod. Each time one bottle of fluid. Inserted fluid is voided.
           - Can't be used in crafting.
           """);
-        b.add("gamerule." + IFBGameRules.MILK_BUCKET, modded + "Infinity Milk Bucket");
-        b.add("gamerule." + IFBGameRules.MILK_BUCKET + ".description", """
+        IFBDataGen.addGameRule(b, IFBGameRules.MILK_BUCKET, "Infinity Milk Bucket", """
           When enabled, milk bucket can be enchanted with infinity.
           §lInfinity Milk Bucket§r
           - Can be infinitely drunk.
           - Doesn't consume in crafting.
           - If there is mod adding fluid to milk bucket, infinity milk bucket can provide infinite fluid.
           """);
-        b.add("gamerule." + IFBGameRules.LAVA_BUCKET, modded + "Infinity Lava Bucket");
-        b.add("gamerule." + IFBGameRules.LAVA_BUCKET + ".description", """
+        IFBDataGen.addGameRule(b, IFBGameRules.LAVA_BUCKET, "Infinity Lava Bucket", """
           When enabled, lava bucket can be enchanted with infinity.
           §lInfinity Lava Bucket§r
           - Infinitely place lava.
@@ -99,18 +95,22 @@ final class English extends FabricLanguageProvider {
           - Doesn't consume in crafting.
           - Is infinite fuel in furnace.
           """);
-        b.add("gamerule." + IFBGameRules.HONEY_BOTTLE, modded + "Infinity Honey Bottle");
-        b.add("gamerule." + IFBGameRules.HONEY_BOTTLE + ".description", """
+        IFBDataGen.addGameRule(b, IFBGameRules.HONEY_BOTTLE, "Infinity Honey Bottle", """
           When enabled, honey bottle can be enchanted with infinity.
           §lInfinity Honey Bottle§r
           - Can be infinitely drunk.
           - Doesn't consume in crafting.
           - If there is mod adding fluid to honey bottle, infinity honey bottle can provide infinite fluid.
           """);
-        b.add(IFBItemTags.INSERTABLE, "Infinite empty container");
-        b.add(IFBItemTags.EXTRACTABLE, "Infinite full container");
-        b.add(IFBFluidTags.INSERTABLE, "Can be inserted into Infinite empty container");
-        b.add(IFBFluidTags.EXTRACTABLE, "Can be extracted from Infinite full container");
+        b.add(IFBItemTags.INSERTABLE, modded + "Infinity empty container");
+        b.add(IFBItemTags.EXTRACTABLE, modded + "Infinity full container");
+        b.add(IFBFluidTags.INSERTABLE, modded + "Fluids that can be inserted into Infinity empty container");
+        b.add(IFBFluidTags.EXTRACTABLE, modded + "Fluids that can be extracted from Infinity full container");
+        b.add(IFBFluidTags.BUCKET, modded + "Fluids that can be inserted into Infinity bucket");
+        b.add(IFBFluidTags.GLASS_BOTTLE, modded + "Fluids that can be inserted into Infinity glass bottle");
+        b.add(IFBEnchantmentTags.INFINITIER, modded + "Items with any enchantment in this tag can provide infinite fluid");
+        b.add(TipDialogScreen.NO_WORLD, "You have to enter a world to check or change the value of gamerules. You can only read the description of gamerules.");
+        b.add(TipDialogScreen.NO_PERMISSION, "You don't have the permission to change the value of gamerules. You can only check the value and the description of gamerules.");
         
     }
 }

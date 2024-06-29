@@ -2,8 +2,6 @@ package phoupraw.mcmod.infinite_fluid_bucket;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.event.Event;
-import net.fabricmc.fabric.api.event.EventFactory;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.component.type.PotionContentsComponent;
 import net.minecraft.enchantment.Enchantment;
@@ -18,16 +16,15 @@ import phoupraw.mcmod.infinite_fluid_bucket.constant.IFBGameRules;
 import phoupraw.mcmod.infinite_fluid_bucket.misc.Infinities;
 
 public final class InfiniteFluidBucketClient implements ClientModInitializer {
-    public static final Event<Runnable> TAGS_SYNCHRONIZED = EventFactory.createArrayBacked(Runnable.class, callbacks -> () -> {
-        for (Runnable callback : callbacks) {
-            callback.run();
-        }
-    });
+    //public static final Event<Runnable> TAGS_SYNCHRONIZED = EventFactory.createArrayBacked(Runnable.class, callbacks -> () -> {
+    //    for (Runnable callback : callbacks) {
+    //        callback.run();
+    //    }
+    //});
     //public static final Object2BooleanMap<String> GAME_RULES = new Object2BooleanArrayMap<>();
     @Override
     public void onInitializeClient() {
         //ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> InfiniteFluidBucket.reflectTagChanges());
-        TAGS_SYNCHRONIZED.register(InfiniteFluidBucket::reflectTagChanges);
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(entries -> {
             RegistryEntry<Enchantment> infinity = Infinities.getInfinity(entries.getContext().lookup());
             if (IFBConfig.getConfig().isEmptyBucket()) {

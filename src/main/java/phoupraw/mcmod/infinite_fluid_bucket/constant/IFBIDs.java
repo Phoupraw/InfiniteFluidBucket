@@ -8,4 +8,5 @@ public sealed interface IFBIDs permits IFBConstants {
     static Identifier of(String path) {
         return Identifier.of(InfiniteFluidBucket.ID, path);
     }
+    Identifier IFB = of(InfiniteFluidBucket.ID);
 }

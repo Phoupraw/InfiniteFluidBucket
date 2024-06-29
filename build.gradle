@@ -64,7 +64,7 @@ dependencies {
 	compileOnlyApi annotationProcessor("org.projectlombok:lombok:${lombok}")
 	//## 非依赖
 	modCompileOnly /*modLocalRuntime*/("maven.modrinth:vmp-fabric:${vmp}")
-	modCompileOnlyApi("maven.modrinth:yacl:${yacl}")
+	//modCompileOnly("maven.modrinth:yacl:${yacl}")
 }
 
 processResources {
@@ -91,7 +91,7 @@ java {
 
 jar {
 	from("LICENSE") {
-		rename { "${it}_${project.base.archivesName.get()}" }
+		rename { "${it}_${base.archivesName.get()}" }
 	}
 	exclude("net/fabricmc/*")
 }
@@ -100,13 +100,24 @@ jar {
 publishing {
 	publications {
 		create("mavenJava", MavenPublication) {
-			artifactId = project.archives_base_name
+			artifactId = "${archives_base_name}-${minecraft}"
 			from components.java
 		}
 	}
 
 	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
 	repositories {
-
+		mavenLocal()
 	}
+}
+
+String builtJarName() {
+	return "${archives_base_name}+${minecraft}+${version}"
+}
+
+remapJar {
+	archiveFileName.set("${builtJarName()}.jar")
+}
+remapSourcesJar {
+	archiveFileName.set("${builtJarName()}+sources.jar")
 }

@@ -10,6 +10,7 @@
     "fabric.MItemApiLookup",
     "fabric.MItemApiLookupImpl",
     "minecraft.ABucketItem",
+    "minecraft.AGameRules",
     "minecraft.AGameRules_Rule",
     "minecraft.MAbstractFurnaceBlockEntity",
     "minecraft.MBeehiveBlock",
@@ -34,6 +35,10 @@
   },
   "plugin": "phoupraw.mcmod.infinite_fluid_bucket.mixins.IFBMixinConfigPlugin",
   "client": [
-    "minecraft.MClientCommonPacketListener4TagSync"
+    "minecraft.AEditGameRulesScreen",
+    "minecraft.AEditGameRulesScreen_BooleanRuleWidget",
+    "minecraft.MClientCommonPacketListener4TagSync",
+    "minecraft.MDialogScreen",
+    "minecraft.MEditGameRulesScreen_RuleListWidget"
   ]
 }
