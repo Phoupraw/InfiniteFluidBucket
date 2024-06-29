@@ -40,3 +40,5 @@ replay_*.log
 *.jfr
 /src/main/generated/
 /src/main/generated/assets/
+src/main/generated/assets/infinite_fluid_bucket/lang/en_us.json
+src/main/generated/assets/infinite_fluid_bucket/lang/zh_cn.json
